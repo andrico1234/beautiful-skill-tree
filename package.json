@@ -1,6 +1,6 @@
 {
-  "name": "skill-tree-package",
-  "version": "0.1.0",
+  "name": "skill-tree",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "module": "dist/skill-tree-package.esm.js",
   "typings": "dist/index.d.ts",
@@ -20,6 +20,9 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "prettier": {
     "printWidth": 80,
