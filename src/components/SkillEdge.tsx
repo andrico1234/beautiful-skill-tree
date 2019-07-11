@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import SkillContext from '../context/SkillContext';
-import './SkillEdge.css';
 import { SELECTED_STATE, LOCKED_STATE } from './constants';
 import Line from './ui/Line';
 import AngledLine from './ui/AngledLine';

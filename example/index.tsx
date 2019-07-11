@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { SkillTree } from '../src';
 import './index.css';
+import '../styles.css';
 import { legsPushData, legsPullData } from './mockData';
 
 const App = () => {

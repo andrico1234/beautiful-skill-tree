@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
-import './SkillTree.css';
 import { SkillProvider } from '../context/SkillContext';
 import HSeparator from './ui/HSeparator';
 

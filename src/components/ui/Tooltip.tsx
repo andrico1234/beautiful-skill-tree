@@ -1,6 +1,5 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import './Tooltip.css';
 import HSeparator from './HSeparator';
 import { getIsElementInWindow } from '../../helpers';
 

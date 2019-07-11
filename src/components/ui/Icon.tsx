@@ -1,5 +1,4 @@
 import React from 'react';
-import './Icon.css';
 
 export interface Props {
   containerWidth: number;

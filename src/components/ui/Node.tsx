@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import { SELECTED_STATE, UNLOCKED_STATE, LOCKED_STATE } from '../constants';
 import { Skill } from '../../models';
 import Icon from './Icon';
-import './Node.css';
 
 interface Props {
   handleClick: () => void;

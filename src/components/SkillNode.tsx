@@ -4,7 +4,6 @@ import { throttle, Cancelable, isEmpty } from 'lodash';
 import SkillContext from '../context/SkillContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import Tooltip from './ui/Tooltip';
-import './SkillNode.css';
 import SkillTreeSegment from './SkillTreeSegment';
 import { Skill, ParentPosition } from '../models';
 import { Dictionary } from '../models/utils';
