@@ -1,6 +1,6 @@
 {
   "name": "beautiful-skill-tree",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/skill-tree-package.esm.js",
   "typings": "dist/index.d.ts",
@@ -44,11 +44,11 @@
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.4",
+    "@types/classnames": "^2.2.9",
     "@types/jest": "^24.0.15",
+    "@types/lodash": "^4.14.136",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
-    "@types/classnames": "^2.2.9",
-    "@types/lodash": "^4.14.136",
     "@types/uuid": "^3.4.5",
     "husky": "^3.0.0",
     "prettier": "^1.18.2",
