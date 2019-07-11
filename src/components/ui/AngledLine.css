@@ -1,0 +1,79 @@
+.AngledLine {
+  border: 1px solid white;
+  height: 4px;
+  position: absolute;
+}
+
+.AngledLine--vertical {
+  transform: rotate(90deg);
+  transform-origin: 0 0;
+}
+
+.AngledLine--horizontal {
+  border-left: none;
+  border-right: none;
+}
+
+.AngledLine--rounded-top-left {
+  border-top-left-radius: 8px;
+}
+
+.AngledLine--rounded-top-right {
+  border-top-right-radius: 8px;
+}
+
+.AngledLine--rounded-bottom-left {
+  border-bottom-left-radius: 8px;
+}
+
+.AngledLine--rounded-bottom-right {
+  border-bottom-right-radius: 8px;
+}
+
+.AngledLine__line-one--active {
+  animation: slidedown-angled-line-one 0.3s 1 ease-in;
+  background-position: left bottom;
+}
+
+.AngledLine__line-two--active {
+  animation: slidedown-angled-line-two 1s 1;
+  background-position: left bottom;
+}
+
+.AngledLine__line-three--active {
+  animation: slidedown-angled-line-three 1.2s 1 ease-out;
+  background-position: left bottom;
+}
+
+@keyframes slidedown-angled-line-one {
+  from,
+  33% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
+}
+
+@keyframes slidedown-angled-line-two {
+  from,
+  30% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
+}
+
+@keyframes slidedown-angled-line-three {
+  from,
+  70% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
+}

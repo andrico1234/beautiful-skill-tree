@@ -5,7 +5,8 @@
   "module": "dist/skill-tree-package.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "styles.css"
   ],
   "scripts": {
     "start": "tsdx watch",
@@ -30,13 +31,23 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.ts"
+    ],
+    "moduleNameMapper": {
+      ".*\\.(css)$": "<rootDir>src/components/__mocks__/styleMock.ts"
+    },
+    "testMatch": [
+      "<rootDir>src/**/__tests__/*.{ts,tsx}"
+    ]
+  },
   "devDependencies": {
     "@testing-library/react": "^8.0.4",
     "@types/jest": "^24.0.15",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "husky": "^3.0.0",
-    "jest-dom": "^4.0.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "react": "^16.8.6",
@@ -44,5 +55,14 @@
     "tsdx": "^0.7.2",
     "tslib": "^1.10.0",
     "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@types/classnames": "^2.2.9",
+    "@types/lodash": "^4.14.136",
+    "@types/uuid": "^3.4.5",
+    "classnames": "^2.2.6",
+    "jest-dom": "^3.5.0",
+    "lodash": "^4.17.14",
+    "uuid": "^3.3.2"
   }
 }

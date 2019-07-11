@@ -1,0 +1,41 @@
+.SkillTree__container {
+  margin: 0 8px 48px;
+  min-width: fit-content;
+}
+
+.SkillTree {
+  border: 1px solid white;
+  border-radius: 4px;
+  display: flex;
+  padding: 16px 0;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.SkillTree > .SkillTreeSegment {
+  margin: 8px 0;
+}
+
+.SkillTree__title {
+  min-width: 152px;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .SkillTree__container {
+    margin: 0 8px 16px;
+    width: fit-content;
+  }
+
+  .SkillTree {
+    flex-direction: row;
+  }
+
+  .SkillTree > .SkillTreeSegment {
+    margin: 0;
+  }
+
+  .SkillTree__title {
+    min-height: 56px;
+  }
+}
