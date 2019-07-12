@@ -1,6 +1,6 @@
 {
   "name": "beautiful-skill-tree",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/index.js",
   "module": "dist/skill-tree-package.esm.js",
   "typings": "dist/index.d.ts",
