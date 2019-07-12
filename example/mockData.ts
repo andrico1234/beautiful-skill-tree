@@ -1,4 +1,3 @@
-// import RingsIcon from './rings.svg';
 import SquatIcon from './squat.svg';
 
 export type Skill = MajorSkill | MinorSkill;
