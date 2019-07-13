@@ -1,21 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
+import { NodeState } from '../../models';
+import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
 
 interface Props {
-  position: {
-    topX: number;
-    topY: number;
-    bottomX: number;
-    bottomY: number;
-  };
-  className: string;
+  topX: number;
+  topY: number;
+  bottomX: number;
   direction: 'left' | 'right';
-  isActive: boolean;
+  state: NodeState;
 }
 
-function AngledLine({ position, direction, className, isActive }: Props) {
-  const { topX, topY, bottomX } = position;
-
+function AngledLine({ topX, topY, bottomX, direction, state }: Props) {
   // no one:
   // css:
   const leftHorizontalStyles = {
@@ -33,13 +29,14 @@ function AngledLine({ position, direction, className, isActive }: Props) {
   };
 
   return (
-    <React.Fragment>
+    <div className="AngledLine__container">
       <div
         data-testid="angled-line-one"
-        className={classnames(`${className} AngledLine AngledLine--vertical`, {
+        className={classnames(`AngledLine AngledLine--vertical`, {
           'AngledLine--rounded-bottom-right': direction === 'right',
           'AngledLine--rounded-top-right': direction === 'left',
-          'AngledLine__line-one--active': isActive,
+          'AngledLine__line-one--selected': state === SELECTED_STATE,
+          'AngledLine--unlocked': state !== LOCKED_STATE,
         })}
         style={{
           top: `${topY - 1}px`,
@@ -49,22 +46,21 @@ function AngledLine({ position, direction, className, isActive }: Props) {
       />
       <div
         data-testid="angled-line-two"
-        className={classnames(
-          `${className} AngledLine AngledLine--horizontal`,
-          {
-            'AngledLine__line-two--active': isActive,
-          }
-        )}
+        className={classnames(`AngledLine AngledLine--horizontal`, {
+          'AngledLine__line-two--selected': state === SELECTED_STATE,
+          'AngledLine--unlocked': state !== LOCKED_STATE,
+        })}
         style={
           direction === 'left' ? leftHorizontalStyles : rightHorizontalStyles
         }
       />
       <div
         data-testid="angled-line-three"
-        className={classnames(`${className} AngledLine AngledLine--vertical`, {
+        className={classnames(`AngledLine AngledLine--vertical`, {
           'AngledLine--rounded-top-left': direction === 'right',
           'AngledLine--rounded-bottom-left': direction === 'left',
-          'AngledLine__line-three--active': isActive,
+          'AngledLine__line-three--selected': state === SELECTED_STATE,
+          'AngledLine--unlocked': state !== LOCKED_STATE,
         })}
         style={{
           top: `${topY + 24}px`,
@@ -72,7 +68,7 @@ function AngledLine({ position, direction, className, isActive }: Props) {
           width: '31px',
         }}
       />
-    </React.Fragment>
+    </div>
   );
 }
 

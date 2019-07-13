@@ -99,33 +99,6 @@
   }
 }
 
-.SkillEdge__container {
-  height: 56px;
-}
-
-.SkillEdge {
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0) 51%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 210% 100%;
-  background-position: right top;
-  opacity: 0.5;
-  transition: opacity 0.6s;
-}
-
-.SkillEdge--unlocked {
-  opacity: 1;
-}
-
-.SkillEdge--active {
-  animation: slidedown 1.2s 1 ease-out;
-  background-position: left bottom;
-}
-
 .Tooltip {
   background-color: #282c34;
   border: 2px solid;
@@ -263,10 +236,43 @@
   width: 75%;
 }
 
-.AngledLine {
+.Line__container,
+.AngledLine__container {
+  height: 56px;
+}
+
+.AngledLine,
+.Line {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 210% 100%;
+  background-position: right top;
   border: 1px solid white;
   height: 4px;
   position: absolute;
+  opacity: 0.5;
+  transition: opacity 0.6s;
+}
+
+.Line {
+  transform: rotate(90deg);
+  transform-origin: 0 0;
+  width: 56px;
+}
+
+.Line--unlocked,
+.AngledLine--unlocked {
+  opacity: 1;
+}
+
+.Line--selected {
+  animation: slidedown 1.2s 1 ease-out;
+  background-position: left bottom;
 }
 
 .AngledLine--vertical {
@@ -295,17 +301,17 @@
   border-bottom-right-radius: 8px;
 }
 
-.AngledLine__line-one--active {
+.AngledLine__line-one--selected {
   animation: slidedown-angled-line-one 0.3s 1 ease-in;
   background-position: left bottom;
 }
 
-.AngledLine__line-two--active {
+.AngledLine__line-two--selected {
   animation: slidedown-angled-line-two 1s 1;
   background-position: left bottom;
 }
 
-.AngledLine__line-three--active {
+.AngledLine__line-three--selected {
   animation: slidedown-angled-line-three 1.2s 1 ease-out;
   background-position: left bottom;
 }
