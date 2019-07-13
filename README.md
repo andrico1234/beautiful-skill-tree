@@ -17,13 +17,13 @@ Wrap your application like this
 
 ```typescript
 import { SkillTreeGroup, SkillTree, Skill } from 'beautiful-skill-tree';
-import 'beautiful-skill-tree/styles.css'
+import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
 
 <SkillTreeGroup>
-	<SkillTree id=“skill-tree” title=Skill Tree" data={data} />
-</SkillTreeGroup>
+  <SkillTree id="skill-tree" title="Skill Tree" data={data} />
+</SkillTreeGroup>;
 ```
 
 Run your application's starting script, access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
@@ -31,7 +31,7 @@ Run your application's starting script, access localhost to find an empty skill 
 The type for the data tree is the following:
 
 ```typescript
-type Skill[] =  {
+type Skill[] = {
 	id: string;
 	title: string;
 	tooltipDescription: string;
