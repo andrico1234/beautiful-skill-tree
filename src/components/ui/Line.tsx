@@ -4,8 +4,6 @@ import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
 
 interface LineProps {
-  bottomX: number;
-  bottomY: number;
   topX: number;
   topY: number;
   state: NodeState;
