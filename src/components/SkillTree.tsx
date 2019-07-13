@@ -4,6 +4,7 @@ import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import { SkillProvider } from '../context/SkillContext';
 import HSeparator from './ui/HSeparator';
+import CalculateTotalNodes from './CalculateNodeCount';
 
 interface Props {
   data: Skill[];
@@ -33,6 +34,7 @@ function SkillTree({ data, title, id }: Props) {
 
   return (
     <SkillProvider contextId={id} storage={localStorage}>
+      <CalculateTotalNodes data={data} />
       <div className="SkillTree__container">
         <h2 className="SkillTree__title">{title}</h2>
         <div className="SkillTree">

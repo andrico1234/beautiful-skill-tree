@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import SkillTreeGroupContext from '../context/SkillTreeGroupContext';
 
 interface Props {
-  children: React.ReactNode;
+  children: (totalCount: number) => React.ReactNode;
 }
 
 function SkillTreeGroup(props: Props) {
-  return <div className="SkillTreeGroup">{props.children}</div>;
+  const { totalCount } = useContext(SkillTreeGroupContext);
+  return <div className="SkillTreeGroup">{props.children(totalCount)}</div>;
 }
 
 export default SkillTreeGroup;
