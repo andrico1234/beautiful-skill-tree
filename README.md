@@ -1,148 +1,101 @@
-# TSDX React User Guide
+# Beautiful Skill Tree
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+A small library to help get you implement beautiful, responsive, and satisfying skill trees to your React applications
 
-> This TSDX setup is meant for developing React components (not apps!) that can be published to NPM. If you’re looking to build an app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
+## Examples
 
-> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
+[Calisthenics Progressions](https://calisthenicsskills.com/)
 
-## Commands
+## Getting started
 
-TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
+`yarn add beautiful-skill-tree`
 
-The recommended workflow is to run TSDX in one terminal:
+The package exposes the two components `SkillTree` and `SkillTreeGroup`. You'll also need to import the style sheet `beautiful-skill-tree/styles.css`.
+For those that like their data typed, you can import the `Skill` type from the package.
 
-```
-npm start # or yarn start
-```
-
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
-
-Then run the example inside another:
+Wrap your application like this
 
 ```
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
+import { SkillTreeGroup, SkillTree, Skill } from 'beautiful-skill-tree';
+import 'beautiful-skill-tree/styles.css'
+
+const data: Skill[] = [];
+
+<SkillTreeGroup>
+	<SkillTree id=“skill-tree” title=Skill Tree" data={data} />
+</SkillTreeGroup>
 ```
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, [we use Parcel's aliasing](https://github.com/palmerhq/tsdx/pull/88/files).
+Run your application's starting script, access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
 
-To do a one-off build, use `npm run build` or `yarn build`.
-
-To run tests, use `npm test` or `yarn test`.
-
-## Configuration
-
-Code quality is [set up for you](https://github.com/palmerhq/tsdx/pull/45/files) with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`. This runs the test watcher (Jest) in an interactive mode. By default, runs tests related to files changed since the last commit.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
+The type for the data tree is the following:
 
 ```
-/example
-  index.html
-  index.tsx       # test your component here in a demo app
-  package.json
-  tsconfig.json
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup v1.x](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### Travis
-
-_to be completed_
-
-### Circle
-
-_to be completed_
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
+type Skill[] =  {
+	id: string;
+	title: string;
+	tooltipDescription: string;
+	icon?: string;
+	children: Skill[];
 }
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
-
-## Module Formats
-
-CJS, ESModules, and UMD module formats are supported.
-
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
-
-## Using the Playground
+Add the following data to your skill tree and see what happens:
 
 ```
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
+const data: Skill[] = [
+  {
+    id: 'hello-world',
+    title: 'Hello World',
+    tooltipDescription: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
+    children: [
+      {
+        id: 'hello-sun',
+        title: 'Hello Sun',
+        tooltipDescription: 'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
+        children: [],
+      },
+      {
+        id: 'hello-stars',
+        title: 'Hello Stars',
+        tooltipDescription: 'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
+        children: [],
+      },
+    ],
+  },
+];
 ```
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**!
+Go to your browser and you should see this:
 
-## Named Exports
+![Skill Tree Demo](https://media.giphy.com/media/j2qzDGItebWCtFA7lW/giphy.gif)
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+## Current Features
 
-## Including Styles
+- [x] Skill
+- [x] Animations
+- [x] Progress saving
+- [x] Tooltips
+- [x] Icons
+- [x] Responsive
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+## Planned Features
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+- [ ] Reset skill sree
+- [ ] CSS theming
+- [ ] Expose skill tree sata
+- [ ] Optional nodes
+- [ ] Side nodes
+- [ ] Collapsable skill trees
+- [ ] Keyboard only use
+- [ ] Secret special surprise on tree completion
 
-## Publishing to NPM
+## Contributing
 
-We recommend using https://github.com/sindresorhus/np.
+[contributing guidelines](/CONTRIBUTING.md)
 
-## Usage with Lerna
+## Motivation
 
-When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
+Is there anything more satisfying than the feeling of progression; you know, improving at something you care deeply about? Not likely! Be it in video games, web development, or your physical capabilities, very little gives us a sense of pride and accomplishment than gaining new skills and using them. My motivation was to make skill trees that feel satisfying and fun to use.
 
-The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
-
-Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
-
-```diff
-   "alias": {
--    "react": "../node_modules/react",
--    "react-dom": "../node_modules/react-dom"
-+    "react": "../../../node_modules/react",
-+    "react-dom": "../../../node_modules/react-dom"
-   },
-```
-
-An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)
+Unfortunately there aren't any React packages that enable us developers to easily create skill tree in their applications. This is where Beautiful Skill Tree comes in. BST is a small package that allows you to easily create your own skill trees that look great across devices and screen sizes.
