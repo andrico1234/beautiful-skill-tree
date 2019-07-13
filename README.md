@@ -86,7 +86,7 @@ Go to your browser and you should see this:
 
 - [ ] Reset skill sree
 - [ ] CSS theming
-- [ ] Expose skill tree sata
+- [ ] Expose skill tree state
 - [ ] Optional nodes
 - [ ] Side nodes
 - [ ] Collapsable skill trees
