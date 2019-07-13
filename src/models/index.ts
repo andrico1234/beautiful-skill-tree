@@ -2,6 +2,8 @@ import { Nullable } from './utils';
 
 export type Skill = MajorSkill | MinorSkill;
 
+export type NodeState = 'locked' | 'unlocked' | 'selected';
+
 export type MajorSkill = {
   id: string;
   icon: string;

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import classnames from 'classnames';
-import SkillContext from '../context/SkillContext';
 import { SELECTED_STATE, LOCKED_STATE } from './constants';
 import Line from './ui/Line';
 import AngledLine from './ui/AngledLine';
+import { NodeState } from 'models';
 
 interface Props {
   position: {
@@ -12,13 +12,12 @@ interface Props {
     bottomX: number;
     bottomY: number;
   };
-  nextNodeId: string;
+  nodeState: NodeState;
 }
 
-function SkillEdge({ nextNodeId, position }: Props) {
-  const { skills } = useContext(SkillContext);
-  const isActive = skills[nextNodeId] === SELECTED_STATE;
-  const isUnlocked = skills[nextNodeId] !== LOCKED_STATE;
+function SkillEdge({ position, nodeState }: Props) {
+  const isActive = nodeState === SELECTED_STATE;
+  const isUnlocked = nodeState !== LOCKED_STATE;
 
   if (position.topX === position.bottomX) {
     return (

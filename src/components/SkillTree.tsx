@@ -42,6 +42,7 @@ function SkillTree({ data, title, id }: Props) {
             return (
               <React.Fragment key={skill.id}>
                 <SkillTreeSegment
+                  parentState="unlocked"
                   parentPosition={defaultParentPosition}
                   skill={skill}
                 />

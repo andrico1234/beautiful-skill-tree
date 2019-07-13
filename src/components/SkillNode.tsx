@@ -6,22 +6,24 @@ import SkillContext from '../context/SkillContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
-import { Skill, ParentPosition } from '../models';
+import { Skill, ParentPosition, NodeState } from '../models';
 import { Dictionary } from '../models/utils';
 import Node from './ui/Node';
 
 interface Props {
   skill: Skill;
   parentNodeId?: string;
+  parentState: NodeState;
+  nodeState: NodeState;
+  setNodeState: (state: NodeState) => void;
 }
 
 interface State {
-  currentState: string;
   parentPosition: ParentPosition;
 }
 
 interface Context {
-  skills: Dictionary<string>;
+  skills: Dictionary<NodeState>;
 }
 
 class SkillNode extends React.Component<Props, State> {
@@ -35,12 +37,11 @@ class SkillNode extends React.Component<Props, State> {
 
     const { id } = props.skill;
 
-    const skillState = context.skills[id];
+    props.setNodeState(context.skills[id]);
     this.skillNodeRef = React.createRef();
     this.throttledResize = throttle(this.handleResize, 200);
 
     this.state = {
-      currentState: skillState,
       parentPosition: {
         bottom: 0,
         center: 0,
@@ -76,23 +77,21 @@ class SkillNode extends React.Component<Props, State> {
   };
 
   handleClick = () => {
-    const { currentState } = this.state;
+    const { nodeState } = this.props;
 
-    if (currentState === LOCKED_STATE) {
+    if (nodeState === LOCKED_STATE) {
       return null;
     }
 
-    if (currentState === UNLOCKED_STATE) {
+    if (nodeState === UNLOCKED_STATE) {
       return this.updateState(SELECTED_STATE);
     }
 
     return this.updateState(UNLOCKED_STATE);
   };
 
-  updateState = (state: string) => {
-    this.setState({
-      currentState: state,
-    });
+  updateState = (state: NodeState) => {
+    this.props.setNodeState(state);
 
     return this.context.updateSkillState(this.props.skill.id, state);
   };
@@ -104,10 +103,6 @@ class SkillNode extends React.Component<Props, State> {
     window.addEventListener('resize', this.throttledResize);
 
     if (isEmpty(this.context.skills)) {
-      if (this.props.parentNodeId) {
-        return this.updateState(LOCKED_STATE);
-      }
-
       return this.updateState(UNLOCKED_STATE);
     }
   }
@@ -117,13 +112,12 @@ class SkillNode extends React.Component<Props, State> {
   }
 
   componentDidUpdate() {
-    const { currentState } = this.state;
-    const { parentNodeId } = this.props;
+    const { parentNodeId, nodeState, parentState } = this.props;
 
     const parentNodeIsSelected =
-      !parentNodeId || this.context.skills[parentNodeId] === SELECTED_STATE;
+      !parentNodeId || parentState === SELECTED_STATE;
 
-    if (currentState === UNLOCKED_STATE && !parentNodeIsSelected) {
+    if (nodeState === UNLOCKED_STATE && !parentNodeIsSelected) {
       return this.updateState(LOCKED_STATE);
     }
 
@@ -131,22 +125,24 @@ class SkillNode extends React.Component<Props, State> {
       return null;
     }
 
-    if (currentState === LOCKED_STATE && parentNodeIsSelected) {
+    if (nodeState === LOCKED_STATE && parentNodeIsSelected) {
       return this.updateState(UNLOCKED_STATE);
     }
   }
 
   render() {
-    const { currentState, parentPosition } = this.state;
-    const { children, title, tooltipDescription, id } = this.props.skill;
+    const { parentPosition } = this.state;
+    const { nodeState, skill } = this.props;
+    const { children, title, tooltipDescription, id } = skill;
 
     return (
       <React.Fragment>
         <div className="SkillNode">
           <span
+            data-testid="skill-node-overlay"
             style={{ width: this.childWidth + 4 }}
             className={classnames('SkillNode__overlay', {
-              'SkillNode__overlay--selected': currentState === SELECTED_STATE,
+              'SkillNode__overlay--selected': nodeState === SELECTED_STATE,
             })}
           />
           <Tippy
@@ -162,7 +158,7 @@ class SkillNode extends React.Component<Props, State> {
             <Node
               handleClick={this.handleClick}
               id={id}
-              currentState={currentState}
+              currentState={nodeState}
               skill={this.props.skill}
               ref={this.skillNodeRef}
             />
@@ -175,6 +171,7 @@ class SkillNode extends React.Component<Props, State> {
                 <SkillTreeSegment
                   key={skill.id}
                   parentPosition={parentPosition}
+                  parentState={nodeState}
                   skill={skill}
                   parentNodeId={id}
                 />

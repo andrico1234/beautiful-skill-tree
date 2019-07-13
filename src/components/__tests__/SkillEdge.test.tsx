@@ -1,32 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import SkillEdge from '../SkillEdge';
-import SkillContext, { SkillProvider } from '../../context/SkillContext';
-import MockLocalStorage from '../__mocks__/mockLocalStorage';
-import uuid4 from 'uuid/v4';
-
-interface Props {
-  startingState: string;
-  startingId: string;
-}
-
-interface Context {
-  updateSkillState: (startingId: string, startingState: string) => void;
-}
-
-class ContextSetter extends React.Component<Props> {
-  static contextType = SkillContext;
-
-  constructor(props: Props, context: Context) {
-    super(props);
-
-    context.updateSkillState(props.startingId, props.startingState);
-  }
-
-  render() {
-    return null;
-  }
-}
+import { NodeState } from 'models';
 
 const defaultPosition = {
   topX: 0,
@@ -35,34 +10,10 @@ const defaultPosition = {
   bottomY: 0,
 };
 
-function renderComponent(
-  nextNodeId: string,
-  startingState: string,
-  position = defaultPosition
-) {
-  let updateState: Function | void;
+function renderComponent(startingState: NodeState, position = defaultPosition) {
+  let state = startingState;
 
-  const id = uuid4();
-
-  const defaultStoreContents = {
-    [`skills-${id}`]: JSON.stringify({}),
-  };
-
-  const store = new MockLocalStorage(defaultStoreContents);
-
-  const api = render(
-    <SkillProvider contextId={id} storage={store}>
-      <ContextSetter startingState={startingState} startingId={nextNodeId} />
-      <SkillEdge position={position} nextNodeId={nextNodeId} />
-    </SkillProvider>
-  );
-
-  return {
-    ...api,
-    updateState() {
-      return updateState;
-    },
-  };
+  return render(<SkillEdge nodeState={state} position={position} />);
 }
 
 describe('SkillEdge', () => {
@@ -70,10 +21,9 @@ describe('SkillEdge', () => {
 
   describe('straight lines', () => {
     it('should be inactive if the next node is unlocked', async () => {
-      const startingId = '123';
       const startingState = 'unlocked';
 
-      const { getByTestId } = renderComponent(startingId, startingState);
+      const { getByTestId } = renderComponent(startingState);
 
       const skillEdge = getByTestId('straight-line');
 
@@ -81,10 +31,9 @@ describe('SkillEdge', () => {
     });
 
     it('should be inactive if the next node is locked', () => {
-      const startingId = '123';
       const startingState = 'unlocked';
 
-      const { getByTestId } = renderComponent(startingId, startingState);
+      const { getByTestId } = renderComponent(startingState);
 
       const skillEdge = getByTestId('straight-line');
 
@@ -92,10 +41,9 @@ describe('SkillEdge', () => {
     });
 
     it('should be active if the next node is selected', () => {
-      const startingId = '123';
       const startingState = 'selected';
 
-      const { getByTestId } = renderComponent(startingId, startingState);
+      const { getByTestId } = renderComponent(startingState);
 
       const skillEdge = getByTestId('straight-line');
 
@@ -119,11 +67,9 @@ describe('SkillEdge', () => {
     };
 
     it('should be inactive if the next node is unlocked', async () => {
-      const startingId = '123';
       const startingState = 'unlocked';
 
       const { getByTestId } = renderComponent(
-        startingId,
         startingState,
         leftAngledLinePosition
       );
@@ -138,11 +84,9 @@ describe('SkillEdge', () => {
     });
 
     it('should be inactive if the next node is locked', () => {
-      const startingId = '123';
       const startingState = 'unlocked';
 
       const { getByTestId } = renderComponent(
-        startingId,
         startingState,
         leftAngledLinePosition
       );
@@ -157,11 +101,9 @@ describe('SkillEdge', () => {
     });
 
     it('should be active if the next node is selected', () => {
-      const startingId = '123';
       const startingState = 'selected';
 
       const { getByTestId } = renderComponent(
-        startingId,
         startingState,
         rightAngledLinePosition
       );

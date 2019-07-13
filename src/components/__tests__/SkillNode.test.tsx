@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, cleanup, act } from '@testing-library/react';
+import { render, cleanup, act, fireEvent } from '@testing-library/react';
 import SkillNode from '../SkillNode';
-import { Skill } from '../../models';
-import { legsPushData } from '../__mocks__/mockData';
+import { NodeState } from 'models';
+
+const setNodeStateMock = jest.fn();
 
 function fireResize(width: number) {
   // @ts-ignore
@@ -10,11 +11,14 @@ function fireResize(width: number) {
   window.dispatchEvent(new Event('resize'));
 }
 
-function renderComponent(children: Skill[] = []) {
+function renderComponent(nodeState: NodeState = 'locked') {
   return render(
     <SkillNode
+      parentState="unlocked"
+      setNodeState={setNodeStateMock}
+      nodeState={nodeState}
       skill={{
-        children,
+        children: [],
         id: 'test-node',
         icon: './hey',
         title: 'Hey there',
@@ -27,11 +31,49 @@ function renderComponent(children: Skill[] = []) {
 describe('SkillNode component', () => {
   afterEach(cleanup);
 
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('should successfully render the skill node', () => {
+    const { getByTestId } = renderComponent();
+
+    expect(getByTestId('skill-node-overlay')).toHaveClass('SkillNode__overlay');
+  });
+
+  it('should not invoke the click handler update when the Node is click whenlocked', () => {
+    const { getByTestId } = renderComponent();
+
+    const node = getByTestId('test-node');
+
+    expect(node).toHaveClass('Node Node--locked');
+
+    expect(setNodeStateMock).toHaveBeenCalledTimes(3);
+
+    fireEvent.click(node);
+
+    expect(setNodeStateMock).toHaveBeenCalledTimes(3);
+  });
+
+  it('should handle the state update correctly when the Node is clicked', () => {
+    const { getByTestId } = renderComponent('unlocked');
+
+    const node = getByTestId('test-node');
+
+    expect(node).toHaveClass('Node Node--unlocked');
+
+    expect(setNodeStateMock).toHaveBeenCalledTimes(2);
+
+    fireEvent.click(node);
+
+    expect(setNodeStateMock).toHaveBeenCalledTimes(3);
+  });
+
   it('should handle resizing of the window correctly', () => {
     const resizeEvent = document.createEvent('Event');
     resizeEvent.initEvent('resize', true, true);
 
-    renderComponent(legsPushData);
+    renderComponent();
 
     // empty until i can work out how to attach the renderedComponnet to the DOM
     // otherwise getBoundingClientRect() always returns 0.

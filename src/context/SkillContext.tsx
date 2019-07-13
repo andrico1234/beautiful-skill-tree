@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ContextStorage } from '../models';
+import { ContextStorage, NodeState } from '../models';
 import { Dictionary } from '../models/utils';
 
 interface State {
@@ -8,7 +8,7 @@ interface State {
 
 export interface ISkillContext {
   skills: Skills;
-  updateSkillState: (key: string, updatedState: string) => void;
+  updateSkillState: (key: string, updatedState: NodeState) => void;
   contextId: string;
 }
 
@@ -17,7 +17,7 @@ interface Props {
   storage: ContextStorage;
 }
 
-type Skills = Dictionary<string>;
+type Skills = Dictionary<NodeState>;
 
 const SkillContext = React.createContext<ISkillContext>({
   skills: {},
@@ -35,7 +35,7 @@ export class SkillProvider extends React.Component<Props, State> {
     };
   }
 
-  updateSkillState = (key: string, updatedState: string): void => {
+  updateSkillState = (key: string, updatedState: NodeState): void => {
     this.setState((prevState: State) => {
       const updatedSkills = {
         ...prevState.skills,
