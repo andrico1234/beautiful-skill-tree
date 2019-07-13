@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
 function HSeparator() {
-  return <hr className="HSeparator" style={{ width: '100%' }} />;
+  return <hr data-testid="h-separator" className="HSeparator" />;
 }
 
 export default HSeparator;

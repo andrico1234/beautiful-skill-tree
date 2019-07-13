@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 import { SELECTED_STATE, UNLOCKED_STATE, LOCKED_STATE } from '../constants';
 import { Skill } from '../../models';
@@ -6,8 +6,6 @@ import Icon from './Icon';
 
 interface Props {
   handleClick: () => void;
-  handleMouseEnter: () => void;
-  handleMouseLeave: () => void;
   id: string;
   currentState: string;
   skill: Skill;
@@ -15,22 +13,13 @@ interface Props {
 
 const Node = React.forwardRef(
   (props: Props, ref: React.Ref<HTMLDivElement>) => {
-    const {
-      handleClick,
-      handleMouseEnter,
-      handleMouseLeave,
-      id,
-      currentState,
-      skill,
-    } = props;
+    const { handleClick, id, currentState, skill } = props;
 
     return (
       <div
         onClick={handleClick}
         ref={ref}
         data-testid={id}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         className={classnames('Node', {
           'Node--selected': currentState === SELECTED_STATE,
           'Node--unlocked': currentState === UNLOCKED_STATE,

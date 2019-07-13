@@ -40,6 +40,12 @@
     },
     "testMatch": [
       "<rootDir>src/**/__tests__/*.{ts,tsx}"
+    ],
+    "collectCoverageFrom": [
+      "./src/App.tsx",
+      "./src/components/**/*.{ts,tsx}",
+      "./src/context/**/*.${ts,tsx}",
+      "./src/helpers/**/*.${ts,tsx}"
     ]
   },
   "devDependencies": {
@@ -60,6 +66,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "@tippy.js/react": "^2.2.2",
     "classnames": "^2.2.6",
     "jest-dom": "^3.5.0",
     "lodash": "^4.17.14",

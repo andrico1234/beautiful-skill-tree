@@ -1,10 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 import { throttle, Cancelable, isEmpty } from 'lodash';
+import Tippy from '@tippy.js/react';
 import SkillContext from '../context/SkillContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
-import Tooltip from './ui/Tooltip';
 import SkillTreeSegment from './SkillTreeSegment';
+import TooltipContent from './ui/TooltipContent';
 import { Skill, ParentPosition } from '../models';
 import { Dictionary } from '../models/utils';
 import Node from './ui/Node';
@@ -16,7 +17,6 @@ interface Props {
 
 interface State {
   currentState: string;
-  showTooltip: boolean;
   parentPosition: ParentPosition;
 }
 
@@ -41,13 +41,16 @@ class SkillNode extends React.Component<Props, State> {
 
     this.state = {
       currentState: skillState,
-      showTooltip: false,
       parentPosition: {
         bottom: 0,
         center: 0,
       },
     };
   }
+
+  calculateOverlayWidth = () => {
+    this.childWidth = this.skillNodeRef.current!.clientWidth;
+  };
 
   calculatePosition = () => {
     const {
@@ -69,6 +72,7 @@ class SkillNode extends React.Component<Props, State> {
 
   handleResize = () => {
     this.calculatePosition();
+    this.calculateOverlayWidth();
   };
 
   handleClick = () => {
@@ -95,7 +99,7 @@ class SkillNode extends React.Component<Props, State> {
 
   componentDidMount() {
     this.calculatePosition();
-    this.childWidth = this.skillNodeRef.current!.clientWidth;
+    this.calculateOverlayWidth();
 
     window.addEventListener('resize', this.throttledResize);
 
@@ -133,7 +137,7 @@ class SkillNode extends React.Component<Props, State> {
   }
 
   render() {
-    const { currentState, showTooltip, parentPosition } = this.state;
+    const { currentState, parentPosition } = this.state;
     const { children, title, tooltipDescription, id } = this.props.skill;
 
     return (
@@ -145,30 +149,24 @@ class SkillNode extends React.Component<Props, State> {
               'SkillNode__overlay--selected': currentState === SELECTED_STATE,
             })}
           />
-          <Node
-            handleClick={this.handleClick}
-            handleMouseEnter={() => this.setState({ showTooltip: true })}
-            handleMouseLeave={() => this.setState({ showTooltip: false })}
-            id={id}
-            currentState={currentState}
-            skill={this.props.skill}
-            ref={this.skillNodeRef}
-          />
-          {showTooltip && (
-            <div
-              className="SkillNode__tooltip-placeholder"
-              style={{ left: `${this.childWidth + 14}px` }}
-            >
-              <Tooltip
-                handleMouseEnter={() => this.setState({ showTooltip: true })}
-                handleMouseLeave={() => this.setState({ showTooltip: false })}
-                title={title}
+          <Tippy
+            className="Tooltip"
+            content={
+              <TooltipContent
                 tooltipDescription={tooltipDescription}
+                title={title}
               />
-            </div>
-          )}
+            }
+          >
+            <Node
+              handleClick={this.handleClick}
+              id={id}
+              currentState={currentState}
+              skill={this.props.skill}
+              ref={this.skillNodeRef}
+            />
+          </Tippy>
         </div>
-        {/* move these styles into the css file */}
         {children.length > 0 && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {children.map(skill => {

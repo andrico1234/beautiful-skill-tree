@@ -43,7 +43,6 @@ function SkillTree({ data, title, id }: Props) {
                   parentPosition={defaultParentPosition}
                   skill={skill}
                 />
-
                 {data.length - 1 !== i && isMobile && <HSeparator />}
               </React.Fragment>
             );

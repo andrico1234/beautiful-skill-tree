@@ -5,15 +5,15 @@ export type Skill = MajorSkill | MinorSkill;
 export type MajorSkill = {
   id: string;
   icon: string;
-  title?: string;
-  tooltipDescription?: string;
+  title: string;
+  tooltipDescription: string;
   children: Skill[];
 };
 
 export type MinorSkill = {
   id: string;
-  title?: string;
-  tooltipDescription?: string;
+  title: string;
+  tooltipDescription: string;
   children: Skill[];
 };
 

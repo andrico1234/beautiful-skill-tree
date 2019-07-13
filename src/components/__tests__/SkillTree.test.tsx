@@ -30,6 +30,13 @@ const mockSkillTreeData = [
       },
     ],
   },
+  {
+    id: 'item-four',
+    icon: './222',
+    tooltipDescription: 'second tree',
+    title: 'hasewaler÷',
+    children: [],
+  },
 ];
 
 function renderComponent(id: string) {
@@ -57,7 +64,7 @@ describe('SkillTree', () => {
   it('renders the correct number of Nodes', () => {
     const { queryAllByTestId } = renderComponent(currentId);
 
-    expect(queryAllByTestId(/item-/).length).toBe(3);
+    expect(queryAllByTestId(/item-/).length).toBe(4);
   });
 
   it('should activate the first style on click', async () => {
@@ -146,5 +153,14 @@ describe('SkillTree', () => {
     expect(topNode).toHaveClass('Node Node--selected');
     expect(middleNode).toHaveClass('Node Node--unlocked');
     expect(bottomNode).toHaveClass('Node Node--locked');
+  });
+
+  it('should diplay the separator component on mobile', () => {
+    //@ts-ignore
+    window.innerWidth = 200;
+
+    const { queryByTestId } = renderComponent(currentId);
+
+    expect(queryByTestId('h-separator')).toBeTruthy();
   });
 });
