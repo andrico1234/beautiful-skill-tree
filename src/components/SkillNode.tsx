@@ -151,6 +151,7 @@ class SkillNode extends React.Component<Props, State> {
           />
           <Tippy
             className="Tooltip"
+            placement="bottom"
             content={
               <TooltipContent
                 tooltipDescription={tooltipDescription}
