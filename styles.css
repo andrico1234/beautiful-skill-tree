@@ -21,7 +21,6 @@
 @media (min-width: 900px) {
   .SkillTreeGroup {
     flex-wrap: nowrap;
-    padding-right: 300px;
   }
 }
 
