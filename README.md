@@ -22,12 +22,12 @@ The `SkillTreeGroup` is the component that groups skill trees and will expose in
 
 The `SkillTreeGroupProvider` is the skill tree's context provider.
 
-For those that like their data typed, you can import the `Skill` type from the package.
+For those that like their data typed, you can import `SkillType` from the package.
 
 Wrap your application like this:
 
 ```typescript
-import { SkillTreeGroup, SkillTree, SkillTreeGroupProvider, Skill } from 'beautiful-skill-tree';
+import { SkillTreeGroup, SkillTree, SkillTreeGroupProvider, SkillType } from 'beautiful-skill-tree';
 import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
@@ -100,7 +100,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### children: `skillCount: React.ReactNode` [*required*]
 
-### Skill
+### Skill (export as SkillType)
 
 ```typescript
 type Skill[] = {
