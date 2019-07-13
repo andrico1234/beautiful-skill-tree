@@ -15,7 +15,7 @@ For those that like their data typed, you can import the `Skill` type from the p
 
 Wrap your application like this
 
-```
+```typescript
 import { SkillTreeGroup, SkillTree, Skill } from 'beautiful-skill-tree';
 import 'beautiful-skill-tree/styles.css'
 
@@ -30,7 +30,7 @@ Run your application's starting script, access localhost to find an empty skill 
 
 The type for the data tree is the following:
 
-```
+```typescript
 type Skill[] =  {
 	id: string;
 	title: string;
@@ -42,23 +42,26 @@ type Skill[] =  {
 
 Add the following data to your skill tree and see what happens:
 
-```
+```typescript
 const data: Skill[] = [
   {
     id: 'hello-world',
     title: 'Hello World',
-    tooltipDescription: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
+    tooltipDescription:
+      'This node is the top most level, and will be unlocked, and ready to be clicked.',
     children: [
       {
         id: 'hello-sun',
         title: 'Hello Sun',
-        tooltipDescription: 'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
+        tooltipDescription:
+          'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
         children: [],
       },
       {
         id: 'hello-stars',
         title: 'Hello Stars',
-        tooltipDescription: 'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
+        tooltipDescription:
+          'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
         children: [],
       },
     ],
