@@ -9,13 +9,13 @@ import {
 } from '../../components/__mocks__/mockData';
 
 interface GetDummyCounterProps {
-  children: (totalCount: number) => JSX.Element;
+  children: (skillCount: number) => JSX.Element;
 }
 
 function GetDummyCounter({ children }: GetDummyCounterProps) {
-  const { totalCount } = useContext(SkillTreeGroupContext);
+  const { skillCount } = useContext(SkillTreeGroupContext);
 
-  return children(totalCount);
+  return children(skillCount);
 }
 
 function renderComponent(data: Skill[]) {
@@ -27,8 +27,8 @@ function renderComponent(data: Skill[]) {
 
   const api = render(
     <GetDummyCounter>
-      {totalCount => {
-        counter = totalCount;
+      {skillCount => {
+        counter = skillCount;
         return <CalculateSkillNodes data={data} />;
       }}
     </GetDummyCounter>

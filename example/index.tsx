@@ -10,10 +10,10 @@ const App = () => {
   return (
     <SkillTreeGroupProvider>
       <SkillTreeGroup>
-        {totalCount => {
+        {skillCount => {
           return (
             <React.Fragment>
-              <h2 style={{ padding: '0 16px' }}>Total skills: {totalCount}</h2>
+              <h2 style={{ padding: '0 16px' }}>Total skills: {skillCount}</h2>
               <SkillTree
                 id="squat"
                 title="Squat Progression"

@@ -5,27 +5,27 @@ interface Props {
 }
 
 interface ISkillContext {
-  totalCount: number;
-  addToTotalCount: (number: number) => void;
+  skillCount: number;
+  addToSkillCount: (number: number) => void;
 }
 
 const SkillTreeGroupContext = React.createContext<ISkillContext>({
-  totalCount: 0,
-  addToTotalCount: () => null,
+  skillCount: 0,
+  addToSkillCount: () => null,
 });
 
 interface State {
-  totalCount: number;
+  skillCount: number;
 }
 
 export class SkillTreeGroupProvider extends React.Component<Props, State> {
   state = {
-    totalCount: 0,
+    skillCount: 0,
   };
 
-  addToTotalCount = (number: number): void => {
-    this.setState(({ totalCount }) => ({
-      totalCount: totalCount + number,
+  addToSkillCount = (number: number): void => {
+    this.setState(({ skillCount }) => ({
+      skillCount: skillCount + number,
     }));
   };
 
@@ -33,8 +33,8 @@ export class SkillTreeGroupProvider extends React.Component<Props, State> {
     return (
       <SkillTreeGroupContext.Provider
         value={{
-          totalCount: this.state.totalCount,
-          addToTotalCount: this.addToTotalCount,
+          skillCount: this.state.skillCount,
+          addToSkillCount: this.addToSkillCount,
         }}
       >
         {this.props.children}

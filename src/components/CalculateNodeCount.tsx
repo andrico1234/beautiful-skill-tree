@@ -17,11 +17,11 @@ function calculateNodeCount(data: Skill[]): number {
 }
 
 function CalculateNodeCount({ data }: Props) {
-  const { addToTotalCount } = useContext(SkillTreeGroupContext);
+  const { addToSkillCount } = useContext(SkillTreeGroupContext);
 
   useEffect(() => {
     const count = calculateNodeCount(data);
-    addToTotalCount(count);
+    addToSkillCount(count);
   }, []);
 
   return null;

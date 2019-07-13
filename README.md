@@ -2,43 +2,46 @@
 
 A small library to help get you implement beautiful, responsive, and satisfying skill trees to your React applications
 
+---
+
 ## Examples
 
 [Calisthenics Progressions](https://calisthenicsskills.com/)
+
+---
 
 ## Getting started
 
 `yarn add beautiful-skill-tree`
 
-The package exposes the two components `SkillTree` and `SkillTreeGroup`. You'll also need to import the style sheet `beautiful-skill-tree/styles.css`.
+The package exposes the thre components `SkillTree`, `SkillTreeGroup` and `SkillTreeGroupProvider`.You'll also need to import the style sheet `beautiful-skill-tree/styles.css`.
+
+The `SkillTree` is the component that takes your data and renders the tree of components.
+
+The `SkillTreeGroup` is the component that groups skill trees and will expose in the future expose various methods and properties related to the skill tree.
+
+The `SkillTreeGroupProvider` is the skill tree's context provider.
+
 For those that like their data typed, you can import the `Skill` type from the package.
 
-Wrap your application like this
+Wrap your application like this:
 
 ```typescript
-import { SkillTreeGroup, SkillTree, Skill } from 'beautiful-skill-tree';
+import { SkillTreeGroup, SkillTree, SkillTreeGroupProvider, Skill } from 'beautiful-skill-tree';
 import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
 
-<SkillTreeGroup>
-  <SkillTree id="skill-tree" title="Skill Tree" data={data} />
-</SkillTreeGroup>;
+<SkillTreeGroupProvider>
+  <SkillTreeGroup>
+    {skillCount => {
+      <SkillTree id="skill-tree" title="Skill Tree" data={data} />
+    }}
+    </SkillTreeGroup>
+<SkillTreeGroupProvider>
 ```
 
 Run your application's starting script, access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
-
-The type for the data tree is the following:
-
-```typescript
-type Skill[] = {
-	id: string;
-	title: string;
-	tooltipDescription: string;
-	icon?: string;
-	children: Skill[];
-}
-```
 
 Add the following data to your skill tree and see what happens:
 
@@ -73,7 +76,45 @@ Go to your browser and you should see this:
 
 ![Skill Tree Demo](https://media.giphy.com/media/j2qzDGItebWCtFA7lW/giphy.gif)
 
-## Current Features
+---
+
+## Motivation
+
+Is there anything more satisfying than the feeling of progression; you know, improving at something you care deeply about? Not likely! Be it in video games, web development, or your physical capabilities, very little gives us a sense of pride and accomplishment than gaining new skills and using them. My motivation was to make skill trees that feel satisfying and fun to use.
+
+Unfortunately there aren't any React packages that enable us developers to easily create skill tree in their applications. This is where Beautiful Skill Tree comes in. BST is a small package that allows you to easily create your own skill trees that look great across devices and screen sizes.
+
+---
+
+## Component API
+
+### SkillTree
+
+#### id: `string` [*required*]
+
+#### title: `string` [*required*]
+
+#### data: `Skill` [*required*]
+
+### SkillTreeGroup
+
+#### children: `skillCount: React.ReactNode` [*required*]
+
+### Skill
+
+```typescript
+type Skill[] = {
+	id: string;
+	title: string;
+	tooltipDescription: string;
+	icon?: string;
+	children: Skill[];
+}
+```
+
+---
+
+## V1 Checklist
 
 - [x] Skill
 - [x] Animations
@@ -81,9 +122,6 @@ Go to your browser and you should see this:
 - [x] Tooltips
 - [x] Icons
 - [x] Responsive
-
-## Planned Features
-
 - [ ] Reset skill sree
 - [ ] CSS theming
 - [ ] Expose skill tree state
@@ -93,12 +131,8 @@ Go to your browser and you should see this:
 - [ ] Keyboard only use
 - [ ] Secret special surprise on tree completion
 
+---
+
 ## Contributing
 
 [contributing guidelines](/CONTRIBUTING.md)
-
-## Motivation
-
-Is there anything more satisfying than the feeling of progression; you know, improving at something you care deeply about? Not likely! Be it in video games, web development, or your physical capabilities, very little gives us a sense of pride and accomplishment than gaining new skills and using them. My motivation was to make skill trees that feel satisfying and fun to use.
-
-Unfortunately there aren't any React packages that enable us developers to easily create skill tree in their applications. This is where Beautiful Skill Tree comes in. BST is a small package that allows you to easily create your own skill trees that look great across devices and screen sizes.
