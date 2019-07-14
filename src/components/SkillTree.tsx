@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
-import { SkillProvider } from '../context/SkillContext';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
 
 interface Props {
   data: Skill[];
   title: string;
-  id: string;
 }
 
 const defaultParentPosition = {
@@ -17,7 +15,7 @@ const defaultParentPosition = {
   center: 0,
 };
 
-function SkillTree({ data, title, id }: Props) {
+function SkillTree({ data, title }: Props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
   useEffect(() => {
@@ -33,7 +31,7 @@ function SkillTree({ data, title, id }: Props) {
   }, []);
 
   return (
-    <SkillProvider contextId={id} storage={localStorage}>
+    <React.Fragment>
       <CalculateTotalNodes data={data} />
       <div className="SkillTree__container">
         <h2 className="SkillTree__title">{title}</h2>
@@ -52,7 +50,7 @@ function SkillTree({ data, title, id }: Props) {
           })}
         </div>
       </div>
-    </SkillProvider>
+    </React.Fragment>
   );
 }
 

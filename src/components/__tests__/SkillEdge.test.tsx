@@ -27,7 +27,8 @@ describe('SkillEdge', () => {
 
       const skillEdge = getByTestId('straight-line');
 
-      expect(skillEdge).not.toHaveClass('SkillEdge--active');
+      expect(skillEdge).not.toHaveClass('Line--selected');
+      expect(skillEdge).toHaveClass('Line Line--unlocked');
     });
 
     it('should be inactive if the next node is locked', () => {
@@ -37,7 +38,8 @@ describe('SkillEdge', () => {
 
       const skillEdge = getByTestId('straight-line');
 
-      expect(skillEdge).not.toHaveClass('SkillEdge--active');
+      expect(skillEdge).not.toHaveClass('Line--selected');
+      expect(skillEdge).toHaveClass('Line--unlocked');
     });
 
     it('should be active if the next node is selected', () => {
@@ -47,7 +49,7 @@ describe('SkillEdge', () => {
 
       const skillEdge = getByTestId('straight-line');
 
-      expect(skillEdge).toHaveClass('SkillEdge SkillEdge--active');
+      expect(skillEdge).toHaveClass('Line Line--selected Line--unlocked');
     });
   });
 
@@ -78,9 +80,20 @@ describe('SkillEdge', () => {
       const skillEdgeTwo = getByTestId('angled-line-two');
       const skillEdgeThree = getByTestId('angled-line-three');
 
-      expect(skillEdgeOne).not.toHaveClass('AngledLine__line-one--active');
-      expect(skillEdgeTwo).not.toHaveClass('AngledLine__line-two--active');
-      expect(skillEdgeThree).not.toHaveClass('AngledLine__line-three--active');
+      expect(skillEdgeOne).not.toHaveClass('AngledLine__line-one--selected');
+      expect(skillEdgeOne).toHaveClass(
+        'AngledLine AngledLine--vertical AngledLine--unlocked'
+      );
+      expect(skillEdgeTwo).not.toHaveClass('AngledLine__line-two--selected');
+      expect(skillEdgeTwo).toHaveClass(
+        'AngledLine AngledLine--horizontal AngledLine--unlocked'
+      );
+      expect(skillEdgeThree).not.toHaveClass(
+        'AngledLine__line-three--selecteda'
+      );
+      expect(skillEdgeThree).toHaveClass(
+        'AngledLine AngledLine--vertical AngledLine--unlocked'
+      );
     });
 
     it('should be inactive if the next node is locked', () => {
@@ -95,9 +108,15 @@ describe('SkillEdge', () => {
       const skillEdgeTwo = getByTestId('angled-line-two');
       const skillEdgeThree = getByTestId('angled-line-three');
 
-      expect(skillEdgeOne).not.toHaveClass('AngledLine__line-one--active');
-      expect(skillEdgeTwo).not.toHaveClass('AngledLine__line-two--active');
-      expect(skillEdgeThree).not.toHaveClass('AngledLine__line-three--active');
+      expect(skillEdgeOne).not.toHaveClass(
+        'AngledLine__line-one--selected AngledLine__line-one--selected'
+      );
+      expect(skillEdgeTwo).not.toHaveClass(
+        'AngledLine__line-two--selected AngledLine__line-two--selected'
+      );
+      expect(skillEdgeThree).not.toHaveClass(
+        'AngledLine__line-three--selected AngledLine__line-three--selected'
+      );
     });
 
     it('should be active if the next node is selected', () => {
@@ -112,9 +131,9 @@ describe('SkillEdge', () => {
       const skillEdgeTwo = getByTestId('angled-line-two');
       const skillEdgeThree = getByTestId('angled-line-three');
 
-      expect(skillEdgeOne).toHaveClass('AngledLine__line-one--active');
-      expect(skillEdgeTwo).toHaveClass('AngledLine__line-two--active');
-      expect(skillEdgeThree).toHaveClass('AngledLine__line-three--active');
+      expect(skillEdgeOne).toHaveClass('AngledLine__line-one--selected');
+      expect(skillEdgeTwo).toHaveClass('AngledLine__line-two--selected');
+      expect(skillEdgeThree).toHaveClass('AngledLine__line-three--selected');
     });
   });
 });

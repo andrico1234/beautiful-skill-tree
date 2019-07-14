@@ -14,16 +14,22 @@ const App = () => {
           return (
             <React.Fragment>
               <h2 style={{ padding: '0 16px' }}>Total skills: {skillCount}</h2>
-              <SkillTree
-                id="squat"
-                title="Squat Progression"
-                data={legsPushData}
-              />
-              <SkillTree
-                id="hinge"
-                title="Hinge Progression"
-                data={legsPullData}
-              />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree title="Squat Progression" data={legsPushData} />
+              <SkillTree title="Hinge Progression" data={legsPullData} />
             </React.Fragment>
           );
         }}

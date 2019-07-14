@@ -35,7 +35,7 @@ const data: Skill[] = [];
 <SkillTreeGroupProvider>
   <SkillTreeGroup>
     {skillCount => {
-      <SkillTree id="skill-tree" title="Skill Tree" data={data} />
+      <SkillTree title="Skill Tree" data={data} />
     }}
     </SkillTreeGroup>
 <SkillTreeGroupProvider>
