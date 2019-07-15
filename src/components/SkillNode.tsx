@@ -84,9 +84,11 @@ class SkillNode extends React.Component<Props, State> {
     }
 
     if (nodeState === UNLOCKED_STATE) {
+      this.context.incrementSelectedSkillCount();
       return this.updateState(SELECTED_STATE);
     }
 
+    this.context.decrementSelectedSkillCount();
     return this.updateState(UNLOCKED_STATE);
   };
 

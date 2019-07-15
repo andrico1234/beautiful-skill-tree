@@ -183,7 +183,7 @@
 .Node--unlocked:hover:before,
 .Node--unlocked:hover:after {
   opacity: 1;
-  height: 95%;
+  height: 85%;
   width: 95%;
   transition: width 0.6s, height 0.6s;
 }

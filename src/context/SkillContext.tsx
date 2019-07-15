@@ -1,25 +1,7 @@
 import * as React from 'react';
 import { ContextStorage, NodeState } from '../models';
 import { Dictionary } from '../models/utils';
-
-// const dummyState = {
-//   ['tree-lpl']: {},
-//   ['tree-lps']: {},
-//   totalSkillCount: 0,
-//   activeSkillCount: 0,
-// };
-
-interface State {
-  skills: Skills;
-  skillCount: number;
-}
-
-export interface ISkillContext {
-  skills: Skills;
-  skillCount: number;
-  updateSkillState: (key: string, updatedState: NodeState) => void;
-  addToSkillCount: (number: number) => void;
-}
+import { SELECTED_STATE } from '../components/constants';
 
 type Props = typeof SkillProvider.defaultProps & {
   appId: string;
@@ -29,12 +11,31 @@ type DefaultProps = {
   storage: ContextStorage;
 };
 
+interface State {
+  skills: Skills;
+  skillCount: number;
+  selectedSkillCount: number;
+}
+
+export interface ISkillContext {
+  skills: Skills;
+  skillCount: number;
+  selectedSkillCount: number;
+  updateSkillState: (key: string, updatedState: NodeState) => void;
+  incrementSelectedSkillCount: () => void;
+  decrementSelectedSkillCount: () => void;
+  addToSkillCount: (number: number) => void;
+}
+
 type Skills = Dictionary<NodeState>;
 
 const SkillContext = React.createContext<ISkillContext>({
   skills: {},
   skillCount: 0,
+  selectedSkillCount: 0,
   updateSkillState: () => undefined,
+  incrementSelectedSkillCount: () => undefined,
+  decrementSelectedSkillCount: () => undefined,
   addToSkillCount: () => undefined,
 });
 
@@ -46,10 +47,19 @@ export class SkillProvider extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const storedSkills =
+    const storedSkills: Skills =
       JSON.parse(props.storage.getItem(`skills-${props.appId}`)!) || {};
 
+    const selectedSkillCount = Object.keys(storedSkills).reduce((acc, i) => {
+      if (storedSkills[i] === SELECTED_STATE) {
+        return acc + 1;
+      }
+
+      return acc;
+    }, 0);
+
     this.state = {
+      selectedSkillCount,
       skills: storedSkills,
       skillCount: 0,
     };
@@ -61,11 +71,23 @@ export class SkillProvider extends React.Component<Props, State> {
     }));
   };
 
-  initialiseTree = () => {
-    // why did I add this stub here? is it releated to the commente dout data structure at the top? who knows!
+  incrementSelectedSkillCount = (): void => {
+    return this.setState(({ selectedSkillCount }) => {
+      return {
+        selectedSkillCount: selectedSkillCount + 1,
+      };
+    });
   };
 
-  clearSkillState = () => {
+  decrementSelectedSkillCount = (): void => {
+    return this.setState(({ selectedSkillCount }) => {
+      return {
+        selectedSkillCount: selectedSkillCount - 1,
+      };
+    });
+  };
+
+  resetSkills = () => {
     /* dummyState = {
       iterate over the keys, go through each item in the state object that begins with 'tree'
       set each activeState to === the item's default value (locked or unlocked);
@@ -74,8 +96,6 @@ export class SkillProvider extends React.Component<Props, State> {
       sounds like I have a bunch of actions, and some action creators. could that work in my favour?
     } */
   };
-
-  getActiveSkills = () => {};
 
   updateSkillState = (key: string, updatedState: NodeState): void => {
     this.setState((prevState: State) => {
@@ -103,6 +123,9 @@ export class SkillProvider extends React.Component<Props, State> {
           updateSkillState: this.updateSkillState,
           addToSkillCount: this.addToSkillCount,
           skillCount: this.state.skillCount,
+          incrementSelectedSkillCount: this.incrementSelectedSkillCount,
+          decrementSelectedSkillCount: this.decrementSelectedSkillCount,
+          selectedSkillCount: this.state.selectedSkillCount,
         }}
       >
         {this.props.children}

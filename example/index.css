@@ -7,3 +7,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.Example__heading {
+  padding: 0 16px;
+  text-align: center;
+  width: 300px;
+}
