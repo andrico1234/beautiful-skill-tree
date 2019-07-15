@@ -1,6 +1,6 @@
 {
   "name": "beautiful-skill-tree",
-  "version": "0.3.6",
+  "version": "0.5.1",
   "homepage": "https://github.com/andrico1234/beautiful-skill-tree",
   "repository": "andrico1234/beautiful-skill-tree",
   "main": "dist/index.js",
@@ -61,7 +61,6 @@
     "@types/lodash": "^4.14.136",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
-    "@types/uuid": "^3.4.5",
     "cssnano": "^4.1.10",
     "husky": "^3.0.0",
     "prettier": "^1.18.2",
@@ -76,7 +75,6 @@
     "@tippy.js/react": "^2.2.2",
     "classnames": "^2.2.6",
     "jest-dom": "^3.5.0",
-    "lodash": "^4.17.14",
-    "uuid": "^3.3.2"
+    "lodash": "^4.17.14"
   }
 }

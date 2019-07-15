@@ -27,18 +27,18 @@ For those that like their data typed, you can import `SkillType` from the packag
 Wrap your application like this:
 
 ```typescript
-import { SkillTreeGroup, SkillTree, SkillTreeGroupProvider, SkillType } from 'beautiful-skill-tree';
+import { SkillTreeGroup, SkillTree, SkillProvider, SkillType } from 'beautiful-skill-tree';
 import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
 
-<SkillTreeGroupProvider>
+<SkillProvider appId="test-example">
   <SkillTreeGroup>
     {skillCount => {
-      <SkillTree id="skill-tree" title="Skill Tree" data={data} />
+      <SkillTree title="Skill Tree" data={data} />
     }}
     </SkillTreeGroup>
-<SkillTreeGroupProvider>
+<SkillProvider>
 ```
 
 Run your application's starting script, access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
@@ -94,22 +94,35 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### title: `string` [*required*]
 
-#### data: `Skill` [*required*]
+#### data: `SkillType` [*required*]
 
 ### SkillTreeGroup
 
-#### children: `skillCount: React.ReactNode` [*required*]
+#### children: `(treeData) => React.ReactNode` [*required*]
 
-### Skill (export as SkillType)
+### SkillProvider
+
+#### appId: `string` [*required*]
+
+### SkillType
 
 ```typescript
-type Skill[] = {
+type SkillType[] = {
 	id: string;
 	title: string;
 	tooltipDescription: string;
 	icon?: string;
-	children: Skill[];
+	children: SkillType[];
 }
+```
+
+### TreeData
+
+```typescript
+type TreeData = {
+  skillCount: number;
+  selectedSkillCount: number;
+};
 ```
 
 ---
@@ -122,9 +135,9 @@ type Skill[] = {
 - [x] Tooltips
 - [x] Icons
 - [x] Responsive
-- [ ] Reset skill sree
+- [x] Expose skill tree state
+- [ ] Reset skill tree
 - [ ] CSS theming
-- [ ] Expose skill tree state
 - [ ] Optional nodes
 - [ ] Side nodes
 - [ ] Collapsable skill trees

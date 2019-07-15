@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, act, cleanup } from '@testing-library/react';
 import SkillTree from '../SkillTree';
 import MockLocalStorage from '../__mocks__/mockLocalStorage';
-import uuid4 from 'uuid/v4';
+import { SkillProvider } from '../../context/SkillContext';
+import SkillTreeGroup from '../../components/SkillTreeGroup';
 
 const mockSkillTreeData = [
   {
@@ -39,49 +40,66 @@ const mockSkillTreeData = [
   },
 ];
 
-function renderComponent(id: string) {
-  return render(
-    <SkillTree id={id} title="borderlands" data={mockSkillTreeData} />
+const defaultStoreContents = {
+  [`skills-test`]: JSON.stringify({}),
+};
+
+// @ts-ignore
+const storage = new MockLocalStorage(defaultStoreContents);
+
+function renderComponent() {
+  let selectedSkillCount: number;
+
+  const api = render(
+    <SkillProvider appId="test" storage={storage}>
+      <SkillTreeGroup>
+        {treeData => {
+          selectedSkillCount = treeData.selectedSkillCount;
+          return <SkillTree title="borderlands" data={mockSkillTreeData} />;
+        }}
+      </SkillTreeGroup>
+    </SkillProvider>
   );
+
+  return {
+    ...api,
+    getSelectedSkillCount() {
+      return selectedSkillCount;
+    },
+  };
 }
 
+function fireResize(width: number) {
+  // @ts-ignore
+  window.innerWidth = width;
+  window.dispatchEvent(new Event('resize'));
+}
+
+afterEach(() => {
+  storage.setItem('skills-test', JSON.stringify({}));
+  return cleanup();
+});
+
 describe('SkillTree', () => {
-  let currentId: string;
-
-  beforeEach(() => {
-    currentId = uuid4();
-
-    const defaultStoreContents = {
-      [`skills-${currentId}`]: JSON.stringify({}),
-    };
-
-    // @ts-ignore
-    window.localStorage = new MockLocalStorage(defaultStoreContents);
-  });
-
-  afterEach(cleanup);
-
-  it('renders the correct number of Nodes', () => {
-    const { queryAllByTestId } = renderComponent(currentId);
+  it('creates the correct number of Nodes', () => {
+    const { queryAllByTestId } = renderComponent();
 
     expect(queryAllByTestId(/item-/).length).toBe(4);
   });
 
-  it('should activate the first style on click', async () => {
-    const { getByTestId } = renderComponent(currentId);
+  it('on first click should activate the node', () => {
+    const { getByTestId, getSelectedSkillCount } = renderComponent();
 
     const topNode = getByTestId('item-one');
 
     fireEvent.click(topNode);
 
     expect(topNode).toHaveClass('Node Node--selected');
+    expect(getSelectedSkillCount()).toBe(1);
   });
 
-  it('should deactivate the first style on secondclick', async () => {
-    const id = uuid4();
-    currentId = id;
-
-    const { getByTestId } = renderComponent(id);
+  it('on second click should deactivate the first style', () => {
+    const { getByTestId, getSelectedSkillCount } = renderComponent();
 
     const topNode = getByTestId('item-one');
 
@@ -93,13 +111,12 @@ describe('SkillTree', () => {
 
     expect(topNode).toHaveClass('Node');
     expect(topNode).not.toHaveClass('Node Node--selected');
+
+    expect(getSelectedSkillCount()).toBe(0);
   });
 
-  it('should successfully selected all nodes when clicked in succession', async () => {
-    const id = uuid4();
-    currentId = id;
-
-    const { getByTestId } = renderComponent(id);
+  it('on sequential clicks should select all nodes', async () => {
+    const { getByTestId, getSelectedSkillCount } = renderComponent();
 
     const topNode = getByTestId('item-one');
     const middleNode = getByTestId('item-two');
@@ -116,13 +133,12 @@ describe('SkillTree', () => {
     fireEvent.click(bottomNode);
 
     expect(bottomNode).toHaveClass('Node Node--selected');
+
+    expect(getSelectedSkillCount()).toBe(3);
   });
 
-  it('should not select a node whose dependencies are not selected', async () => {
-    const id = uuid4();
-    currentId = id;
-
-    const { getByTestId } = renderComponent(id);
+  it('on disabled click no selected a node', () => {
+    const { getByTestId, getSelectedSkillCount } = renderComponent();
 
     const middleNode = getByTestId('item-two');
 
@@ -130,21 +146,19 @@ describe('SkillTree', () => {
 
     expect(middleNode).not.toHaveClass('Node Node--selected');
     expect(middleNode).not.toHaveStyle(`background-color: #f44336`);
+    expect(getSelectedSkillCount()).toBe(0);
   });
 
-  it('should load the correct skills that are saved to localstorage', () => {
+  it('should load the correct skills that are saved to the store', () => {
     const defaultSkills = {
       'item-one': 'selected',
       'item-two': 'unlocked',
       'item-three': 'locked',
     };
 
-    window.localStorage.setItem(
-      `skills-${currentId}`,
-      JSON.stringify(defaultSkills)
-    );
+    storage.setItem(`skills-test`, JSON.stringify(defaultSkills));
 
-    const { getByTestId } = renderComponent(currentId);
+    const { getByTestId, getSelectedSkillCount } = renderComponent();
 
     const topNode = getByTestId('item-one');
     const middleNode = getByTestId('item-two');
@@ -153,13 +167,33 @@ describe('SkillTree', () => {
     expect(topNode).toHaveClass('Node Node--selected');
     expect(middleNode).toHaveClass('Node Node--unlocked');
     expect(bottomNode).toHaveClass('Node Node--locked');
+
+    expect(getSelectedSkillCount()).toBe(1);
   });
 
   it('should diplay the separator component on mobile', () => {
     //@ts-ignore
     window.innerWidth = 200;
 
-    const { queryByTestId } = renderComponent(currentId);
+    const { queryByTestId } = renderComponent();
+
+    expect(queryByTestId('h-separator')).toBeTruthy();
+  });
+
+  xit('should correctly handle resizing from desktop to mobile', () => {
+    const resizeEvent = document.createEvent('Event');
+
+    // @ts-ignore
+    window.innerWidth = 1000;
+    resizeEvent.initEvent('resize', false, false);
+
+    const { queryByTestId } = renderComponent();
+
+    expect(queryByTestId('h-separator')).toBeFalsy();
+
+    act(() => {
+      fireResize(400);
+    });
 
     expect(queryByTestId('h-separator')).toBeTruthy();
   });
