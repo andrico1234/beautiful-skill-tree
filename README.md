@@ -94,7 +94,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### title: `string` [*required*]
 
-#### data: `Skill` [*required*]
+#### data: `SkillType` [*required*]
 
 ### SkillTreeGroup
 
@@ -104,15 +104,15 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### appId: `string` [*required*]
 
-### Skill (exported as SkillType)
+### SkillType
 
 ```typescript
-type Skill[] = {
+type SkillType[] = {
 	id: string;
 	title: string;
 	tooltipDescription: string;
 	icon?: string;
-	children: Skill[];
+	children: SkillType[];
 }
 ```
 
