@@ -98,13 +98,13 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ### SkillTreeGroup
 
-#### children: `skillCount: () => React.ReactNode` [*required*]
+#### children: `(treeData) => React.ReactNode` [*required*]
 
 ### SkillProvider
 
 #### appId: `string` [*required*]
 
-### Skill (export as SkillType)
+### Skill (exported as SkillType)
 
 ```typescript
 type Skill[] = {
@@ -114,6 +114,15 @@ type Skill[] = {
 	icon?: string;
 	children: Skill[];
 }
+```
+
+### TreeData
+
+```typescript
+type TreeData = {
+  skillCount: number;
+  selectedSkillCount: number;
+};
 ```
 
 ---
@@ -126,9 +135,9 @@ type Skill[] = {
 - [x] Tooltips
 - [x] Icons
 - [x] Responsive
-- [ ] Reset skill sree
+- [x] Expose skill tree state
+- [ ] Reset skill tree
 - [ ] CSS theming
-- [ ] Expose skill tree state
 - [ ] Optional nodes
 - [ ] Side nodes
 - [ ] Collapsable skill trees
