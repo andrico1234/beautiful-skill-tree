@@ -65,6 +65,14 @@ export class SkillProvider extends React.Component<Props, State> {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.writeToStorage);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.writeToStorage);
+  }
+
   addToSkillCount = (number: number): void => {
     this.setState(({ skillCount }) => ({
       skillCount: skillCount + number,
@@ -104,15 +112,17 @@ export class SkillProvider extends React.Component<Props, State> {
         [key]: updatedState,
       };
 
-      this.props.storage.setItem(
-        `skills-${this.props.appId}`,
-        JSON.stringify(updatedSkills)
-      );
-
       return {
         skills: updatedSkills,
       };
     });
+  };
+
+  writeToStorage = () => {
+    this.props.storage.setItem(
+      `skills-${this.props.appId}`,
+      JSON.stringify(this.state.skills)
+    );
   };
 
   render() {
