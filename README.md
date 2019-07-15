@@ -27,18 +27,18 @@ For those that like their data typed, you can import `SkillType` from the packag
 Wrap your application like this:
 
 ```typescript
-import { SkillTreeGroup, SkillTree, SkillTreeGroupProvider, SkillType } from 'beautiful-skill-tree';
+import { SkillTreeGroup, SkillTree, SkillProvider, SkillType } from 'beautiful-skill-tree';
 import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
 
-<SkillTreeGroupProvider>
+<SkillProvider appId="test-example">
   <SkillTreeGroup>
     {skillCount => {
       <SkillTree title="Skill Tree" data={data} />
     }}
     </SkillTreeGroup>
-<SkillTreeGroupProvider>
+<SkillProvider>
 ```
 
 Run your application's starting script, access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
@@ -98,7 +98,11 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ### SkillTreeGroup
 
-#### children: `skillCount: React.ReactNode` [*required*]
+#### children: `skillCount: () => React.ReactNode` [*required*]
+
+### SkillProvider
+
+#### appId: `string` [*required*]
 
 ### Skill (export as SkillType)
 
