@@ -1,19 +1,14 @@
 import React, { useContext } from 'react';
-import SkillTreeGroupContext from '../context/SkillTreeGroupContext';
-import { SkillProvider } from '../context/SkillContext';
+import SkillContext from '../context/SkillContext';
 
 interface Props {
   children: (skillCount: number) => React.ReactNode;
 }
 
 function SkillTreeGroup(props: Props) {
-  const { skillCount } = useContext(SkillTreeGroupContext);
+  const { skillCount } = useContext(SkillContext);
 
-  return (
-    <SkillProvider appId="calisthenics-skills" storage={localStorage}>
-      <div className="SkillTreeGroup">{props.children(skillCount)}</div>
-    </SkillProvider>
-  );
+  return <div className="SkillTreeGroup">{props.children(skillCount)}</div>;
 }
 
 export default SkillTreeGroup;

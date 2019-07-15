@@ -11,36 +11,59 @@ import { Dictionary } from '../models/utils';
 
 interface State {
   skills: Skills;
+  skillCount: number;
 }
 
 export interface ISkillContext {
   skills: Skills;
+  skillCount: number;
   updateSkillState: (key: string, updatedState: NodeState) => void;
+  addToSkillCount: (number: number) => void;
 }
 
-interface Props {
+type Props = typeof SkillProvider.defaultProps & {
   appId: string;
+};
+
+type DefaultProps = {
   storage: ContextStorage;
-}
+};
 
 type Skills = Dictionary<NodeState>;
 
 const SkillContext = React.createContext<ISkillContext>({
   skills: {},
+  skillCount: 0,
   updateSkillState: () => undefined,
+  addToSkillCount: () => undefined,
 });
 
 export class SkillProvider extends React.Component<Props, State> {
+  static defaultProps: DefaultProps = {
+    storage: localStorage,
+  };
+
   constructor(props: Props) {
     super(props);
 
+    const storedSkills =
+      JSON.parse(props.storage.getItem(`skills-${props.appId}`)!) || {};
+
     this.state = {
-      skills: JSON.parse(props.storage.getItem(`skills-${props.appId}`)!) || {},
+      skills: storedSkills,
+      skillCount: 0,
     };
   }
 
-  // give each skill tree it's own context that keeps track of its id. which is used to get the data. from the top level component.
-  initialiseTree = () => {};
+  addToSkillCount = (number: number): void => {
+    this.setState(({ skillCount }) => ({
+      skillCount: skillCount + number,
+    }));
+  };
+
+  initialiseTree = () => {
+    // why did I add this stub here? is it releated to the commente dout data structure at the top? who knows!
+  };
 
   clearSkillState = () => {
     /* dummyState = {
@@ -78,6 +101,8 @@ export class SkillProvider extends React.Component<Props, State> {
         value={{
           skills: this.state.skills,
           updateSkillState: this.updateSkillState,
+          addToSkillCount: this.addToSkillCount,
+          skillCount: this.state.skillCount,
         }}
       >
         {this.props.children}
