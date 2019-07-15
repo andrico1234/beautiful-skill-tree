@@ -35,6 +35,12 @@ describe('SkillNode component', () => {
     jest.resetAllMocks();
   });
 
+  test.todo('starts off unlocked if it has no parent');
+  test.todo('starts off unlocked if its parent is selected');
+  test.todo('starts off locked if none of its parents is selected');
+  test.todo('gets set to locked if none of its parents becomes selected');
+  test.todo('gets set to unlocked if one of its parents becomes selected');
+
   it('should successfully render the skill node', () => {
     const { getByTestId } = renderComponent();
 
