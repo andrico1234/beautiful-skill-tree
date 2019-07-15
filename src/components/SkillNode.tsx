@@ -24,6 +24,8 @@ interface State {
 
 interface Context {
   skills: Dictionary<NodeState>;
+  incrementSelectedSkillCount: VoidFunction;
+  decrementSelectedSkillCount: VoidFunction;
 }
 
 class SkillNode extends React.Component<Props, State> {
@@ -119,7 +121,8 @@ class SkillNode extends React.Component<Props, State> {
     const parentNodeIsSelected =
       !parentNodeId || parentState === SELECTED_STATE;
 
-    if (nodeState === UNLOCKED_STATE && !parentNodeIsSelected) {
+    if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
+      this.context.decrementSelectedSkillCount();
       return this.updateState(LOCKED_STATE);
     }
 
