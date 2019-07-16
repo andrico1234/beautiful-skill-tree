@@ -98,6 +98,31 @@ class SkillNode extends React.Component<Props, State> {
     return this.context.updateSkillState(this.props.skill.id, state);
   };
 
+  handleArrowUp = () => {};
+
+  handleArrowLeft = () => {};
+
+  handleArrowRight = () => {};
+
+  handleArrowDown = () => {};
+
+  handleEnter = () => {};
+
+  handleKeyPress = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowLeft':
+        return this.handleArrowLeft();
+      case 'ArrowRight':
+        return this.handleArrowRight();
+      case 'ArrowUp':
+        return this.handleArrowUp();
+      case 'ArrowDown':
+        return this.handleArrowDown();
+      case 'Enter':
+        return this.handleEnter();
+    }
+  };
+
   componentDidMount() {
     this.calculatePosition();
     this.calculateOverlayWidth();
@@ -139,7 +164,7 @@ class SkillNode extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        <div className="SkillNode">
+        <div className="SkillNode" onKeyPress={this.handleKeyPress}>
           <span
             data-testid="skill-node-overlay"
             style={{ width: this.childWidth + 4 }}

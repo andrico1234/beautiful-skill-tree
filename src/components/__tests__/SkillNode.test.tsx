@@ -35,6 +35,25 @@ describe('SkillNode component', () => {
     jest.resetAllMocks();
   });
 
+  describe('supports full keyboard navigation', () => {
+    test.todo('moves to the parent when the up arrow key is pressed');
+    test.todo(
+      'moves to its rightward sibling when the right arrow key is pressed'
+    );
+    test.todo(
+      'moves to its _leftward sibling when the _left arrow key is pressed'
+    );
+    test.todo('moves to a child node when the down arrow key is pressed');
+    test.todo('moves to the original child when down is pressed after up');
+    test.todo(
+      'becomes selected when enter is pressed and it has focus is in unlocked state'
+    );
+    test.todo(
+      'becomes unlocked when enter is pressed and it has focus is in selected state'
+    );
+    test.todo('moves to the next node when tab is pressed');
+  });
+
   it('should successfully render the skill node', () => {
     const { getByTestId } = renderComponent();
 
