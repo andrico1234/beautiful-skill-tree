@@ -1,6 +1,6 @@
 {
   "name": "beautiful-skill-tree",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "homepage": "https://github.com/andrico1234/beautiful-skill-tree",
   "repository": "andrico1234/beautiful-skill-tree",
   "main": "dist/index.js",
