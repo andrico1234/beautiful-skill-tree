@@ -26,7 +26,9 @@ const SkillTreeSegment = React.memo(function({
   parentState,
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
-  const { skills, updateSkillState } = useContext(SkillContext);
+  const { skills, updateSkillState, decrementSelectedSkillCount } = useContext(
+    SkillContext
+  );
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
   );
@@ -36,6 +38,7 @@ const SkillTreeSegment = React.memo(function({
 
   useEffect(() => {
     if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
+      decrementSelectedSkillCount();
       return updateSkillState(skill.id, LOCKED_STATE);
     }
 
