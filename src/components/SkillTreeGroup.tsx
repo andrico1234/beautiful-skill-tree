@@ -4,6 +4,7 @@ import SkillContext from '../context/SkillContext';
 export interface TreeData {
   skillCount: number;
   selectedSkillCount: number;
+  resetSkills: VoidFunction;
 }
 
 interface Props {
@@ -11,11 +12,14 @@ interface Props {
 }
 
 function SkillTreeGroup(props: Props) {
-  const { skillCount, selectedSkillCount } = useContext(SkillContext);
+  const { skillCount, selectedSkillCount, resetSkills } = useContext(
+    SkillContext
+  );
 
   const treeData = {
     skillCount,
     selectedSkillCount,
+    resetSkills,
   };
 
   return <div className="SkillTreeGroup">{props.children(treeData)}</div>;

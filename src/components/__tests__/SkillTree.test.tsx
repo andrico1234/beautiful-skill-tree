@@ -44,17 +44,18 @@ const defaultStoreContents = {
   [`skills-test`]: JSON.stringify({}),
 };
 
-// @ts-ignore
 const storage = new MockLocalStorage(defaultStoreContents);
 
 function renderComponent() {
   let selectedSkillCount: number;
+  let resetSkills: VoidFunction;
 
   const api = render(
     <SkillProvider appId="test" storage={storage}>
       <SkillTreeGroup>
         {treeData => {
           selectedSkillCount = treeData.selectedSkillCount;
+          resetSkills = treeData.resetSkills;
           return <SkillTree title="borderlands" data={mockSkillTreeData} />;
         }}
       </SkillTreeGroup>
@@ -63,6 +64,9 @@ function renderComponent() {
 
   return {
     ...api,
+    resetSkillsHandler() {
+      return resetSkills();
+    },
     getSelectedSkillCount() {
       return selectedSkillCount;
     },
@@ -169,6 +173,36 @@ describe('SkillTree', () => {
     expect(bottomNode).toHaveClass('Node Node--locked');
 
     expect(getSelectedSkillCount()).toBe(1);
+  });
+
+  it('should deselect all skill trees when resetSkills is invoked', () => {
+    const {
+      getByTestId,
+      getSelectedSkillCount,
+      resetSkillsHandler,
+    } = renderComponent();
+
+    const topNode = getByTestId('item-one');
+    const middleNode = getByTestId('item-two');
+    const bottomNode = getByTestId('item-three');
+
+    fireEvent.click(topNode);
+    fireEvent.click(middleNode);
+    fireEvent.click(bottomNode);
+
+    expect(topNode).toHaveClass('Node Node--selected');
+    expect(middleNode).toHaveClass('Node Node--selected');
+    expect(bottomNode).toHaveClass('Node Node--selected');
+
+    expect(getSelectedSkillCount()).toBe(3);
+
+    resetSkillsHandler();
+
+    expect(topNode).toHaveClass('Node Node--unlocked');
+    expect(middleNode).toHaveClass('Node Node--locked');
+    expect(bottomNode).toHaveClass('Node Node--locked');
+
+    expect(getSelectedSkillCount()).toBe(0);
   });
 
   it('should diplay the separator component on mobile', () => {

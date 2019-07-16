@@ -10,11 +10,12 @@ const App = () => {
   return (
     <SkillProvider appId="bst-example">
       <SkillTreeGroup>
-        {({ skillCount, selectedSkillCount }) => {
+        {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
             <React.Fragment>
               <h2 className="Example__heading">
                 Completed skills: {selectedSkillCount}/{skillCount}
+                <button onClick={resetSkills}>Reset</button>
               </h2>
               <SkillTree title="Squat Progression" data={legsPushData} />
               <SkillTree title="Hinge Progression" data={legsPullData} />

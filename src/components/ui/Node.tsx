@@ -5,7 +5,7 @@ import { Skill } from '../../models';
 import Icon from './Icon';
 
 interface Props {
-  handleClick: () => void;
+  handleClick: VoidFunction;
   id: string;
   currentState: string;
   skill: Skill;

@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { throttle } from 'lodash';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
 import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
 import { Nullable } from '../models/utils';
-import { LOCKED_STATE } from './constants';
+import SkillContext from '../context/SkillContext';
 
 interface Props {
   skill: Skill;
@@ -25,7 +25,9 @@ const SkillTreeSegment = React.memo(function({
   parentState,
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
-  const [nodeState, setNodeState] = useState<NodeState>(LOCKED_STATE);
+  const { skills } = useContext(SkillContext);
+  const nodeState = skills[skill.id];
+
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
   );
@@ -73,7 +75,6 @@ const SkillTreeSegment = React.memo(function({
           skill={skill}
           parentState={parentState}
           nodeState={nodeState}
-          setNodeState={setNodeState}
           parentNodeId={parentNodeId}
         />
       </div>

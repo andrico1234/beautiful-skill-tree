@@ -22,9 +22,10 @@ export interface ISkillContext {
   skillCount: number;
   selectedSkillCount: number;
   updateSkillState: (key: string, updatedState: NodeState) => void;
-  incrementSelectedSkillCount: () => void;
-  decrementSelectedSkillCount: () => void;
+  incrementSelectedSkillCount: VoidFunction;
+  decrementSelectedSkillCount: VoidFunction;
   addToSkillCount: (number: number) => void;
+  resetSkills: VoidFunction;
 }
 
 type Skills = Dictionary<NodeState>;
@@ -37,6 +38,7 @@ const SkillContext = React.createContext<ISkillContext>({
   incrementSelectedSkillCount: () => undefined,
   decrementSelectedSkillCount: () => undefined,
   addToSkillCount: () => undefined,
+  resetSkills: () => undefined,
 });
 
 export class SkillProvider extends React.Component<Props, State> {
@@ -96,13 +98,20 @@ export class SkillProvider extends React.Component<Props, State> {
   };
 
   resetSkills = () => {
-    /* dummyState = {
-      iterate over the keys, go through each item in the state object that begins with 'tree'
-      set each activeState to === the item's default value (locked or unlocked);
-      set activeSkillCount to 0
-      do I need to use a reducer for this?
-      sounds like I have a bunch of actions, and some action creators. could that work in my favour?
-    } */
+    return this.setState(prevState => {
+      const { skills } = prevState;
+      let resettedSkills = { ...skills };
+      const skillKeys = Object.keys(resettedSkills);
+
+      skillKeys.map(key => {
+        resettedSkills[key] = 'locked';
+      });
+
+      return {
+        skills: resettedSkills,
+        selectedSkillCount: 0,
+      };
+    });
   };
 
   updateSkillState = (key: string, updatedState: NodeState): void => {
@@ -136,6 +145,7 @@ export class SkillProvider extends React.Component<Props, State> {
           incrementSelectedSkillCount: this.incrementSelectedSkillCount,
           decrementSelectedSkillCount: this.decrementSelectedSkillCount,
           selectedSkillCount: this.state.selectedSkillCount,
+          resetSkills: this.resetSkills,
         }}
       >
         {this.props.children}

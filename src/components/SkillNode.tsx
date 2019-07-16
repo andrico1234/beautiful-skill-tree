@@ -7,7 +7,6 @@ import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
 import { Skill, ParentPosition, NodeState } from '../models';
-import { Dictionary } from '../models/utils';
 import Node from './ui/Node';
 
 interface Props {
@@ -15,29 +14,21 @@ interface Props {
   parentNodeId?: string;
   parentState: NodeState;
   nodeState: NodeState;
-  setNodeState: (state: NodeState) => void;
 }
 
 interface State {
   parentPosition: ParentPosition;
 }
 
-interface Context {
-  skills: Dictionary<NodeState>;
-}
-
 class SkillNode extends React.Component<Props, State> {
   static contextType = SkillContext;
   private skillNodeRef: React.RefObject<HTMLDivElement>;
-  private throttledResize: (() => void) & Cancelable;
+  private throttledResize: VoidFunction & Cancelable;
   private childWidth: number = 0;
 
-  constructor(props: Props, context: Context) {
+  constructor(props: Props) {
     super(props);
 
-    const { id } = props.skill;
-
-    props.setNodeState(context.skills[id]);
     this.skillNodeRef = React.createRef();
     this.throttledResize = throttle(this.handleResize, 200);
 
@@ -93,8 +84,6 @@ class SkillNode extends React.Component<Props, State> {
   };
 
   updateState = (state: NodeState) => {
-    this.props.setNodeState(state);
-
     return this.context.updateSkillState(this.props.skill.id, state);
   };
 
@@ -118,6 +107,10 @@ class SkillNode extends React.Component<Props, State> {
 
     const parentNodeIsSelected =
       !parentNodeId || parentState === SELECTED_STATE;
+
+    if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
+      return this.updateState(LOCKED_STATE);
+    }
 
     if (nodeState === UNLOCKED_STATE && !parentNodeIsSelected) {
       return this.updateState(LOCKED_STATE);

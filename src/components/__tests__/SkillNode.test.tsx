@@ -3,8 +3,6 @@ import { render, cleanup, act, fireEvent } from '@testing-library/react';
 import SkillNode from '../SkillNode';
 import { NodeState } from 'models';
 
-const setNodeStateMock = jest.fn();
-
 function fireResize(width: number) {
   // @ts-ignore
   window.innerWidth = width;
@@ -15,7 +13,6 @@ function renderComponent(nodeState: NodeState = 'locked') {
   return render(
     <SkillNode
       parentState="unlocked"
-      setNodeState={setNodeStateMock}
       nodeState={nodeState}
       skill={{
         children: [],
@@ -41,32 +38,16 @@ describe('SkillNode component', () => {
     expect(getByTestId('skill-node-overlay')).toHaveClass('SkillNode__overlay');
   });
 
-  it('should not invoke the click handler update when the Node is click whenlocked', () => {
+  it("should not change the state of the node when clicked while it's parent is lockaed", () => {
     const { getByTestId } = renderComponent();
 
     const node = getByTestId('test-node');
 
     expect(node).toHaveClass('Node Node--locked');
 
-    expect(setNodeStateMock).toHaveBeenCalledTimes(3);
-
     fireEvent.click(node);
 
-    expect(setNodeStateMock).toHaveBeenCalledTimes(3);
-  });
-
-  it('should handle the state update correctly when the Node is clicked', () => {
-    const { getByTestId } = renderComponent('unlocked');
-
-    const node = getByTestId('test-node');
-
-    expect(node).toHaveClass('Node Node--unlocked');
-
-    expect(setNodeStateMock).toHaveBeenCalledTimes(2);
-
-    fireEvent.click(node);
-
-    expect(setNodeStateMock).toHaveBeenCalledTimes(3);
+    expect(node).toHaveClass('Node Node--locked');
   });
 
   it('should handle resizing of the window correctly', () => {
