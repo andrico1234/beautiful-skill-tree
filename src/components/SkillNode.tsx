@@ -11,8 +11,6 @@ import Node from './ui/Node';
 
 interface Props {
   skill: Skill;
-  parentNodeId?: string;
-  parentState: NodeState;
   nodeState: NodeState;
 }
 
@@ -100,29 +98,6 @@ class SkillNode extends React.Component<Props, State> {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.throttledResize);
-  }
-
-  componentDidUpdate() {
-    const { parentNodeId, nodeState, parentState } = this.props;
-
-    const parentNodeIsSelected =
-      !parentNodeId || parentState === SELECTED_STATE;
-
-    if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
-      return this.updateState(LOCKED_STATE);
-    }
-
-    if (nodeState === UNLOCKED_STATE && !parentNodeIsSelected) {
-      return this.updateState(LOCKED_STATE);
-    }
-
-    if (!parentNodeIsSelected) {
-      return null;
-    }
-
-    if (nodeState === LOCKED_STATE && parentNodeIsSelected) {
-      return this.updateState(UNLOCKED_STATE);
-    }
   }
 
   render() {

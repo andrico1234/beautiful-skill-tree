@@ -5,6 +5,7 @@ import SkillEdge from './SkillEdge';
 import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
 import { Nullable } from '../models/utils';
 import SkillContext from '../context/SkillContext';
+import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
 
 interface Props {
   skill: Skill;
@@ -25,12 +26,31 @@ const SkillTreeSegment = React.memo(function({
   parentState,
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
-  const { skills } = useContext(SkillContext);
-  const nodeState = skills[skill.id];
-
+  const { skills, updateSkillState } = useContext(SkillContext);
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
   );
+
+  const nodeState = skills[skill.id];
+  const parentNodeIsSelected = !parentNodeId || parentState === SELECTED_STATE;
+
+  useEffect(() => {
+    if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
+      return updateSkillState(skill.id, LOCKED_STATE);
+    }
+
+    if (nodeState === UNLOCKED_STATE && !parentNodeIsSelected) {
+      return updateSkillState(skill.id, LOCKED_STATE);
+    }
+
+    if (!parentNodeIsSelected) {
+      return;
+    }
+
+    if (nodeState === LOCKED_STATE && parentNodeIsSelected) {
+      return updateSkillState(skill.id, UNLOCKED_STATE);
+    }
+  }, [nodeState, parentState]);
 
   useEffect(() => {
     function calculatePosition() {
@@ -71,12 +91,7 @@ const SkillTreeSegment = React.memo(function({
         />
       )}
       <div ref={skillNodeRef}>
-        <SkillNode
-          skill={skill}
-          parentState={parentState}
-          nodeState={nodeState}
-          parentNodeId={parentNodeId}
-        />
+        <SkillNode skill={skill} nodeState={nodeState} />
       </div>
     </div>
   );

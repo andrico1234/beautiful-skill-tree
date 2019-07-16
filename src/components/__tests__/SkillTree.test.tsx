@@ -175,7 +175,7 @@ describe('SkillTree', () => {
     expect(getSelectedSkillCount()).toBe(1);
   });
 
-  it('should deselect all skill trees when resetSkills is invoked', () => {
+  xit('should deselect all skill trees when resetSkills is invoked', () => {
     const {
       getByTestId,
       getSelectedSkillCount,
