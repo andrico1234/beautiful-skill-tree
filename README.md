@@ -122,6 +122,7 @@ type SkillType[] = {
 type TreeData = {
   skillCount: number;
   selectedSkillCount: number;
+  resetSkills: () => void;
 };
 ```
 
@@ -136,7 +137,7 @@ type TreeData = {
 - [x] Icons
 - [x] Responsive
 - [x] Expose skill tree state
-- [ ] Reset skill tree
+- [x] Reset skill tree
 - [ ] CSS theming
 - [ ] Optional nodes
 - [ ] Side nodes
@@ -149,3 +150,8 @@ type TreeData = {
 ## Contributing
 
 [contributing guidelines](/CONTRIBUTING.md)
+
+### Contributors
+
+[Andrico Karoulla](https://github.com/andrico1234)
+[Juan Melendez](https://github.com/juanmanual)
