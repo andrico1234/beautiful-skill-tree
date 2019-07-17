@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import SkillEdge from '../SkillEdge';
 import { NodeState } from 'models';
 
@@ -17,8 +17,6 @@ function renderComponent(startingState: NodeState, position = defaultPosition) {
 }
 
 describe('SkillEdge', () => {
-  afterEach(cleanup);
-
   describe('straight lines', () => {
     it('should be inactive if the next node is unlocked', async () => {
       const startingState = 'unlocked';

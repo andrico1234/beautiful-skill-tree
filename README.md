@@ -14,7 +14,7 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 `yarn add beautiful-skill-tree`
 
-The package exposes the thre components `SkillTree`, `SkillTreeGroup` and `SkillTreeGroupProvider`.You'll also need to import the style sheet `beautiful-skill-tree/styles.css`.
+The package exposes three components `SkillTree`, `SkillTreeGroup` and `SkillTreeGroupProvider`.You'll also need to import the style sheet from `beautiful-skill-tree/styles.css`.
 
 The `SkillTree` is the component that takes your data and renders the tree of components.
 
@@ -41,7 +41,7 @@ const data: Skill[] = [];
 <SkillProvider>
 ```
 
-Run your application's starting script, access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
+Run your application's starting script and access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
 
 Add the following data to your skill tree and see what happens:
 

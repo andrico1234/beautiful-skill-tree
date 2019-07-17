@@ -39,7 +39,8 @@
   },
   "jest": {
     "setupFilesAfterEnv": [
-      "<rootDir>src/setupTests.ts"
+      "<rootDir>src/setupTests.ts",
+      "@testing-library/react/cleanup-after-each"
     ],
     "moduleNameMapper": {
       ".*\\.(css)$": "<rootDir>src/components/__mocks__/styleMock.ts"

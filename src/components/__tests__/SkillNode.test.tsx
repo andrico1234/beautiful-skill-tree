@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, act, fireEvent } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import SkillNode from '../SkillNode';
 import { NodeState } from 'models';
 
@@ -12,7 +12,6 @@ function fireResize(width: number) {
 function renderComponent(nodeState: NodeState = 'locked') {
   return render(
     <SkillNode
-      parentState="unlocked"
       nodeState={nodeState}
       skill={{
         children: [],
@@ -26,8 +25,6 @@ function renderComponent(nodeState: NodeState = 'locked') {
 }
 
 describe('SkillNode component', () => {
-  afterEach(cleanup);
-
   beforeEach(() => {
     jest.resetAllMocks();
   });
