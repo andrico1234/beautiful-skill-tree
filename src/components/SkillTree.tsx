@@ -4,6 +4,7 @@ import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
+import { SkillTreeProvider } from '../context/SkillTreeContext';
 
 interface Props {
   data: Skill[];
@@ -31,7 +32,7 @@ function SkillTree({ data, title }: Props) {
   }, []);
 
   return (
-    <React.Fragment>
+    <SkillTreeProvider treeId={title}>
       <CalculateTotalNodes data={data} />
       <div className="SkillTree__container">
         <h2 className="SkillTree__title">{title}</h2>
@@ -50,7 +51,7 @@ function SkillTree({ data, title }: Props) {
           })}
         </div>
       </div>
-    </React.Fragment>
+    </SkillTreeProvider>
   );
 }
 

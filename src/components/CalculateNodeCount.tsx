@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Skill } from 'models';
-import SkillContext from '../context/SkillContext';
+import SkillTreeContext from '../context/SkillTreeContext';
 
 interface Props {
   data: Skill[];
@@ -17,7 +17,7 @@ function calculateNodeCount(data: Skill[]): number {
 }
 
 function CalculateNodeCount({ data }: Props) {
-  const { addToSkillCount } = useContext(SkillContext);
+  const { addToSkillCount } = useContext(SkillTreeContext);
 
   useEffect(() => {
     const count = calculateNodeCount(data);

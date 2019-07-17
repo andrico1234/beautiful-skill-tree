@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ContextStorage, NodeState } from '../models';
 import { Dictionary } from '../models/utils';
-import { SELECTED_STATE } from '../components/constants';
+// import { SELECTED_STATE } from '../components/constants';
 
 type Props = typeof SkillProvider.defaultProps & {
   appId: string;
@@ -11,33 +11,35 @@ type DefaultProps = {
   storage: ContextStorage;
 };
 
+type Skills = Dictionary<NodeState>;
+
 interface State {
-  skills: Skills;
+  globalSkills: Dictionary<Skills>;
   skillCount: number;
   selectedSkillCount: number;
 }
 
-export interface ISkillContext {
-  skills: Skills;
+export interface ISkillAppContext {
+  appId: string;
   skillCount: number;
   selectedSkillCount: number;
-  updateSkillState: (key: string, updatedState: NodeState) => void;
+  updateSkillState: (treeId: string, updatedState: Skills) => void;
   incrementSelectedSkillCount: VoidFunction;
   decrementSelectedSkillCount: VoidFunction;
   addToSkillCount: (number: number) => void;
+  addToSelectedSkillCount: (number: number) => void;
   resetSkills: VoidFunction;
 }
 
-type Skills = Dictionary<NodeState>;
-
-const SkillContext = React.createContext<ISkillContext>({
-  skills: {},
+const SkillAppContext = React.createContext<ISkillAppContext>({
+  appId: '',
   skillCount: 0,
   selectedSkillCount: 0,
   updateSkillState: () => undefined,
   incrementSelectedSkillCount: () => undefined,
   decrementSelectedSkillCount: () => undefined,
   addToSkillCount: () => undefined,
+  addToSelectedSkillCount: () => undefined,
   resetSkills: () => undefined,
 });
 
@@ -49,20 +51,12 @@ export class SkillProvider extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const storedSkills: Skills =
+    const storedSkills: Dictionary<Skills> =
       JSON.parse(props.storage.getItem(`skills-${props.appId}`)!) || {};
 
-    const selectedSkillCount = Object.keys(storedSkills).reduce((acc, i) => {
-      if (storedSkills[i] === SELECTED_STATE) {
-        return acc + 1;
-      }
-
-      return acc;
-    }, 0);
-
     this.state = {
-      selectedSkillCount,
-      skills: storedSkills,
+      selectedSkillCount: 0,
+      globalSkills: storedSkills,
       skillCount: 0,
     };
   }
@@ -75,9 +69,16 @@ export class SkillProvider extends React.Component<Props, State> {
     window.removeEventListener('beforeunload', this.writeToStorage);
   }
 
+  // refactor the increment items to use just one method.
   addToSkillCount = (number: number): void => {
     this.setState(({ skillCount }) => ({
       skillCount: skillCount + number,
+    }));
+  };
+
+  addToSelectedSkillCount = (number: number): void => {
+    this.setState(({ selectedSkillCount }) => ({
+      selectedSkillCount: selectedSkillCount + number,
     }));
   };
 
@@ -98,31 +99,29 @@ export class SkillProvider extends React.Component<Props, State> {
   };
 
   resetSkills = () => {
-    return this.setState(prevState => {
-      const { skills } = prevState;
-      let resettedSkills = { ...skills };
-      const skillKeys = Object.keys(resettedSkills);
-
-      skillKeys.map(key => {
-        resettedSkills[key] = 'locked';
-      });
-
-      return {
-        skills: resettedSkills,
-        selectedSkillCount: 0,
-      };
-    });
+    // return this.setState(prevState => {
+    //   const { globalSkills } = prevState;
+    //   let resettedSkills = { ...globalSkills };
+    //   const skillKeys = Object.keys(resettedSkills);
+    //   skillKeys.map(key => {
+    //     resettedSkills[key] = 'locked';
+    //   });
+    //   return {
+    //     skills: resettedSkills,
+    //     selectedSkillCount: 0,
+    //   };
+    // });
   };
 
-  updateSkillState = (key: string, updatedState: NodeState): void => {
+  updateSkillState = (treeId: string, updatedState: Skills): void => {
     this.setState((prevState: State) => {
       const updatedSkills = {
-        ...prevState.skills,
-        [key]: updatedState,
+        ...prevState.globalSkills,
+        [treeId]: updatedState,
       };
 
       return {
-        skills: updatedSkills,
+        globalSkills: updatedSkills,
       };
     });
   };
@@ -130,17 +129,18 @@ export class SkillProvider extends React.Component<Props, State> {
   writeToStorage = () => {
     this.props.storage.setItem(
       `skills-${this.props.appId}`,
-      JSON.stringify(this.state.skills)
+      JSON.stringify(this.state.globalSkills)
     );
   };
 
   render() {
     return (
-      <SkillContext.Provider
+      <SkillAppContext.Provider
         value={{
-          skills: this.state.skills,
+          appId: this.props.appId,
           updateSkillState: this.updateSkillState,
           addToSkillCount: this.addToSkillCount,
+          addToSelectedSkillCount: this.addToSelectedSkillCount,
           skillCount: this.state.skillCount,
           incrementSelectedSkillCount: this.incrementSelectedSkillCount,
           decrementSelectedSkillCount: this.decrementSelectedSkillCount,
@@ -149,9 +149,9 @@ export class SkillProvider extends React.Component<Props, State> {
         }}
       >
         {this.props.children}
-      </SkillContext.Provider>
+      </SkillAppContext.Provider>
     );
   }
 }
 
-export default SkillContext;
+export default SkillAppContext;

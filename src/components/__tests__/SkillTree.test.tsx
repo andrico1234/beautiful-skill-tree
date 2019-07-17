@@ -2,8 +2,9 @@ import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react';
 import SkillTree from '../SkillTree';
 import MockLocalStorage from '../__mocks__/mockLocalStorage';
-import { SkillProvider } from '../../context/SkillContext';
+import { SkillProvider } from '../../context/SkillAppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
+import { SkillTreeProvider } from '../../context/SkillTreeContext';
 
 const mockSkillTreeData = [
   {
@@ -56,7 +57,11 @@ function renderComponent() {
         {treeData => {
           selectedSkillCount = treeData.selectedSkillCount;
           resetSkills = treeData.resetSkills;
-          return <SkillTree title="borderlands" data={mockSkillTreeData} />;
+          return (
+            <SkillTreeProvider treeId="hey">
+              <SkillTree title="borderlands" data={mockSkillTreeData} />
+            </SkillTreeProvider>
+          );
         }}
       </SkillTreeGroup>
     </SkillProvider>

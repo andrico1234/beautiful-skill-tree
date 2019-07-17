@@ -1,8 +1,8 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { throttle, Cancelable, isEmpty } from 'lodash';
+import { throttle, Cancelable } from 'lodash';
 import Tippy from '@tippy.js/react';
-import SkillContext from '../context/SkillContext';
+import SkillTreeContext from '../context/SkillTreeContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
@@ -19,7 +19,7 @@ interface State {
 }
 
 class SkillNode extends React.Component<Props, State> {
-  static contextType = SkillContext;
+  static contextType = SkillTreeContext;
   private skillNodeRef: React.RefObject<HTMLDivElement>;
   private throttledResize: VoidFunction & Cancelable;
   private childWidth: number = 0;
@@ -90,10 +90,6 @@ class SkillNode extends React.Component<Props, State> {
     this.calculateOverlayWidth();
 
     window.addEventListener('resize', this.throttledResize);
-
-    if (isEmpty(this.context.skills)) {
-      return this.updateState(UNLOCKED_STATE);
-    }
   }
 
   componentWillUnmount() {

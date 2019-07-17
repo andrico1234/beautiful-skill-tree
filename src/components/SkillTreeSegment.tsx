@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
-import { throttle } from 'lodash';
+import { throttle, isEmpty } from 'lodash';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
 import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
 import { Nullable } from '../models/utils';
-import SkillContext from '../context/SkillContext';
+import SkillTreeContext from '../context/SkillTreeContext';
 import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
 
 interface Props {
@@ -27,8 +27,9 @@ const SkillTreeSegment = React.memo(function({
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
   const { skills, updateSkillState, decrementSelectedSkillCount } = useContext(
-    SkillContext
+    SkillTreeContext
   );
+
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
   );
@@ -74,6 +75,10 @@ const SkillTreeSegment = React.memo(function({
 
     window.addEventListener('resize', throttle(calculatePosition, 250));
     calculatePosition();
+
+    if (isEmpty(skills)) {
+      return updateSkillState(skill.id, UNLOCKED_STATE);
+    }
 
     return function cleanup() {
       window.removeEventListener('resize', throttle(calculatePosition));
