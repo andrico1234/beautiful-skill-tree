@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { render } from '@testing-library/react';
 import CalculateSkillNodes from '../CalculateNodeCount';
 import { Skill } from 'models';
-import SkillAppContext from '../../context/SkillAppContext';
-import { SkillTreeProvider } from '../../context/SkillTreeContext';
+import AppContext from '../../context/AppContext';
+import { SkillTreeProvider } from '../../context/SkillContext';
 import {
   legsPullData,
   legsPushData,
@@ -14,7 +14,7 @@ interface GetDummyCounterProps {
 }
 
 function GetDummyCounter({ children }: GetDummyCounterProps) {
-  const { skillCount } = useContext(SkillAppContext);
+  const { skillCount } = useContext(AppContext);
 
   return children(skillCount);
 }

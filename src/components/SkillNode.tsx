@@ -2,7 +2,7 @@ import * as React from 'react';
 import classnames from 'classnames';
 import { throttle, Cancelable } from 'lodash';
 import Tippy from '@tippy.js/react';
-import SkillTreeContext from '../context/SkillTreeContext';
+import SkillContext from '../context/SkillContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
@@ -20,7 +20,7 @@ interface State {
 }
 
 class SkillNode extends React.Component<Props, State> {
-  static contextType = SkillTreeContext;
+  static contextType = SkillContext;
   private skillNodeRef: React.RefObject<HTMLDivElement>;
   private throttledResize: VoidFunction & Cancelable;
   private childWidth: number = 0;

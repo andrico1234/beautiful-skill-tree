@@ -5,7 +5,7 @@ interface State {
   selectedSkillCount: number;
 }
 
-export interface ISkillAppContext {
+export interface IAppContext {
   skillCount: number;
   selectedSkillCount: number;
   incrementSelectedSkillCount: (number: number) => void;
@@ -14,7 +14,7 @@ export interface ISkillAppContext {
   resetSkills: VoidFunction;
 }
 
-const SkillAppContext = React.createContext<ISkillAppContext>({
+const AppContext = React.createContext<IAppContext>({
   skillCount: 0,
   selectedSkillCount: 0,
   incrementSelectedSkillCount: () => undefined,
@@ -72,7 +72,7 @@ export class SkillProvider extends React.Component<{}, State> {
 
   render() {
     return (
-      <SkillAppContext.Provider
+      <AppContext.Provider
         value={{
           addToSkillCount: this.addToSkillCount,
           skillCount: this.state.skillCount,
@@ -83,9 +83,9 @@ export class SkillProvider extends React.Component<{}, State> {
         }}
       >
         {this.props.children}
-      </SkillAppContext.Provider>
+      </AppContext.Provider>
     );
   }
 }
 
-export default SkillAppContext;
+export default AppContext;

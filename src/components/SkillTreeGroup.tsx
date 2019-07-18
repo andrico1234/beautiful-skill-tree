@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import SkillAppContext from '../context/SkillAppContext';
+import AppContext from '../context/AppContext';
 
 export interface TreeData {
   skillCount: number;
@@ -13,7 +13,7 @@ interface Props {
 
 function SkillTreeGroup(props: Props) {
   const { skillCount, selectedSkillCount, resetSkills } = useContext(
-    SkillAppContext
+    AppContext
   );
 
   const treeData = {

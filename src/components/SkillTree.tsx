@@ -4,7 +4,7 @@ import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
-import { SkillTreeProvider } from '../context/SkillTreeContext';
+import { SkillTreeProvider } from '../context/SkillContext';
 
 interface Props {
   treeId: string;

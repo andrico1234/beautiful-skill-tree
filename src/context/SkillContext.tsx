@@ -1,7 +1,7 @@
 import React from 'react';
 import { NodeState, ContextStorage } from '../models';
 import { Dictionary } from '../models/utils';
-import SkillAppContext, { ISkillAppContext } from './SkillAppContext';
+import AppContext, { IAppContext } from './AppContext';
 import { SELECTED_STATE } from '../components/constants';
 
 type Props = typeof SkillTreeProvider.defaultProps & {
@@ -18,7 +18,7 @@ interface State {
   skills: Skills;
 }
 
-export interface ISkillTreeContext {
+export interface ISkillContext {
   skills: Skills;
   updateSkillState: (key: string, updatedState: NodeState) => void;
   incrementSelectedSkillCount: VoidFunction;
@@ -26,7 +26,7 @@ export interface ISkillTreeContext {
   addToSkillCount: (count: number) => void;
 }
 
-const SkillTreeContext = React.createContext<ISkillTreeContext>({
+const SkillContext = React.createContext<ISkillContext>({
   skills: {},
   updateSkillState: () => undefined,
   incrementSelectedSkillCount: () => undefined,
@@ -35,12 +35,12 @@ const SkillTreeContext = React.createContext<ISkillTreeContext>({
 });
 
 export class SkillTreeProvider extends React.Component<Props, State> {
-  static contextType = SkillAppContext;
+  static contextType = AppContext;
   static defaultProps: DefaultProps = {
     storage: localStorage,
   };
 
-  constructor(props: Props, context: ISkillAppContext) {
+  constructor(props: Props, context: IAppContext) {
     super(props, context);
 
     const treeSkills: Skills =
@@ -95,7 +95,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
 
   render() {
     return (
-      <SkillTreeContext.Provider
+      <SkillContext.Provider
         value={{
           skills: this.state.skills,
           updateSkillState: this.updateSkillState,
@@ -105,9 +105,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
         }}
       >
         {this.props.children}
-      </SkillTreeContext.Provider>
+      </SkillContext.Provider>
     );
   }
 }
 
-export default SkillTreeContext;
+export default SkillContext;

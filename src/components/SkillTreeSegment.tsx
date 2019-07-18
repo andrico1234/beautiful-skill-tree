@@ -4,7 +4,7 @@ import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
 import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
 import { Nullable } from '../models/utils';
-import SkillTreeContext from '../context/SkillTreeContext';
+import SkillContext from '../context/SkillContext';
 import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
 
 interface Props {
@@ -27,7 +27,7 @@ const SkillTreeSegment = React.memo(function({
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
   const { skills, updateSkillState, decrementSelectedSkillCount } = useContext(
-    SkillTreeContext
+    SkillContext
   );
 
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
