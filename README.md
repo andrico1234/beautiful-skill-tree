@@ -14,13 +14,13 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 `yarn add beautiful-skill-tree`
 
-The package exposes three components `SkillTree`, `SkillTreeGroup` and `SkillTreeGroupProvider`.You'll also need to import the style sheet from `beautiful-skill-tree/styles.css`.
+The package exposes three components `SkillTree`, `SkillTreeGroup` and `SkillProvider`.You'll also need to import the style sheet from `beautiful-skill-tree/styles.css`.
 
 The `SkillTree` is the component that takes your data and renders the tree of components.
 
 The `SkillTreeGroup` is the component that groups skill trees and will expose in the future expose various methods and properties related to the skill tree.
 
-The `SkillTreeGroupProvider` is the skill tree's context provider.
+The `SkillProvider` is the skill tree's context provider.
 
 For those that like their data typed, you can import `SkillType` from the package.
 
@@ -32,10 +32,10 @@ import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
 
-<SkillProvider appId="test-example">
+<SkillProvider>
   <SkillTreeGroup>
     {skillCount => {
-      <SkillTree title="Skill Tree" data={data} />
+      <SkillTree treeId="first-tree" title="Skill Tree" data={data} />
     }}
     </SkillTreeGroup>
 <SkillProvider>
@@ -90,7 +90,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ### SkillTree
 
-#### id: `string` [*required*]
+#### treeId: `string` [*required*]
 
 #### title: `string` [*required*]
 
@@ -101,8 +101,6 @@ Unfortunately there aren't any React packages that enable us developers to easil
 #### children: `(treeData) => React.ReactNode` [*required*]
 
 ### SkillProvider
-
-#### appId: `string` [*required*]
 
 ### SkillType
 
