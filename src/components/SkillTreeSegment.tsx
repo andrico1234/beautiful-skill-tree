@@ -15,11 +15,10 @@ interface Props {
 }
 
 const defaultParentPosition: ChildPosition = {
-  top: 0,
   center: 0,
 };
 
-const SkillTreeSegment = React.memo(function({
+function SkillTreeSegment({
   skill,
   parentNodeId,
   parentPosition,
@@ -58,17 +57,11 @@ const SkillTreeSegment = React.memo(function({
 
   useEffect(() => {
     function calculatePosition() {
-      const {
-        top,
-        left,
-        width,
-      } = skillNodeRef.current!.getBoundingClientRect();
+      const { left, width } = skillNodeRef.current!.getBoundingClientRect();
 
-      const scrollY = window.scrollY;
       const scrollX = window.scrollX;
 
       setChildPosition({
-        top: top + scrollY,
         center: left + width / 2 + scrollX,
       });
     }
@@ -90,12 +83,9 @@ const SkillTreeSegment = React.memo(function({
       {parentNodeId && (
         <SkillEdge
           nodeState={nodeState}
-          position={{
-            topX: parentPosition.center,
-            topY: parentPosition.bottom,
-            bottomX: childPosition.center,
-            bottomY: childPosition.top,
-          }}
+          topX={parentPosition.center}
+          topY={parentPosition.bottom}
+          bottomX={childPosition.center}
         />
       )}
       <div ref={skillNodeRef}>
@@ -103,6 +93,6 @@ const SkillTreeSegment = React.memo(function({
       </div>
     </div>
   );
-});
+}
 
 export default SkillTreeSegment;

@@ -25,7 +25,6 @@ export type ParentPosition = {
 };
 
 export type ChildPosition = {
-  top: number;
   center: number;
 };
 

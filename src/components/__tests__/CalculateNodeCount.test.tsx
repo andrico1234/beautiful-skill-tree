@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
 import { render } from '@testing-library/react';
 import CalculateSkillNodes from '../CalculateNodeCount';
-import { Skill } from 'models';
+import { Skill } from '../../models';
 import AppContext from '../../context/AppContext';
 import { SkillTreeProvider } from '../../context/SkillContext';
-import {
-  legsPullData,
-  legsPushData,
-} from '../../components/__mocks__/mockData';
 
 interface GetDummyCounterProps {
   children: (skillCount: number) => JSX.Element;
@@ -50,18 +46,5 @@ describe('CalculateSkillNodes component', () => {
     const { getCounter } = renderComponent([]);
 
     expect(getCounter).toBe(0);
-  });
-
-  it('should correctly calculate a single branch tree', async () => {
-    const { getCounter, debug } = renderComponent(legsPullData);
-    debug();
-
-    expect(getCounter).toBe(6);
-  });
-
-  it('should correctly calculate a tree with multiples branches', () => {
-    const { getCounter } = renderComponent(legsPushData);
-
-    expect(getCounter).toBe(6);
   });
 });

@@ -1,20 +1,24 @@
 import * as React from 'react';
+import uuid from 'uuid';
 
 interface State {
+  resetId: string;
   skillCount: number;
   selectedSkillCount: number;
 }
 
 export interface IAppContext {
+  resetId: string;
   skillCount: number;
   selectedSkillCount: number;
-  incrementSelectedSkillCount: (number: number) => void;
   decrementSelectedSkillCount: VoidFunction;
-  addToSkillCount: (number: number) => void;
   resetSkills: VoidFunction;
+  incrementSelectedSkillCount: (number: number) => void;
+  addToSkillCount: (number: number) => void;
 }
 
 const AppContext = React.createContext<IAppContext>({
+  resetId: '',
   skillCount: 0,
   selectedSkillCount: 0,
   incrementSelectedSkillCount: () => undefined,
@@ -25,8 +29,9 @@ const AppContext = React.createContext<IAppContext>({
 
 export class SkillProvider extends React.Component<{}, State> {
   state = {
-    selectedSkillCount: 0,
+    resetId: '',
     skillCount: 0,
+    selectedSkillCount: 0,
   };
 
   // refactor the increment items to use just one method.
@@ -53,21 +58,10 @@ export class SkillProvider extends React.Component<{}, State> {
   };
 
   resetSkills = () => {
-    // return this.setState(prevState => {
-    //   const { globalSkills } = prevState;
-    //   let skillTrees: Dictionary<Skills> = {};
-    //   Object.keys(globalSkills).map(key => {
-    //     const resettedValues = mapValues(
-    //       globalSkills[key],
-    //       (): NodeState => LOCKED_STATE
-    //     );
-    //     skillTrees[key] = resettedValues;
-    //   });
-    //   return {
-    //     globalSkills: skillTrees,
-    //     selectedSkillCount: 0,
-    //   };
-    // });
+    this.setState({
+      resetId: uuid(),
+      selectedSkillCount: 0,
+    });
   };
 
   render() {
@@ -80,6 +74,7 @@ export class SkillProvider extends React.Component<{}, State> {
           decrementSelectedSkillCount: this.decrementSelectedSkillCount,
           selectedSkillCount: this.state.selectedSkillCount,
           resetSkills: this.resetSkills,
+          resetId: this.state.resetId,
         }}
       >
         {this.props.children}

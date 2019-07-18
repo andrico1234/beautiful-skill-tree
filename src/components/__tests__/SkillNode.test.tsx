@@ -1,13 +1,7 @@
 import React from 'react';
-import { render, act, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import SkillNode from '../SkillNode';
 import { NodeState } from 'models';
-
-function fireResize(width: number) {
-  // @ts-ignore
-  window.innerWidth = width;
-  window.dispatchEvent(new Event('resize'));
-}
 
 function renderComponent(nodeState: NodeState = 'locked') {
   return render(
@@ -48,15 +42,11 @@ describe('SkillNode component', () => {
   });
 
   it('should handle resizing of the window correctly', () => {
-    const resizeEvent = document.createEvent('Event');
-    resizeEvent.initEvent('resize', true, true);
+    // @ts-ignore
+    window.innerWidth = 200;
 
     renderComponent();
 
-    // empty until i can work out how to attach the renderedComponnet to the DOM
-    // otherwise getBoundingClientRect() always returns 0.
-    act(() => {
-      fireResize(400);
-    });
+    // check that hr exists
   });
 });

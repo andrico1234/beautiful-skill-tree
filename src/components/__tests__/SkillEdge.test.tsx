@@ -7,13 +7,15 @@ const defaultPosition = {
   topX: 0,
   topY: 0,
   bottomX: 0,
-  bottomY: 0,
 };
 
 function renderComponent(startingState: NodeState, position = defaultPosition) {
   let state = startingState;
+  const { topX, topY, bottomX } = position;
 
-  return render(<SkillEdge nodeState={state} position={position} />);
+  return render(
+    <SkillEdge nodeState={state} topX={topX} topY={topY} bottomX={bottomX} />
+  );
 }
 
 describe('SkillEdge', () => {
@@ -56,14 +58,12 @@ describe('SkillEdge', () => {
       topX: 100,
       topY: 100,
       bottomX: 50,
-      bottomY: 150,
     };
 
     const rightAngledLinePosition = {
       topX: 100,
       topY: 100,
       bottomX: 150,
-      bottomY: 150,
     };
 
     it('should be inactive if the next node is unlocked', async () => {

@@ -1,8 +1,9 @@
 import React from 'react';
+import { mapValues } from 'lodash';
 import { NodeState, ContextStorage } from '../models';
 import { Dictionary } from '../models/utils';
 import AppContext, { IAppContext } from './AppContext';
-import { SELECTED_STATE } from '../components/constants';
+import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
 
 type Props = typeof SkillTreeProvider.defaultProps & {
   treeId: string;
@@ -16,6 +17,7 @@ type Skills = Dictionary<NodeState>;
 
 interface State {
   skills: Skills;
+  resetId: string;
 }
 
 export interface ISkillContext {
@@ -23,7 +25,6 @@ export interface ISkillContext {
   updateSkillState: (key: string, updatedState: NodeState) => void;
   incrementSelectedSkillCount: VoidFunction;
   decrementSelectedSkillCount: VoidFunction;
-  addToSkillCount: (count: number) => void;
 }
 
 const SkillContext = React.createContext<ISkillContext>({
@@ -31,7 +32,6 @@ const SkillContext = React.createContext<ISkillContext>({
   updateSkillState: () => undefined,
   incrementSelectedSkillCount: () => undefined,
   decrementSelectedSkillCount: () => undefined,
-  addToSkillCount: () => undefined,
 });
 
 export class SkillTreeProvider extends React.Component<Props, State> {
@@ -58,6 +58,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
 
     this.state = {
       skills: treeSkills,
+      resetId: context.resetId,
     };
   }
 
@@ -69,8 +70,23 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     window.removeEventListener('beforeunload', this.writeToStorage);
   }
 
-  addToSkillCount = (count: number) => {
-    return this.context.addToSkillCount(count);
+  componentDidUpdate() {
+    if (this.context.resetId !== this.state.resetId) {
+      this.resetSkills();
+    }
+  }
+
+  resetSkills = () => {
+    return this.setState(prevState => {
+      const { skills } = prevState;
+
+      const resettedSkills = mapValues(skills, (): NodeState => LOCKED_STATE);
+
+      return {
+        skills: resettedSkills,
+        resetId: this.context.resetId,
+      };
+    });
   };
 
   updateSkillState = (key: string, updatedState: NodeState) => {
@@ -101,7 +117,6 @@ export class SkillTreeProvider extends React.Component<Props, State> {
           updateSkillState: this.updateSkillState,
           incrementSelectedSkillCount: this.context.incrementSelectedSkillCount,
           decrementSelectedSkillCount: this.context.decrementSelectedSkillCount,
-          addToSkillCount: this.addToSkillCount,
         }}
       >
         {this.props.children}

@@ -99,6 +99,12 @@ export const legsPushData: Skill[] = [
       },
     ],
   },
+  {
+    id: 'something-else',
+    tooltipDescription: 'burn those leg muscles',
+    title: 'Something Else',
+    children: [],
+  },
 ];
 
 export const legsPullData: Skill[] = [

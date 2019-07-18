@@ -18,7 +18,7 @@ const defaultParentPosition = {
 };
 
 function SkillTree({ data, title, treeId }: Props) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     function setState() {
@@ -26,6 +26,7 @@ function SkillTree({ data, title, treeId }: Props) {
     }
 
     window.addEventListener('resize', throttle(setState, 250));
+    setState();
 
     return function cleanup() {
       window.removeEventListener('resize', throttle(setState, 250));

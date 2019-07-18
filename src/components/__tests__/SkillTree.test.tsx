@@ -4,7 +4,6 @@ import SkillTree from '../SkillTree';
 import MockLocalStorage from '../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
-import { SkillTreeProvider } from '../../context/SkillContext';
 
 const mockSkillTreeData = [
   {
@@ -42,10 +41,8 @@ const mockSkillTreeData = [
 ];
 
 const defaultStoreContents = {
-  [`skills-test`]: JSON.stringify({}),
+  [`skills-bl`]: JSON.stringify({}),
 };
-
-const storage = new MockLocalStorage(defaultStoreContents);
 
 function renderComponent() {
   let selectedSkillCount: number;
@@ -58,13 +55,11 @@ function renderComponent() {
           selectedSkillCount = treeData.selectedSkillCount;
           resetSkills = treeData.resetSkills;
           return (
-            <SkillTreeProvider treeId="hey">
-              <SkillTree
-                treeId="bl"
-                title="borderlands"
-                data={mockSkillTreeData}
-              />
-            </SkillTreeProvider>
+            <SkillTree
+              treeId="bl"
+              title="borderlands"
+              data={mockSkillTreeData}
+            />
           );
         }}
       </SkillTreeGroup>
@@ -82,14 +77,13 @@ function renderComponent() {
   };
 }
 
-function fireResize(width: number) {
-  // @ts-ignore
-  window.innerWidth = width;
-  window.dispatchEvent(new Event('resize'));
-}
-
 afterEach(() => {
-  storage.setItem('skills-test', JSON.stringify({}));
+  window.localStorage.setItem('skills-bl', JSON.stringify({}));
+});
+
+beforeEach(() => {
+  //@ts-ignore
+  window.localStorage = new MockLocalStorage(defaultStoreContents);
 });
 
 describe('SkillTree', () => {
@@ -168,7 +162,7 @@ describe('SkillTree', () => {
       'item-three': 'locked',
     };
 
-    storage.setItem(`skills-test`, JSON.stringify(defaultSkills));
+    window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
 
     const { getByTestId, getSelectedSkillCount } = renderComponent();
 
@@ -183,7 +177,7 @@ describe('SkillTree', () => {
     expect(getSelectedSkillCount()).toBe(1);
   });
 
-  xit('should deselect all skill trees when resetSkills is invoked', () => {
+  it('should deselect all skill trees when resetSkills is invoked', () => {
     const {
       getByTestId,
       getSelectedSkillCount,
@@ -206,7 +200,7 @@ describe('SkillTree', () => {
 
     resetSkillsHandler();
 
-    expect(topNode).toHaveClass('Node Node--unlocked');
+    expect(topNode).toHaveClass('Node Node--locked');
     expect(middleNode).toHaveClass('Node Node--locked');
     expect(bottomNode).toHaveClass('Node Node--locked');
 
@@ -222,21 +216,29 @@ describe('SkillTree', () => {
     expect(queryByTestId('h-separator')).toBeTruthy();
   });
 
-  xit('should correctly handle resizing from desktop to mobile', () => {
-    const resizeEvent = document.createEvent('Event');
+  xdescribe('resizing', () => {
+    function fireResize(width: number) {
+      // @ts-ignore
+      window.innerWidth = width;
+      window.dispatchEvent(new Event('resize'));
+    }
 
-    // @ts-ignore
-    window.innerWidth = 1000;
-    resizeEvent.initEvent('resize', false, false);
+    it('should handle resizing from desktop to mobile', () => {
+      const resizeEvent = document.createEvent('Event');
 
-    const { queryByTestId } = renderComponent();
+      // @ts-ignore
+      window.innerWidth = 1000;
+      resizeEvent.initEvent('resize', true, true);
 
-    expect(queryByTestId('h-separator')).toBeFalsy();
+      const { queryByTestId } = renderComponent();
 
-    act(() => {
-      fireResize(400);
+      expect(queryByTestId('h-separator')).toBeFalsy();
+
+      act(() => {
+        fireResize(400);
+      });
+
+      expect(queryByTestId('h-separator')).toBeTruthy();
     });
-
-    expect(queryByTestId('h-separator')).toBeTruthy();
   });
 });

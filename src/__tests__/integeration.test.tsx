@@ -67,6 +67,12 @@ const complexData: SkillType[] = [
       },
     ],
   },
+  {
+    id: 'paradigms',
+    title: 'OOP',
+    tooltipDescription: 'for objects',
+    children: [],
+  },
 ];
 
 function renderComponent(renderComplexTree = false) {
@@ -294,7 +300,7 @@ describe('SkillTreeGroup component', () => {
       expect(queryByText('Backend')).toBeTruthy();
 
       expect(getByTestId('selected-count')).toHaveTextContent('0');
-      expect(getByTestId('total-count')).toHaveTextContent('9');
+      expect(getByTestId('total-count')).toHaveTextContent('10');
 
       expect(getByTestId('languages')).toHaveClass('Node Node--unlocked');
       expect(getByTestId('python')).toHaveClass('Node Node--locked');
