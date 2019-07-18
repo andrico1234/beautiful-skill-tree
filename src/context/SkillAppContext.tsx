@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { mapValues } from 'lodash';
 import { ContextStorage, NodeState } from '../models';
 import { Dictionary } from '../models/utils';
-// import { SELECTED_STATE } from '../components/constants';
+import { LOCKED_STATE } from '../components/constants';
 
 type Props = typeof SkillProvider.defaultProps & {
   appId: string;
@@ -99,18 +100,24 @@ export class SkillProvider extends React.Component<Props, State> {
   };
 
   resetSkills = () => {
-    // return this.setState(prevState => {
-    //   const { globalSkills } = prevState;
-    //   let resettedSkills = { ...globalSkills };
-    //   const skillKeys = Object.keys(resettedSkills);
-    //   skillKeys.map(key => {
-    //     resettedSkills[key] = 'locked';
-    //   });
-    //   return {
-    //     skills: resettedSkills,
-    //     selectedSkillCount: 0,
-    //   };
-    // });
+    return this.setState(prevState => {
+      const { globalSkills } = prevState;
+      let skillTrees: Dictionary<Skills> = {};
+
+      Object.keys(globalSkills).map(key => {
+        const resettedValues = mapValues(
+          globalSkills[key],
+          (): NodeState => LOCKED_STATE
+        );
+
+        skillTrees[key] = resettedValues;
+      });
+
+      return {
+        globalSkills: skillTrees,
+        selectedSkillCount: 0,
+      };
+    });
   };
 
   updateSkillState = (treeId: string, updatedState: Skills): void => {
