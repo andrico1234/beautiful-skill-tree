@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
-import { throttle } from 'lodash';
+import { throttle, isEmpty } from 'lodash';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
 import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
@@ -15,11 +15,10 @@ interface Props {
 }
 
 const defaultParentPosition: ChildPosition = {
-  top: 0,
   center: 0,
 };
 
-const SkillTreeSegment = React.memo(function({
+function SkillTreeSegment({
   skill,
   parentNodeId,
   parentPosition,
@@ -29,6 +28,7 @@ const SkillTreeSegment = React.memo(function({
   const { skills, updateSkillState, decrementSelectedSkillCount } = useContext(
     SkillContext
   );
+
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
   );
@@ -57,23 +57,21 @@ const SkillTreeSegment = React.memo(function({
 
   useEffect(() => {
     function calculatePosition() {
-      const {
-        top,
-        left,
-        width,
-      } = skillNodeRef.current!.getBoundingClientRect();
+      const { left, width } = skillNodeRef.current!.getBoundingClientRect();
 
-      const scrollY = window.scrollY;
       const scrollX = window.scrollX;
 
       setChildPosition({
-        top: top + scrollY,
         center: left + width / 2 + scrollX,
       });
     }
 
     window.addEventListener('resize', throttle(calculatePosition, 250));
     calculatePosition();
+
+    if (isEmpty(skills)) {
+      return updateSkillState(skill.id, UNLOCKED_STATE);
+    }
 
     return function cleanup() {
       window.removeEventListener('resize', throttle(calculatePosition));
@@ -85,12 +83,9 @@ const SkillTreeSegment = React.memo(function({
       {parentNodeId && (
         <SkillEdge
           nodeState={nodeState}
-          position={{
-            topX: parentPosition.center,
-            topY: parentPosition.bottom,
-            bottomX: childPosition.center,
-            bottomY: childPosition.top,
-          }}
+          topX={parentPosition.center}
+          topY={parentPosition.bottom}
+          bottomX={childPosition.center}
         />
       )}
       <div ref={skillNodeRef}>
@@ -98,6 +93,6 @@ const SkillTreeSegment = React.memo(function({
       </div>
     </div>
   );
-});
+}
 
 export default SkillTreeSegment;

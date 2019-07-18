@@ -8,7 +8,7 @@ import { legsPushData, legsPullData } from './mockData';
 
 const App = () => {
   return (
-    <SkillProvider appId="bst-example">
+    <SkillProvider>
       <SkillTreeGroup>
         {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
@@ -17,8 +17,16 @@ const App = () => {
                 Completed skills: {selectedSkillCount}/{skillCount}
                 <button onClick={resetSkills}>Reset</button>
               </h2>
-              <SkillTree title="Squat Progression" data={legsPushData} />
-              <SkillTree title="Hinge Progression" data={legsPullData} />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                data={legsPushData}
+              />
+              <SkillTree
+                treeId="hp"
+                title="Hinge Progression"
+                data={legsPullData}
+              />
             </React.Fragment>
           );
         }}

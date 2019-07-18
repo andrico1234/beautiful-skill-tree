@@ -4,8 +4,10 @@ import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
+import { SkillTreeProvider } from '../context/SkillContext';
 
 interface Props {
+  treeId: string;
   data: Skill[];
   title: string;
 }
@@ -15,8 +17,8 @@ const defaultParentPosition = {
   center: 0,
 };
 
-function SkillTree({ data, title }: Props) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+function SkillTree({ data, title, treeId }: Props) {
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     function setState() {
@@ -24,6 +26,7 @@ function SkillTree({ data, title }: Props) {
     }
 
     window.addEventListener('resize', throttle(setState, 250));
+    setState();
 
     return function cleanup() {
       window.removeEventListener('resize', throttle(setState, 250));
@@ -31,7 +34,7 @@ function SkillTree({ data, title }: Props) {
   }, []);
 
   return (
-    <React.Fragment>
+    <SkillTreeProvider treeId={treeId}>
       <CalculateTotalNodes data={data} />
       <div className="SkillTree__container">
         <h2 className="SkillTree__title">{title}</h2>
@@ -50,7 +53,7 @@ function SkillTree({ data, title }: Props) {
           })}
         </div>
       </div>
-    </React.Fragment>
+    </SkillTreeProvider>
   );
 }
 

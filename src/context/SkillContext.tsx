@@ -1,69 +1,64 @@
-import * as React from 'react';
-import { ContextStorage, NodeState } from '../models';
+import React from 'react';
+import { mapValues } from 'lodash';
+import { NodeState, ContextStorage } from '../models';
 import { Dictionary } from '../models/utils';
-import { SELECTED_STATE } from '../components/constants';
+import AppContext, { IAppContext } from './AppContext';
+import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
 
-type Props = typeof SkillProvider.defaultProps & {
-  appId: string;
+type Props = typeof SkillTreeProvider.defaultProps & {
+  treeId: string;
 };
 
 type DefaultProps = {
   storage: ContextStorage;
 };
 
+type Skills = Dictionary<NodeState>;
+
 interface State {
   skills: Skills;
-  skillCount: number;
-  selectedSkillCount: number;
+  resetId: string;
 }
 
 export interface ISkillContext {
   skills: Skills;
-  skillCount: number;
-  selectedSkillCount: number;
   updateSkillState: (key: string, updatedState: NodeState) => void;
   incrementSelectedSkillCount: VoidFunction;
   decrementSelectedSkillCount: VoidFunction;
-  addToSkillCount: (number: number) => void;
-  resetSkills: VoidFunction;
 }
-
-type Skills = Dictionary<NodeState>;
 
 const SkillContext = React.createContext<ISkillContext>({
   skills: {},
-  skillCount: 0,
-  selectedSkillCount: 0,
   updateSkillState: () => undefined,
   incrementSelectedSkillCount: () => undefined,
   decrementSelectedSkillCount: () => undefined,
-  addToSkillCount: () => undefined,
-  resetSkills: () => undefined,
 });
 
-export class SkillProvider extends React.Component<Props, State> {
+export class SkillTreeProvider extends React.Component<Props, State> {
+  static contextType = AppContext;
   static defaultProps: DefaultProps = {
     storage: localStorage,
   };
 
-  constructor(props: Props) {
-    super(props);
+  constructor(props: Props, context: IAppContext) {
+    super(props, context);
 
-    const storedSkills: Skills =
-      JSON.parse(props.storage.getItem(`skills-${props.appId}`)!) || {};
+    const treeSkills: Skills =
+      JSON.parse(props.storage.getItem(`skills-${props.treeId}`)!) || {};
 
-    const selectedSkillCount = Object.keys(storedSkills).reduce((acc, i) => {
-      if (storedSkills[i] === SELECTED_STATE) {
+    const selectedSkillCount = Object.keys(treeSkills).reduce((acc, i) => {
+      if (treeSkills[i] === SELECTED_STATE) {
         return acc + 1;
       }
 
       return acc;
     }, 0);
 
+    context.incrementSelectedSkillCount(selectedSkillCount);
+
     this.state = {
-      selectedSkillCount,
-      skills: storedSkills,
-      skillCount: 0,
+      skills: treeSkills,
+      resetId: context.resetId,
     };
   }
 
@@ -75,47 +70,27 @@ export class SkillProvider extends React.Component<Props, State> {
     window.removeEventListener('beforeunload', this.writeToStorage);
   }
 
-  addToSkillCount = (number: number): void => {
-    this.setState(({ skillCount }) => ({
-      skillCount: skillCount + number,
-    }));
-  };
-
-  incrementSelectedSkillCount = (): void => {
-    return this.setState(({ selectedSkillCount }) => {
-      return {
-        selectedSkillCount: selectedSkillCount + 1,
-      };
-    });
-  };
-
-  decrementSelectedSkillCount = (): void => {
-    return this.setState(({ selectedSkillCount }) => {
-      return {
-        selectedSkillCount: selectedSkillCount - 1,
-      };
-    });
-  };
+  componentDidUpdate() {
+    if (this.context.resetId !== this.state.resetId) {
+      this.resetSkills();
+    }
+  }
 
   resetSkills = () => {
     return this.setState(prevState => {
       const { skills } = prevState;
-      let resettedSkills = { ...skills };
-      const skillKeys = Object.keys(resettedSkills);
 
-      skillKeys.map(key => {
-        resettedSkills[key] = 'locked';
-      });
+      const resettedSkills = mapValues(skills, (): NodeState => LOCKED_STATE);
 
       return {
         skills: resettedSkills,
-        selectedSkillCount: 0,
+        resetId: this.context.resetId,
       };
     });
   };
 
-  updateSkillState = (key: string, updatedState: NodeState): void => {
-    this.setState((prevState: State) => {
+  updateSkillState = (key: string, updatedState: NodeState) => {
+    return this.setState(prevState => {
       const updatedSkills = {
         ...prevState.skills,
         [key]: updatedState,
@@ -127,9 +102,9 @@ export class SkillProvider extends React.Component<Props, State> {
     });
   };
 
-  writeToStorage = () => {
+  private writeToStorage = () => {
     this.props.storage.setItem(
-      `skills-${this.props.appId}`,
+      `skills-${this.props.treeId}`,
       JSON.stringify(this.state.skills)
     );
   };
@@ -140,12 +115,8 @@ export class SkillProvider extends React.Component<Props, State> {
         value={{
           skills: this.state.skills,
           updateSkillState: this.updateSkillState,
-          addToSkillCount: this.addToSkillCount,
-          skillCount: this.state.skillCount,
-          incrementSelectedSkillCount: this.incrementSelectedSkillCount,
-          decrementSelectedSkillCount: this.decrementSelectedSkillCount,
-          selectedSkillCount: this.state.selectedSkillCount,
-          resetSkills: this.resetSkills,
+          incrementSelectedSkillCount: this.context.incrementSelectedSkillCount,
+          decrementSelectedSkillCount: this.context.decrementSelectedSkillCount,
         }}
       >
         {this.props.children}

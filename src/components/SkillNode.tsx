@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { throttle, Cancelable, isEmpty } from 'lodash';
+import { throttle, Cancelable } from 'lodash';
 import Tippy from '@tippy.js/react';
 import SkillContext from '../context/SkillContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
@@ -16,6 +16,7 @@ interface Props {
 
 interface State {
   parentPosition: ParentPosition;
+  isMobile: boolean;
 }
 
 class SkillNode extends React.Component<Props, State> {
@@ -31,6 +32,7 @@ class SkillNode extends React.Component<Props, State> {
     this.throttledResize = throttle(this.handleResize, 200);
 
     this.state = {
+      isMobile: window.innerWidth < 900,
       parentPosition: {
         bottom: 0,
         center: 0,
@@ -63,6 +65,10 @@ class SkillNode extends React.Component<Props, State> {
   handleResize = () => {
     this.calculatePosition();
     this.calculateOverlayWidth();
+
+    this.setState(() => ({
+      isMobile: window.innerWidth < 900,
+    }));
   };
 
   handleClick = () => {
@@ -90,10 +96,6 @@ class SkillNode extends React.Component<Props, State> {
     this.calculateOverlayWidth();
 
     window.addEventListener('resize', this.throttledResize);
-
-    if (isEmpty(this.context.skills)) {
-      return this.updateState(UNLOCKED_STATE);
-    }
   }
 
   componentWillUnmount() {
@@ -101,7 +103,7 @@ class SkillNode extends React.Component<Props, State> {
   }
 
   render() {
-    const { parentPosition } = this.state;
+    const { parentPosition, isMobile } = this.state;
     const { nodeState, skill } = this.props;
     const { children, title, tooltipDescription, id } = skill;
 
@@ -117,7 +119,7 @@ class SkillNode extends React.Component<Props, State> {
           />
           <Tippy
             className="Tooltip"
-            placement="bottom"
+            placement={isMobile ? 'top' : 'bottom'}
             content={
               <TooltipContent
                 tooltipDescription={tooltipDescription}

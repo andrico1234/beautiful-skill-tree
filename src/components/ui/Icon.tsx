@@ -6,7 +6,7 @@ export interface Props {
   title: string;
 }
 
-function Icon({ src, title, containerWidth }: Props) {
+const Icon = React.memo(function({ src, title, containerWidth }: Props) {
   return (
     <div
       data-testid="icon-container"
@@ -24,6 +24,6 @@ function Icon({ src, title, containerWidth }: Props) {
       />
     </div>
   );
-}
+});
 
 export default Icon;

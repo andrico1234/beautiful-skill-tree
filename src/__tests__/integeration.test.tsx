@@ -67,11 +67,17 @@ const complexData: SkillType[] = [
       },
     ],
   },
+  {
+    id: 'paradigms',
+    title: 'OOP',
+    tooltipDescription: 'for objects',
+    children: [],
+  },
 ];
 
 function renderComponent(renderComplexTree = false) {
   return render(
-    <SkillProvider appId="bst-example">
+    <SkillProvider>
       <SkillTreeGroup>
         {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
@@ -84,8 +90,9 @@ function renderComponent(renderComplexTree = false) {
                   Reset
                 </button>
               </h2>
-              <SkillTree title="Frontend" data={simpleData} />
+              <SkillTree treeId="fe" title="Frontend" data={simpleData} />
               <SkillTree
+                treeId="be"
                 title="Backend"
                 data={renderComplexTree ? complexData : []}
               />
@@ -293,7 +300,7 @@ describe('SkillTreeGroup component', () => {
       expect(queryByText('Backend')).toBeTruthy();
 
       expect(getByTestId('selected-count')).toHaveTextContent('0');
-      expect(getByTestId('total-count')).toHaveTextContent('9');
+      expect(getByTestId('total-count')).toHaveTextContent('10');
 
       expect(getByTestId('languages')).toHaveClass('Node Node--unlocked');
       expect(getByTestId('python')).toHaveClass('Node Node--locked');

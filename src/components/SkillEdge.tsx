@@ -4,27 +4,31 @@ import AngledLine from './ui/AngledLine';
 import { NodeState } from 'models';
 
 interface Props {
-  position: {
-    topX: number;
-    topY: number;
-    bottomX: number;
-    bottomY: number;
-  };
+  topX: number;
+  topY: number;
+  bottomX: number;
   nodeState: NodeState;
 }
 
-function SkillEdge({ position, nodeState }: Props) {
-  if (position.topX === position.bottomX) {
-    return <Line {...position} state={nodeState} />;
+const SkillEdge = React.memo(function({
+  topX,
+  topY,
+  bottomX,
+  nodeState,
+}: Props) {
+  if (topX === bottomX) {
+    return <Line topX={topX} topY={topY} state={nodeState} />;
   }
 
   return (
     <AngledLine
-      {...position}
+      topX={topX}
+      topY={topY}
+      bottomX={bottomX}
       state={nodeState}
-      direction={position.topX < position.bottomX ? 'right' : 'left'}
+      direction={topX < bottomX ? 'right' : 'left'}
     />
   );
-}
+});
 
 export default SkillEdge;
