@@ -71,7 +71,7 @@ const complexData: SkillType[] = [
 
 function renderComponent(renderComplexTree = false) {
   return render(
-    <SkillProvider appId="bst-example">
+    <SkillProvider>
       <SkillTreeGroup>
         {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
@@ -84,8 +84,9 @@ function renderComponent(renderComplexTree = false) {
                   Reset
                 </button>
               </h2>
-              <SkillTree title="Frontend" data={simpleData} />
+              <SkillTree treeId="fe" title="Frontend" data={simpleData} />
               <SkillTree
+                treeId="be"
                 title="Backend"
                 data={renderComplexTree ? complexData : []}
               />

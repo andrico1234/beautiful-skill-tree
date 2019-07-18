@@ -1,14 +1,10 @@
 import React from 'react';
-import { isEmpty } from 'lodash';
 import { NodeState, ContextStorage } from '../models';
 import { Dictionary } from '../models/utils';
-import SkillAppContext, {
-  SkillProvider,
-  ISkillAppContext,
-} from './SkillAppContext';
+import SkillAppContext, { ISkillAppContext } from './SkillAppContext';
 import { SELECTED_STATE } from '../components/constants';
 
-type Props = typeof SkillProvider.defaultProps & {
+type Props = typeof SkillTreeProvider.defaultProps & {
   treeId: string;
 };
 
@@ -47,13 +43,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   constructor(props: Props, context: ISkillAppContext) {
     super(props, context);
 
-    const allStoredSkills: Dictionary<Skills> =
-      JSON.parse(props.storage.getItem(`skills-${context.appId}`)!) || {};
+    const treeSkills: Skills =
+      JSON.parse(props.storage.getItem(`skills-${props.treeId}`)!) || {};
 
-    if (isEmpty(allStoredSkills)) {
-    }
-
-    const treeSkills = allStoredSkills[props.treeId] || {};
     const selectedSkillCount = Object.keys(treeSkills).reduce((acc, i) => {
       if (treeSkills[i] === SELECTED_STATE) {
         return acc + 1;
@@ -62,11 +54,19 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       return acc;
     }, 0);
 
-    context.addToSelectedSkillCount(selectedSkillCount);
+    context.incrementSelectedSkillCount(selectedSkillCount);
 
     this.state = {
       skills: treeSkills,
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.writeToStorage);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.writeToStorage);
   }
 
   addToSkillCount = (count: number) => {
@@ -80,12 +80,17 @@ export class SkillTreeProvider extends React.Component<Props, State> {
         [key]: updatedState,
       };
 
-      this.context.updateSkillState(this.props.treeId, updatedSkills);
-
       return {
         skills: updatedSkills,
       };
     });
+  };
+
+  private writeToStorage = () => {
+    this.props.storage.setItem(
+      `skills-${this.props.treeId}`,
+      JSON.stringify(this.state.skills)
+    );
   };
 
   render() {

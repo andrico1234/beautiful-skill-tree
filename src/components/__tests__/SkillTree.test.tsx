@@ -52,14 +52,18 @@ function renderComponent() {
   let resetSkills: VoidFunction;
 
   const api = render(
-    <SkillProvider appId="test" storage={storage}>
+    <SkillProvider>
       <SkillTreeGroup>
         {treeData => {
           selectedSkillCount = treeData.selectedSkillCount;
           resetSkills = treeData.resetSkills;
           return (
             <SkillTreeProvider treeId="hey">
-              <SkillTree title="borderlands" data={mockSkillTreeData} />
+              <SkillTree
+                treeId="bl"
+                title="borderlands"
+                data={mockSkillTreeData}
+              />
             </SkillTreeProvider>
           );
         }}

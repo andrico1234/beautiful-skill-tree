@@ -7,6 +7,7 @@ import CalculateTotalNodes from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillTreeContext';
 
 interface Props {
+  treeId: string;
   data: Skill[];
   title: string;
 }
@@ -16,7 +17,7 @@ const defaultParentPosition = {
   center: 0,
 };
 
-function SkillTree({ data, title }: Props) {
+function SkillTree({ data, title, treeId }: Props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function SkillTree({ data, title }: Props) {
   }, []);
 
   return (
-    <SkillTreeProvider treeId={title}>
+    <SkillTreeProvider treeId={treeId}>
       <CalculateTotalNodes data={data} />
       <div className="SkillTree__container">
         <h2 className="SkillTree__title">{title}</h2>
