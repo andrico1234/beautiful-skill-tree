@@ -105,8 +105,6 @@ function SkillTreeSegment({
 export default SkillTreeSegment;
 
 const StyledSkillTreeSegment = styled.div`
-  margin: 8px 0;
-
   @media (min-width: 900px) {
     margin: 0;
   }
