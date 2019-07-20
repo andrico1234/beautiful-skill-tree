@@ -13,10 +13,14 @@ const App = () => {
         {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
             <React.Fragment>
-              <h2 className="Example__heading">
-                Completed skills: {selectedSkillCount}/{skillCount}
-              </h2>
-              <button onClick={resetSkills}>Reset</button>
+              <div className="Example__header">
+                <h2 className="Example__heading">
+                  Completed skills: {selectedSkillCount}/{skillCount}
+                </h2>
+                <button className="Example__reset-button" onClick={resetSkills}>
+                  Reset
+                </button>
+              </div>
               <SkillTree
                 treeId="sp"
                 title="Squat Progression"

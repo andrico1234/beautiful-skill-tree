@@ -8,8 +8,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.Example__heading {
+.Example__header {
   padding: 0 16px;
+}
+
+.Example__heading {
   text-align: center;
   width: 300px;
+}
+
+.Example__reset-button {
+  height: 40px;
 }

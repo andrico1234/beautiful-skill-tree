@@ -6,6 +6,7 @@ import React, {
   useLayoutEffect,
 } from 'react';
 import { throttle, isEmpty } from 'lodash';
+import styled from 'styled-components';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
 import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
@@ -85,7 +86,7 @@ function SkillTreeSegment({
   }, []);
 
   return (
-    <div className="SkillTreeSegment">
+    <StyledSkillTreeSegment>
       {parentNodeId && (
         <SkillEdge
           nodeState={nodeState}
@@ -97,8 +98,16 @@ function SkillTreeSegment({
       <div ref={skillNodeRef}>
         <SkillNode skill={skill} nodeState={nodeState} />
       </div>
-    </div>
+    </StyledSkillTreeSegment>
   );
 }
 
 export default SkillTreeSegment;
+
+const StyledSkillTreeSegment = styled.div`
+  margin: 8px 0;
+
+  @media (min-width: 900px) {
+    margin: 0;
+  }
+`;
