@@ -31,6 +31,36 @@ const App = () => {
                 title="Hinge Progression"
                 data={legsPullData}
               />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                data={legsPushData}
+              />
+              <SkillTree
+                treeId="hp"
+                title="Hinge Progression"
+                data={legsPullData}
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                data={legsPushData}
+              />
+              <SkillTree
+                treeId="hp"
+                title="Hinge Progression"
+                data={legsPullData}
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                data={legsPushData}
+              />
+              <SkillTree
+                treeId="hp"
+                title="Hinge Progression"
+                data={legsPullData}
+              />
             </React.Fragment>
           );
         }}

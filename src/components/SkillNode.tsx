@@ -8,6 +8,7 @@ import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
+import styled from 'styled-components';
 
 interface Props {
   skill: Skill;
@@ -91,16 +92,15 @@ function SkillNode({ skill, nodeState }: Props) {
 
   return (
     <React.Fragment>
-      <div className="SkillNode">
-        <span
+      <StyledSkillNode>
+        <SkillNodeOverlay
           data-testid="skill-node-overlay"
           style={{ width: childWidth.current + 4 }}
-          className={classnames('SkillNode__overlay', {
+          className={classnames({
             'SkillNode__overlay--selected': nodeState === SELECTED_STATE,
           })}
         />
-        <Tippy
-          className="Tooltip"
+        <StyledTippy
           placement={isMobile ? 'top' : 'bottom'}
           content={
             <TooltipContent
@@ -116,10 +116,11 @@ function SkillNode({ skill, nodeState }: Props) {
             skill={skill}
             ref={skillNodeRef}
           />
-        </Tippy>
-      </div>
+        </StyledTippy>
+      </StyledSkillNode>
+
       {children.length > 0 && (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <SkillTreeSegmentWrapper>
           {children.map(child => {
             return (
               <SkillTreeSegment
@@ -131,10 +132,56 @@ function SkillNode({ skill, nodeState }: Props) {
               />
             );
           })}
-        </div>
+        </SkillTreeSegmentWrapper>
       )}
     </React.Fragment>
   );
 }
 
 export default SkillNode;
+
+const StyledSkillNode = styled.div`
+  margin: 0 auto;
+  position: relative;
+  width: fit-content;
+`;
+
+const SkillNodeOverlay = styled.span`
+  background-color: white;
+  border-radius: 4px;
+  height: 100%;
+  left: 8px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+
+  @media (min-width: 900px) {
+    left: 16px;
+  }
+`;
+
+const StyledTippy = styled(Tippy)`
+  background-color: #282c34;
+  border: 2px solid;
+  border-image-source: linear-gradient(
+    to right,
+    #d0e6a5 0%,
+    #86e3ce 50%,
+    #ccabd8 100%
+  );
+  border-image-slice: 1;
+  border-radius: 4px;
+  padding: 0 8px;
+  text-align: left;
+  width: 320px;
+
+  .tippy-backdrop {
+    background-color: #282c34;
+  }
+`;
+
+const SkillTreeSegmentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;

@@ -14,12 +14,7 @@ interface StyledIconProps {
 const Icon = React.memo(function({ src, title, containerWidth }: Props) {
   return (
     <StyledIcon data-testid="icon-container" containerWidth={containerWidth}>
-      <Image
-        style={{ pointerEvents: 'none' }}
-        src={src}
-        alt={title}
-        className="Icon"
-      />
+      <Image src={src} alt={title} />
     </StyledIcon>
   );
 });
@@ -34,4 +29,7 @@ const StyledIcon = styled.div<StyledIconProps>`
 
 const Image = styled.img`
   pointer-events: none;
+  height: 75%;
+  margin: auto;
+  width: 75%;
 `;
