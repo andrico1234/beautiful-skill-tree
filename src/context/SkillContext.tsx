@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mapValues } from 'lodash';
 import { NodeState, ContextStorage } from '../models';
 import { Dictionary } from '../models/utils';

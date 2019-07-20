@@ -78,6 +78,7 @@
     "@tippy.js/react": "^2.2.2",
     "classnames": "^2.2.6",
     "lodash": "^4.17.14",
+    "lodash-es": "^4.17.15",
     "uuid": "^3.3.2"
   }
 }
