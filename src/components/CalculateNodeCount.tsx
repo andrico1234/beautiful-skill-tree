@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Skill } from 'models';
+import { Skill } from '../models';
 import AppContext from '../context/AppContext';
 
 interface Props {

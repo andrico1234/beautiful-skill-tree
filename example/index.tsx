@@ -15,8 +15,8 @@ const App = () => {
             <React.Fragment>
               <h2 className="Example__heading">
                 Completed skills: {selectedSkillCount}/{skillCount}
-                <button onClick={resetSkills}>Reset</button>
               </h2>
+              <button onClick={resetSkills}>Reset</button>
               <SkillTree
                 treeId="sp"
                 title="Squat Progression"

@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useContext,
+  useLayoutEffect,
+} from 'react';
 import { throttle, isEmpty } from 'lodash';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
@@ -55,7 +61,7 @@ function SkillTreeSegment({
     }
   }, [nodeState, parentState]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function calculatePosition() {
       const { left, width } = skillNodeRef.current!.getBoundingClientRect();
 
