@@ -2,19 +2,23 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import SkillNode from '../SkillNode';
 import { NodeState } from 'models';
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from '../../theme';
 
 function renderComponent(nodeState: NodeState = 'locked') {
   return render(
-    <SkillNode
-      nodeState={nodeState}
-      skill={{
-        children: [],
-        id: 'test-node',
-        icon: './hey',
-        title: 'Hey there',
-        tooltipDescription: 'Description',
-      }}
-    />
+    <ThemeProvider theme={defaultTheme}>
+      <SkillNode
+        nodeState={nodeState}
+        skill={{
+          children: [],
+          id: 'test-node',
+          icon: './hey',
+          title: 'Hey there',
+          tooltipDescription: 'Description',
+        }}
+      />
+    </ThemeProvider>
   );
 }
 
@@ -49,7 +53,6 @@ describe('SkillNode component', () => {
     window.innerWidth = 200;
 
     renderComponent();
-
     // check that hr exists
   });
 });

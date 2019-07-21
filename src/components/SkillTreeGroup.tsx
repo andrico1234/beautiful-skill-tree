@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import * as React from 'react';
 import AppContext from '../context/AppContext';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import defaultTheme from '../theme/index';
 
 export interface TreeData {
   skillCount: number;
@@ -8,12 +9,16 @@ export interface TreeData {
   resetSkills: VoidFunction;
 }
 
-interface Props {
+type Props = {
   children: (treeData: TreeData) => React.ReactNode;
-}
+} & typeof defaultProps;
 
-function SkillTreeGroup(props: Props) {
-  const { skillCount, selectedSkillCount, resetSkills } = useContext(
+const defaultProps = {
+  theme: defaultTheme,
+};
+
+function SkillTreeGroup({ theme, children }: Props) {
+  const { skillCount, selectedSkillCount, resetSkills } = React.useContext(
     AppContext
   );
 
@@ -23,19 +28,23 @@ function SkillTreeGroup(props: Props) {
     resetSkills,
   };
 
-  return <StyleSkillTreeGroup>{props.children(treeData)}</StyleSkillTreeGroup>;
+  return (
+    <ThemeProvider theme={theme}>
+      <StyleSkillTreeGroup>{children(treeData)}</StyleSkillTreeGroup>
+    </ThemeProvider>
+  );
 }
+
+SkillTreeGroup.defaultProps = defaultProps;
 
 export default SkillTreeGroup;
 
 const StyleSkillTreeGroup = styled.div`
-  background-color: #282c34;
+  background-color: ${props => props.theme.backgroundColor};
   display: flex;
   flex-wrap: wrap;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  color: white;
+  font-family: ${props => props.theme.primaryFont};
+  color: ${props => props.theme.primaryFontColor};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   justify-content: center;

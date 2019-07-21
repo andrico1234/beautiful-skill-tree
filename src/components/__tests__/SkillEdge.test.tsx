@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import SkillEdge from '../SkillEdge';
 import { NodeState } from 'models';
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from '../../theme';
 
 const defaultPosition = {
   topX: 0,
@@ -14,7 +16,9 @@ function renderComponent(startingState: NodeState, position = defaultPosition) {
   const { topX, topY, bottomX } = position;
 
   return render(
-    <SkillEdge nodeState={state} topX={topX} topY={topY} bottomX={bottomX} />
+    <ThemeProvider theme={defaultTheme}>
+      <SkillEdge nodeState={state} topX={topX} topY={topY} bottomX={bottomX} />
+    </ThemeProvider>
   );
 }
 

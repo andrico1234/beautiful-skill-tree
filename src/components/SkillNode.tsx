@@ -159,8 +159,8 @@ const StyledSkillNode = styled.div`
 `;
 
 const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
-  background-color: white;
-  border-radius: 4px;
+  background-color: ${({ theme }) => theme.node.overlayColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
   height: 100%;
   left: 8px;
   opacity: 0;
@@ -181,22 +181,17 @@ const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
 `;
 
 const StyledTippy = styled(Tippy)`
-  background-color: #282c34;
-  border: 2px solid;
-  border-image-source: linear-gradient(
-    to right,
-    #d0e6a5 0%,
-    #86e3ce 50%,
-    #ccabd8 100%
-  );
+  background-color: ${({ theme }) => theme.backgroundColor};
+  border: ${({ theme }) => theme.border};
+  border-image-source: ${({ theme }) => theme.node.borderColor};
   border-image-slice: 1;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   padding: 0 8px;
   text-align: left;
   width: 320px;
 
   .tippy-backdrop {
-    background-color: #282c34;
+    background-color: ${props => props.theme.backgroundColor};
   }
 `;
 

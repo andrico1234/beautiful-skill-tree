@@ -1,7 +1,7 @@
 import React from 'react';
 import Line from './ui/Line';
 import AngledLine from './ui/AngledLine';
-import { NodeState } from 'models';
+import { NodeState } from '../models';
 
 interface Props {
   topX: number;

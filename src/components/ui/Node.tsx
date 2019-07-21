@@ -72,10 +72,10 @@ const shadowpulse = keyframes`
 `;
 
 const StyledNode = styled.div<StyledNodeProps>`
-  background: #282c34;
-  border: 2px solid white;
+  background: ${({ theme }) => theme.node.backgroundColor};
+  border: ${({ theme }) => theme.border};
   box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0);
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
   display: flex;
   margin: 0 8px;
@@ -94,12 +94,7 @@ const StyledNode = styled.div<StyledNodeProps>`
     props.selected &&
     css`
       animation: ${shadowburst} 1s 1;
-      background: linear-gradient(
-        to right,
-        #d0e6a5 0%,
-        #86e3ce 50%,
-        #ccabd8 100%
-      );
+      background: ${({ theme }) => theme.node.activeBackgroundColor};
     `}
 
   ${props =>
@@ -111,12 +106,7 @@ const StyledNode = styled.div<StyledNodeProps>`
       &:after,
       &:before {
         border: 0 solid;
-        border-image-source: linear-gradient(
-          to right,
-          #d0e6a5 0%,
-          #86e3ce 50%,
-          #ccabd8 100%
-        );
+        border-image-source: ${({ theme }) => theme.node.borderColor};
         border-image-slice: 1;
         content: ' ';
         opacity: 0;
@@ -127,8 +117,8 @@ const StyledNode = styled.div<StyledNodeProps>`
       }
 
       &:after {
-        border-top: 4px solid;
-        border-left: 4px solid;
+        border-top: ${({ theme }) => theme.node.hoverBorder};
+        border-left: ${({ theme }) => theme.node.hoverBorder};
         top: 0;
         left: 0;
       }
@@ -136,8 +126,8 @@ const StyledNode = styled.div<StyledNodeProps>`
       &:before {
         bottom: 0px;
         right: 0px;
-        border-bottom: 4px solid;
-        border-right: 4px solid;
+        border-bottom: ${({ theme }) => theme.node.hoverBorder};
+        border-right: ${({ theme }) => theme.node.hoverBorder};
       }
       &:hover {
         animation: none;
@@ -161,7 +151,7 @@ const StyledNode = styled.div<StyledNodeProps>`
 `;
 
 const IconNode = styled.div`
-  width: 64px;
+  width: ${({ theme }) => theme.node.iconNodeWidth};
 `;
 
 const TextNode = styled.div`
@@ -169,17 +159,17 @@ const TextNode = styled.div`
   display: flex;
   font-weight: 600;
   justify-content: center;
-  height: 32px;
-  width: 108px;
+  height: ${({ theme }) => theme.node.mobile.textNodeHeight};
+  width: ${({ theme }) => theme.node.mobile.textNodeWidth};
 
   @media (min-width: 900px) {
-    height: 28px;
-    width: 144px;
+    height: ${({ theme }) => theme.node.desktop.textNodeHeight};
+    width: ${({ theme }) => theme.node.desktop.textNodeWidth};
   }
 `;
 
 const Text = styled.p`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.node.mobile.fontSize};
   text-overflow: ellipsis;
   margin: 0;
   overflow: hidden;
@@ -187,6 +177,6 @@ const Text = styled.p`
   white-space: nowrap;
 
   @media (min-width: 900px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.node.desktop.fontSize};
   }
 `;

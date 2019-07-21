@@ -57,7 +57,7 @@ const StyledLine = styled.div<StyledLineProps>`
   );
   background-size: 210% 100%;
   background-position: right top;
-  border: 1px solid white;
+  border: ${({ theme }) => theme.edge.border};
   height: 4px;
   position: absolute;
   opacity: 0.5;

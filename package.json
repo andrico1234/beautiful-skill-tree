@@ -7,8 +7,7 @@
   "module": "dist/skill-tree-package.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "styles.css"
+    "dist"
   ],
   "scripts": {
     "analyze": "yarn build && source-map-explorer ./dist/*.js",

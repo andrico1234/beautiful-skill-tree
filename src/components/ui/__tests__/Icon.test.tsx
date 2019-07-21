@@ -1,14 +1,18 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Icon, { Props } from '../Icon';
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from '../../../theme';
 
 function renderComponent(props: Props) {
   return render(
-    <Icon
-      src={props.src}
-      title={props.title}
-      containerWidth={props.containerWidth}
-    />
+    <ThemeProvider theme={defaultTheme}>
+      <Icon
+        src={props.src}
+        title={props.title}
+        containerWidth={props.containerWidth}
+      />
+    </ThemeProvider>
   );
 }
 

@@ -4,6 +4,8 @@ import CalculateSkillNodes from '../CalculateNodeCount';
 import { Skill } from '../../models';
 import AppContext from '../../context/AppContext';
 import { SkillTreeProvider } from '../../context/SkillContext';
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from '../../theme';
 
 interface GetDummyCounterProps {
   children: (skillCount: number) => JSX.Element;
@@ -27,9 +29,11 @@ function renderComponent(data: Skill[]) {
       {skillCount => {
         counter = skillCount;
         return (
-          <SkillTreeProvider treeId="hey">
-            <CalculateSkillNodes data={data} />>
-          </SkillTreeProvider>
+          <ThemeProvider theme={defaultTheme}>
+            <SkillTreeProvider treeId="hey">
+              <CalculateSkillNodes data={data} />>
+            </SkillTreeProvider>
+          </ThemeProvider>
         );
       }}
     </GetDummyCounter>

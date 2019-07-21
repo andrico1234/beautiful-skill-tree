@@ -80,8 +80,8 @@ const SkillTreeTitle = styled.h2`
 `;
 
 const StyledSkillTree = styled.div`
-  border: 1px solid white;
-  border-radius: 4px;
+  border: ${({ theme }) => theme.border};
+  border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;
   padding: 16px 0;
   flex-direction: column;

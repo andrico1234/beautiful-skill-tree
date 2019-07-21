@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react';
 import SkillTree from '../SkillTree';
-import MockLocalStorage from '../__mocks__/mockLocalStorage';
+import MockLocalStorage from '../../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
 

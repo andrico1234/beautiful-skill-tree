@@ -14,7 +14,7 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 `yarn add beautiful-skill-tree`
 
-The package exposes three components `SkillTree`, `SkillTreeGroup` and `SkillProvider`.You'll also need to import the style sheet from `beautiful-skill-tree/styles.css`.
+The package exposes three components `SkillTree`, `SkillTreeGroup` and `SkillProvider`.
 
 The `SkillTree` is the component that takes your data and renders the tree of components.
 
@@ -28,7 +28,6 @@ Wrap your application like this:
 
 ```typescript
 import { SkillTreeGroup, SkillTree, SkillProvider, SkillType } from 'beautiful-skill-tree';
-import 'beautiful-skill-tree/styles.css';
 
 const data: Skill[] = [];
 

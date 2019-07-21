@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { SkillTreeGroup, SkillProvider, SkillTree, SkillType } from '../index';
+import defaultTheme from '../theme';
+import mockTheme from '../__mocks__/mockTheme';
 
 const simpleData: SkillType[] = [
   {
@@ -75,10 +77,10 @@ const complexData: SkillType[] = [
   },
 ];
 
-function renderComponent(renderComplexTree = false) {
+function renderComponent(renderComplexTree = false, theme = defaultTheme) {
   return render(
     <SkillProvider>
-      <SkillTreeGroup>
+      <SkillTreeGroup theme={theme}>
         {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
             <React.Fragment>
@@ -400,6 +402,15 @@ describe('SkillTreeGroup component', () => {
       );
       expect(tsNode).toHaveStyleRule('opacity', '0.65');
       expect(nodeNode).toHaveStyleRule('opacity', '0.65');
+    });
+  });
+
+  describe('custom themes', () => {
+    it('should change the appearance of the components', () => {
+      const { getByTestId } = renderComponent(false, mockTheme);
+      const htmlNode = getByTestId('html');
+
+      expect(htmlNode).toHaveStyleRule('background', 'grey');
     });
   });
 });
