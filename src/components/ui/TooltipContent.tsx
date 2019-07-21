@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
 type Props = {
   tooltipDescription: string;
@@ -11,10 +12,14 @@ const TooltipContent = React.memo(function({
 }: Props) {
   return (
     <React.Fragment>
-      <h1 className="TooltipContent__title">{title}</h1>
+      <Title>{title}</Title>
       <p>{tooltipDescription}</p>
     </React.Fragment>
   );
 });
 
 export default TooltipContent;
+
+const Title = styled.h1`
+  margin: 8px 0;
+`;

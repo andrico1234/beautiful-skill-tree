@@ -5,6 +5,7 @@ import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillContext';
+import styled from 'styled-components';
 
 interface Props {
   treeId: string;
@@ -36,9 +37,9 @@ function SkillTree({ data, title, treeId }: Props) {
   return (
     <SkillTreeProvider treeId={treeId}>
       <CalculateTotalNodes data={data} />
-      <div className="SkillTree__container">
-        <h2 className="SkillTree__title">{title}</h2>
-        <div className="SkillTree">
+      <SkillTreeContainer>
+        <SkillTreeTitle>{title}</SkillTreeTitle>
+        <StyledSkillTree>
           {data.map((skill, i) => {
             return (
               <React.Fragment key={skill.id}>
@@ -51,10 +52,42 @@ function SkillTree({ data, title, treeId }: Props) {
               </React.Fragment>
             );
           })}
-        </div>
-      </div>
+        </StyledSkillTree>
+      </SkillTreeContainer>
     </SkillTreeProvider>
   );
 }
 
 export default SkillTree;
+
+const SkillTreeContainer = styled.div`
+  margin: 0 8px 48px;
+  min-width: fit-content;
+
+  @media (min-width: 900px) {
+    margin: 0 8px 16px;
+    min-width: initial;
+  }
+`;
+
+const SkillTreeTitle = styled.h2`
+  min-width: 152px;
+  text-align: center;
+
+  @media (min-width: 900px) {
+    min-height: 56px;
+  }
+`;
+
+const StyledSkillTree = styled.div`
+  border: 1px solid white;
+  border-radius: 4px;
+  display: flex;
+  padding: 16px 0;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (min-width: 900px) {
+    flex-direction: row;
+  }
+`;

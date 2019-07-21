@@ -11,6 +11,7 @@
     "styles.css"
   ],
   "scripts": {
+    "analyze": "yarn build && source-map-explorer ./dist/*.js",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
@@ -57,28 +58,30 @@
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.4",
-    "@types/classnames": "^2.2.9",
     "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.136",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "@types/styled-components": "^4.1.18",
     "@types/uuid": "^3.4.5",
     "cssnano": "^4.1.10",
     "husky": "^3.0.0",
     "jest-dom": "^3.5.0",
+    "jest-styled-components": "^7.0.0-beta.1",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "source-map-explorer": "^2.0.1",
     "tsdx": "^0.7.2",
     "tslib": "^1.10.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {
     "@tippy.js/react": "^2.2.2",
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
+    "styled-components": "^5.0.0-beta.8",
     "uuid": "^3.3.2"
   }
 }

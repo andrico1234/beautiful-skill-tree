@@ -115,9 +115,15 @@ describe('SkillTreeGroup component', () => {
       expect(getByTestId('selected-count')).toHaveTextContent('0');
       expect(getByTestId('total-count')).toHaveTextContent('3');
 
-      expect(getByTestId('html')).toHaveClass('Node Node--unlocked');
-      expect(getByTestId('css')).toHaveClass('Node Node--locked');
-      expect(getByTestId('javascript-basics')).toHaveClass('Node Node--locked');
+      expect(getByTestId('html')).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(getByTestId('css')).toHaveStyleRule('opacity', '0.65');
+      expect(getByTestId('javascript-basics')).toHaveStyleRule(
+        'opacity',
+        '0.65'
+      );
     });
 
     it('should handle sequential clicking of the nodes', () => {
@@ -127,45 +133,63 @@ describe('SkillTreeGroup component', () => {
       const cssNode = getByTestId('css');
       const jsNode = getByTestId('javascript-basics');
 
-      expect(htmlNode).toHaveClass('Node Node--unlocked');
-      expect(cssNode).toHaveClass('Node Node--locked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(cssNode).toHaveStyleRule('opacity', '0.65');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(htmlNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--unlocked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(cssNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--selected');
-      expect(jsNode).toHaveClass('Node Node--unlocked');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(jsNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
 
       fireEvent.click(jsNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--selected');
-      expect(jsNode).toHaveClass('Node Node--selected');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(jsNode).toHaveStyleRule('background', /linear-gradient/);
 
       fireEvent.click(jsNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--selected');
-      expect(jsNode).toHaveClass('Node Node--unlocked');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(jsNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
 
       fireEvent.click(cssNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--unlocked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(htmlNode);
 
-      expect(htmlNode).toHaveClass('Node Node--unlocked');
-      expect(cssNode).toHaveClass('Node Node--locked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(cssNode).toHaveStyleRule('opacity', '0.65');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
     });
 
     it('should deselect all child nodes when then parent is deselected', () => {
@@ -175,27 +199,39 @@ describe('SkillTreeGroup component', () => {
       const cssNode = getByTestId('css');
       const jsNode = getByTestId('javascript-basics');
 
-      expect(htmlNode).toHaveClass('Node Node--unlocked');
-      expect(cssNode).toHaveClass('Node Node--locked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(cssNode).toHaveStyleRule('opacity', '0.65');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(htmlNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--unlocked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(cssNode);
 
-      expect(htmlNode).toHaveClass('Node Node--selected');
-      expect(cssNode).toHaveClass('Node Node--selected');
-      expect(jsNode).toHaveClass('Node Node--unlocked');
+      expect(htmlNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(cssNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(jsNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
 
       fireEvent.click(htmlNode);
 
-      expect(htmlNode).toHaveClass('Node Node--unlocked');
-      expect(cssNode).toHaveClass('Node Node--locked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(cssNode).toHaveStyleRule('opacity', '0.65');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
     });
 
     it('should display the correct counter on sequential node selection ', () => {
@@ -234,12 +270,12 @@ describe('SkillTreeGroup component', () => {
 
       expect(selectedCount).toHaveTextContent('0');
 
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(jsNode);
 
       expect(selectedCount).toHaveTextContent('0');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
     });
 
     it('should reset the counter when the top node is selected', () => {
@@ -286,9 +322,12 @@ describe('SkillTreeGroup component', () => {
 
       expect(selectedCount).toHaveTextContent('0');
 
-      expect(htmlNode).toHaveClass('Node Node--unlocked');
-      expect(cssNode).toHaveClass('Node Node--locked');
-      expect(jsNode).toHaveClass('Node Node--locked');
+      expect(htmlNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(cssNode).toHaveStyleRule('opacity', '0.65');
+      expect(jsNode).toHaveStyleRule('opacity', '0.65');
     });
   });
 
@@ -302,12 +341,15 @@ describe('SkillTreeGroup component', () => {
       expect(getByTestId('selected-count')).toHaveTextContent('0');
       expect(getByTestId('total-count')).toHaveTextContent('10');
 
-      expect(getByTestId('languages')).toHaveClass('Node Node--unlocked');
-      expect(getByTestId('python')).toHaveClass('Node Node--locked');
-      expect(getByTestId('javascript')).toHaveClass('Node Node--locked');
-      expect(getByTestId('nodejs')).toHaveClass('Node Node--locked');
-      expect(getByTestId('typescript')).toHaveClass('Node Node--locked');
-      expect(getByTestId('golang')).toHaveClass('Node Node--locked');
+      expect(getByTestId('languages')).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(getByTestId('python')).toHaveStyleRule('opacity', '0.65');
+      expect(getByTestId('javascript')).toHaveStyleRule('opacity', '0.65');
+      expect(getByTestId('nodejs')).toHaveStyleRule('opacity', '0.65');
+      expect(getByTestId('typescript')).toHaveStyleRule('opacity', '0.65');
+      expect(getByTestId('golang')).toHaveStyleRule('opacity', '0.65');
     });
 
     it('should display the correct states of branched nodes', () => {
@@ -322,27 +364,42 @@ describe('SkillTreeGroup component', () => {
 
       fireEvent.click(languageNode);
 
-      expect(jsNode).toHaveClass('Node Node--unlocked');
-      expect(tsNode).toHaveClass('Node Node--locked');
-      expect(nodeNode).toHaveClass('Node Node--locked');
+      expect(jsNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(tsNode).toHaveStyleRule('opacity', '0.65');
+      expect(nodeNode).toHaveStyleRule('opacity', '0.65');
 
       fireEvent.click(jsNode);
 
-      expect(jsNode).toHaveClass('Node Node--selected');
-      expect(tsNode).toHaveClass('Node Node--unlocked');
-      expect(nodeNode).toHaveClass('Node Node--unlocked');
+      expect(jsNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(tsNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(nodeNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
 
       fireEvent.click(tsNode);
 
-      expect(jsNode).toHaveClass('Node Node--selected');
-      expect(tsNode).toHaveClass('Node Node--selected');
-      expect(nodeNode).toHaveClass('Node Node--unlocked');
+      expect(jsNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(tsNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(nodeNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
 
       fireEvent.click(jsNode);
 
-      expect(jsNode).toHaveClass('Node Node--unlocked');
-      expect(tsNode).toHaveClass('Node Node--locked');
-      expect(nodeNode).toHaveClass('Node Node--locked');
+      expect(jsNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(tsNode).toHaveStyleRule('opacity', '0.65');
+      expect(nodeNode).toHaveStyleRule('opacity', '0.65');
     });
   });
 });

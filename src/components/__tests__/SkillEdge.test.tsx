@@ -27,8 +27,11 @@ describe('SkillEdge', () => {
 
       const skillEdge = getByTestId('straight-line');
 
-      expect(skillEdge).not.toHaveClass('Line--selected');
-      expect(skillEdge).toHaveClass('Line Line--unlocked');
+      expect(skillEdge).toHaveStyleRule('opacity', '1');
+      expect(skillEdge).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
+      );
     });
 
     it('should be inactive if the next node is locked', () => {
@@ -38,8 +41,11 @@ describe('SkillEdge', () => {
 
       const skillEdge = getByTestId('straight-line');
 
-      expect(skillEdge).not.toHaveClass('Line--selected');
-      expect(skillEdge).toHaveClass('Line--unlocked');
+      expect(skillEdge).toHaveStyleRule('opacity', '1');
+      expect(skillEdge).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
+      );
     });
 
     it('should be active if the next node is selected', () => {
@@ -49,7 +55,8 @@ describe('SkillEdge', () => {
 
       const skillEdge = getByTestId('straight-line');
 
-      expect(skillEdge).toHaveClass('Line Line--selected Line--unlocked');
+      expect(skillEdge).toHaveStyleRule('opacity', '1');
+      expect(skillEdge).toHaveStyleRule('background-position', 'left bottom');
     });
   });
 
@@ -78,19 +85,22 @@ describe('SkillEdge', () => {
       const skillEdgeTwo = getByTestId('angled-line-two');
       const skillEdgeThree = getByTestId('angled-line-three');
 
-      expect(skillEdgeOne).not.toHaveClass('AngledLine__line-one--selected');
-      expect(skillEdgeOne).toHaveClass(
-        'AngledLine AngledLine--vertical AngledLine--unlocked'
+      expect(skillEdgeOne).toHaveStyleRule('opacity', '1');
+      expect(skillEdgeOne).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
       );
-      expect(skillEdgeTwo).not.toHaveClass('AngledLine__line-two--selected');
-      expect(skillEdgeTwo).toHaveClass(
-        'AngledLine AngledLine--horizontal AngledLine--unlocked'
+
+      expect(skillEdgeTwo).toHaveStyleRule('opacity', '1');
+      expect(skillEdgeTwo).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
       );
-      expect(skillEdgeThree).not.toHaveClass(
-        'AngledLine__line-three--selecteda'
-      );
-      expect(skillEdgeThree).toHaveClass(
-        'AngledLine AngledLine--vertical AngledLine--unlocked'
+
+      expect(skillEdgeThree).toHaveStyleRule('opacity', '1');
+      expect(skillEdgeThree).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
       );
     });
 
@@ -106,14 +116,17 @@ describe('SkillEdge', () => {
       const skillEdgeTwo = getByTestId('angled-line-two');
       const skillEdgeThree = getByTestId('angled-line-three');
 
-      expect(skillEdgeOne).not.toHaveClass(
-        'AngledLine__line-one--selected AngledLine__line-one--selected'
+      expect(skillEdgeOne).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
       );
-      expect(skillEdgeTwo).not.toHaveClass(
-        'AngledLine__line-two--selected AngledLine__line-two--selected'
+      expect(skillEdgeTwo).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
       );
-      expect(skillEdgeThree).not.toHaveClass(
-        'AngledLine__line-three--selected AngledLine__line-three--selected'
+      expect(skillEdgeThree).not.toHaveStyleRule(
+        'background-position',
+        'left bottom'
       );
     });
 
@@ -129,9 +142,18 @@ describe('SkillEdge', () => {
       const skillEdgeTwo = getByTestId('angled-line-two');
       const skillEdgeThree = getByTestId('angled-line-three');
 
-      expect(skillEdgeOne).toHaveClass('AngledLine__line-one--selected');
-      expect(skillEdgeTwo).toHaveClass('AngledLine__line-two--selected');
-      expect(skillEdgeThree).toHaveClass('AngledLine__line-three--selected');
+      expect(skillEdgeOne).toHaveStyleRule(
+        'background-position',
+        'left bottom'
+      );
+      expect(skillEdgeTwo).toHaveStyleRule(
+        'background-position',
+        'left bottom'
+      );
+      expect(skillEdgeThree).toHaveStyleRule(
+        'background-position',
+        'left bottom'
+      );
     });
   });
 });
