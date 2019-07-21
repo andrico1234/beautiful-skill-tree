@@ -1,8 +1,7 @@
 import React from 'react';
-import classnames from 'classnames';
+import styled, { css, keyframes } from 'styled-components';
 import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
-import styled from 'styled-components';
 
 interface LineProps {
   topX: number;
@@ -13,6 +12,8 @@ interface LineProps {
 interface StyledLineProps {
   topX: number;
   topY: number;
+  selected: boolean;
+  unlocked: boolean;
 }
 
 function Line({ topX, topY, state }: LineProps) {
@@ -22,10 +23,8 @@ function Line({ topX, topY, state }: LineProps) {
         topY={topY}
         topX={topX}
         data-testid="straight-line"
-        className={classnames({
-          'Line--selected': state === SELECTED_STATE,
-          'Line--unlocked': state !== LOCKED_STATE,
-        })}
+        selected={state === SELECTED_STATE}
+        unlocked={state !== LOCKED_STATE}
       />
     </LineContainer>
   );
@@ -35,6 +34,17 @@ export default Line;
 
 const LineContainer = styled.div`
   height: 56px;
+`;
+
+const slidedown = keyframes`
+  from,
+  50% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
 `;
 
 const StyledLine = styled.div<StyledLineProps>`
@@ -57,4 +67,17 @@ const StyledLine = styled.div<StyledLineProps>`
   transform-origin: 0 0;
   transition: opacity 0.6s;
   width: 56px;
+
+  ${props =>
+    props.selected &&
+    css`
+      animation: ${slidedown} 1.2s 1 ease-out;
+      background-position: left bottom;
+    `}
+
+  ${props =>
+    props.unlocked &&
+    `
+      opacity: 1;
+    `}
 `;

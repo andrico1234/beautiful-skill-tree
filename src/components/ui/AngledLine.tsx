@@ -12,6 +12,10 @@ interface Props {
   state: NodeState;
 }
 
+interface AngledLineProps {
+  unlocked: boolean;
+}
+
 function AngledLine({ topX, topY, bottomX, direction, state }: Props) {
   // no one:
   // css:
@@ -32,12 +36,12 @@ function AngledLine({ topX, topY, bottomX, direction, state }: Props) {
   return (
     <AngledLineContainer>
       <AngledLineVertical
+        unlocked={state !== LOCKED_STATE}
         data-testid="angled-line-one"
         className={classnames({
           'AngledLine--rounded-bottom-right': direction === 'right',
           'AngledLine--rounded-top-right': direction === 'left',
           'AngledLine__line-one--selected': state === SELECTED_STATE,
-          'AngledLine--unlocked': state !== LOCKED_STATE,
         })}
         style={{
           top: `${topY - 1}px`,
@@ -46,16 +50,17 @@ function AngledLine({ topX, topY, bottomX, direction, state }: Props) {
         }}
       />
       <AngledLineHoriztonal
+        unlocked={state !== LOCKED_STATE}
         data-testid="angled-line-two"
         className={classnames({
           'AngledLine__line-two--selected': state === SELECTED_STATE,
-          'AngledLine--unlocked': state !== LOCKED_STATE,
         })}
         style={
           direction === 'left' ? leftHorizontalStyles : rightHorizontalStyles
         }
       />
       <AngledLineVertical
+        unlocked={state !== LOCKED_STATE}
         data-testid="angled-line-three"
         className={classnames({
           'AngledLine--rounded-top-left': direction === 'right',
@@ -79,7 +84,7 @@ const AngledLineContainer = styled.div`
   height: 56px;
 `;
 
-const StyledAngledLine = styled.div`
+const StyledAngledLine = styled.div<AngledLineProps>`
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 1) 0%,
@@ -94,6 +99,12 @@ const StyledAngledLine = styled.div`
   position: absolute;
   opacity: 0.5;
   transition: opacity 0.6s;
+
+  ${props =>
+    props.unlocked &&
+    `
+      opacity: 1;
+  `}
 `;
 
 const AngledLineVertical = styled(StyledAngledLine)`

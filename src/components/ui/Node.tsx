@@ -1,6 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import classnames from 'classnames';
+import styled, { keyframes, css } from 'styled-components';
 import { SELECTED_STATE, UNLOCKED_STATE, LOCKED_STATE } from '../constants';
 import { Skill } from '../../models';
 import Icon from './Icon';
@@ -12,6 +11,12 @@ interface Props {
   skill: Skill;
 }
 
+interface StyledNodeProps {
+  selected: boolean;
+  unlocked: boolean;
+  locked: boolean;
+}
+
 const Node = React.forwardRef(
   (props: Props, ref: React.Ref<HTMLDivElement>) => {
     const { handleClick, id, currentState, skill } = props;
@@ -21,11 +26,9 @@ const Node = React.forwardRef(
         onClick={handleClick}
         ref={ref}
         data-testid={id}
-        className={classnames({
-          'Node--selected': currentState === SELECTED_STATE,
-          'Node--unlocked': currentState === UNLOCKED_STATE,
-          'Node--locked': currentState === LOCKED_STATE,
-        })}
+        selected={currentState === SELECTED_STATE}
+        unlocked={currentState === UNLOCKED_STATE}
+        locked={currentState === LOCKED_STATE}
       >
         {'icon' in skill ? (
           <IconNode>
@@ -43,7 +46,32 @@ const Node = React.forwardRef(
 
 export default Node;
 
-const StyledNode = styled.div`
+const shadowburst = keyframes`
+  from {
+    box-shadow: 0 0 18px 0 rgba(255, 255, 255, 1);
+  }
+
+  20% {
+    box-shadow: 0 0 24px 0 rgba(255, 255, 255, 1);
+  }
+
+  to {
+    box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0);
+  }
+`;
+
+const shadowpulse = keyframes`
+  from,
+  20% {
+    box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  to {
+    box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0.5);
+  }
+`;
+
+const StyledNode = styled.div<StyledNodeProps>`
   background: #282c34;
   border: 2px solid white;
   box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0);
@@ -61,6 +89,32 @@ const StyledNode = styled.div`
     outline: initial;
     outline-color: white;
   }
+
+  ${props =>
+    props.selected &&
+    css`
+      animation: ${shadowburst} 1s 1;
+      background: linear-gradient(
+        to right,
+        #d0e6a5 0%,
+        #86e3ce 50%,
+        #ccabd8 100%
+      );
+    `}
+
+  ${props =>
+    props.unlocked &&
+    css`
+      animation: ${shadowpulse} 1s infinite alternate;
+      box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.5);
+    `}
+
+    ${props =>
+      props.locked &&
+      `
+        cursor: initial;
+        opacity: 0.65;
+    `}
 `;
 
 const IconNode = styled.div`

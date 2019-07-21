@@ -1,17 +1,3 @@
-.SkillNode__overlay--selected {
-  animation: fadeout 3.5s 1;
-}
-
-.Node--locked {
-  cursor: initial;
-  opacity: 0.65;
-}
-
-.Node--unlocked {
-  animation: shadowpulse 1s infinite alternate;
-  box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.5);
-}
-
 .Node--unlocked:hover {
   animation: none;
   box-shadow: 0 0 12px 0 rgba(255, 255, 255, 1);
@@ -55,21 +41,6 @@
   height: 85%;
   width: 95%;
   transition: width 0.6s, height 0.6s;
-}
-
-.Node--selected {
-  animation: shadowburst 1s 1;
-  background: linear-gradient(to right, #d0e6a5 0%, #86e3ce 50%, #ccabd8 100%);
-}
-
-.Line--unlocked,
-.AngledLine--unlocked {
-  opacity: 1;
-}
-
-.Line--selected {
-  animation: slidedown 1.2s 1 ease-out;
-  background-position: left bottom;
 }
 
 .AngledLine--rounded-top-left {
@@ -133,52 +104,5 @@
 
   to {
     background-position: left bottom;
-  }
-}
-
-@keyframes fadeout {
-  from,
-  30% {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes slidedown {
-  from,
-  50% {
-    background-position: right top;
-  }
-
-  to {
-    background-position: left bottom;
-  }
-}
-
-@keyframes shadowpulse {
-  from,
-  20% {
-    box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.5);
-  }
-
-  to {
-    box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0.5);
-  }
-}
-
-@keyframes shadowburst {
-  from {
-    box-shadow: 0 0 18px 0 rgba(255, 255, 255, 1);
-  }
-
-  20% {
-    box-shadow: 0 0 24px 0 rgba(255, 255, 255, 1);
-  }
-
-  to {
-    box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0);
   }
 }
