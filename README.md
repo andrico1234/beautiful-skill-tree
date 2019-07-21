@@ -97,6 +97,8 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ### SkillTreeGroup
 
+#### theme: `SkillThemeType` [*optional*]
+
 #### children: `(treeData) => React.ReactNode` [*required*]
 
 ### SkillProvider
@@ -123,6 +125,20 @@ type TreeData = {
 };
 ```
 
+### Custom Themes
+
+It's likely that you're application won't look to hot with a dark blue/rainbow themed skill tree. Fortunately, a custom theme can be supplied to the `SkillTreeGroup` component. The styles passed through will override the defaults to allow your skill tree to fit nicely into your application. The theme object's type is exported in the package as `SkillThemeType`. I don't perform any object merging between the default styles and the user-defined object, so you'll need to fill out the whole object.
+
+There are some gotcha related to some of my hacky CSS. Because I like me some gradients, to get the borders looking all swanky, i've had to use the `border-image` css property to define the border color. This means that you'll need to supply a gradient too if you want to change the border color. To create a solid gradient, pass through:
+
+```
+linear-gradient(
+  to right,
+  #ffffff 0%,
+  #ffffff 100%
+)
+```
+
 ---
 
 ## V1 Checklist
@@ -135,7 +151,7 @@ type TreeData = {
 - [x] Responsive
 - [x] Expose skill tree state
 - [x] Reset skill tree
-- [ ] CSS theming
+- [x] CSS theming
 - [ ] Optional nodes
 - [ ] Side nodes
 - [ ] Collapsable skill trees

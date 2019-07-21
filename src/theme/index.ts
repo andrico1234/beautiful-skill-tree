@@ -38,4 +38,6 @@ const defaultTheme = {
   },
 };
 
+export const SkillThemeType = typeof defaultTheme;
+
 export default defaultTheme;
