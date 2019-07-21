@@ -107,11 +107,54 @@ const StyledNode = styled.div<StyledNodeProps>`
     css`
       animation: ${shadowpulse} 1s infinite alternate;
       box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.5);
-    `}
 
-    ${props =>
-      props.locked &&
-      `
+      &:after,
+      &:before {
+        border: 0 solid;
+        border-image-source: linear-gradient(
+          to right,
+          #d0e6a5 0%,
+          #86e3ce 50%,
+          #ccabd8 100%
+        );
+        border-image-slice: 1;
+        content: ' ';
+        opacity: 0;
+        height: 0;
+        transition: opacity 0.6s, width 0.6s, height 0.6s;
+        position: absolute;
+        width: 0;
+      }
+
+      &:after {
+        border-top: 4px solid;
+        border-left: 4px solid;
+        top: 0;
+        left: 0;
+      }
+
+      &:before {
+        bottom: 0px;
+        right: 0px;
+        border-bottom: 4px solid;
+        border-right: 4px solid;
+      }
+      &:hover {
+        animation: none;
+        box-shadow: 0 0 12px 0 rgba(255, 255, 255, 1);
+
+        &:after,
+        &:before {
+          opacity: 1;
+          height: 85%;
+          width: 95%;
+          transition: width 0.6s, height 0.6s;
+        }
+      }
+    `}
+  ${props =>
+    props.locked &&
+    `
         cursor: initial;
         opacity: 0.65;
     `}

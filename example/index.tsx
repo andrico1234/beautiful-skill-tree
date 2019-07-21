@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { SkillTree, SkillTreeGroup, SkillProvider } from '../src';
 import './index.css';
-import '../styles.css';
 import { legsPushData, legsPullData } from './mockData';
 
 const App = () => {
@@ -21,36 +20,6 @@ const App = () => {
                   Reset
                 </button>
               </div>
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                data={legsPushData}
-              />
-              <SkillTree
-                treeId="hp"
-                title="Hinge Progression"
-                data={legsPullData}
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                data={legsPushData}
-              />
-              <SkillTree
-                treeId="hp"
-                title="Hinge Progression"
-                data={legsPullData}
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                data={legsPushData}
-              />
-              <SkillTree
-                treeId="hp"
-                title="Hinge Progression"
-                data={legsPullData}
-              />
               <SkillTree
                 treeId="sp"
                 title="Squat Progression"

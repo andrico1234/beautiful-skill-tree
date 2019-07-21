@@ -1,8 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import classnames from 'classnames';
 import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
+
+type direction = 'left' | 'right';
 
 interface Props {
   topX: number;
@@ -14,65 +16,53 @@ interface Props {
 
 interface AngledLineProps {
   unlocked: boolean;
+  selected: boolean;
+}
+
+interface AngledLineVerticalProps {
+  top: number;
+  left: number;
+  direction: direction;
+}
+
+interface AngledLineHoriztonalProps {
+  direction: direction;
+  top: number;
+  left: number;
+  width: number;
 }
 
 function AngledLine({ topX, topY, bottomX, direction, state }: Props) {
-  // no one:
-  // css:
-  const leftHorizontalStyles = {
-    left: `${topX - 3}px`,
-    transform: 'scaleX(-1)',
-    transformOrigin: '0 0',
-    top: `${topY + 24}px`,
-    width: `${topX - bottomX - 6}px`,
-  };
-
-  const rightHorizontalStyles = {
-    left: `${topX + 3}px`,
-    top: `${topY + 24}px`,
-    width: `${bottomX - topX - 6}px`,
-  };
-
   return (
     <AngledLineContainer>
-      <AngledLineVertical
-        unlocked={state !== LOCKED_STATE}
+      <AngledLineVerticalTop
         data-testid="angled-line-one"
-        className={classnames({
-          'AngledLine--rounded-bottom-right': direction === 'right',
-          'AngledLine--rounded-top-right': direction === 'left',
-          'AngledLine__line-one--selected': state === SELECTED_STATE,
-        })}
-        style={{
-          top: `${topY - 1}px`,
-          left: `${topX + 3}px`,
-          width: '29px',
-        }}
+        top={topY - 1}
+        left={topX + 3}
+        direction={direction}
+        selected={state === SELECTED_STATE}
+        unlocked={state !== LOCKED_STATE}
       />
       <AngledLineHoriztonal
-        unlocked={state !== LOCKED_STATE}
         data-testid="angled-line-two"
-        className={classnames({
-          'AngledLine__line-two--selected': state === SELECTED_STATE,
-        })}
-        style={
-          direction === 'left' ? leftHorizontalStyles : rightHorizontalStyles
-        }
-      />
-      <AngledLineVertical
+        top={topY + 24}
+        direction={direction}
         unlocked={state !== LOCKED_STATE}
+        selected={state === SELECTED_STATE}
+        left={direction === 'left' ? topX - 3 : topX + 3}
+        width={direction === 'left' ? topX - bottomX - 6 : bottomX - topX - 6}
+      />
+      <AngledLineVerticalBottom
+        unlocked={state !== LOCKED_STATE}
+        top={topY + 24}
+        left={bottomX + 3}
+        direction={direction}
         data-testid="angled-line-three"
+        selected={state === SELECTED_STATE}
         className={classnames({
-          'AngledLine--rounded-top-left': direction === 'right',
           'AngledLine--rounded-bottom-left': direction === 'left',
-          'AngledLine__line-three--selected': state === SELECTED_STATE,
-          'AngledLine--unlocked': state !== LOCKED_STATE,
+          'AngledLine--rounded-top-left': direction === 'right',
         })}
-        style={{
-          top: `${topY + 24}px`,
-          left: `${bottomX + 3}px`,
-          width: '31px',
-        }}
       />
     </AngledLineContainer>
   );
@@ -112,7 +102,113 @@ const AngledLineVertical = styled(StyledAngledLine)`
   transform-origin: 0 0;
 `;
 
-const AngledLineHoriztonal = styled(StyledAngledLine)`
+const slideDownAngledLineTop = keyframes`
+  from,
+  33% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
+`;
+
+const AngledLineVerticalTop = styled(AngledLineVertical)<
+  AngledLineVerticalProps
+>`
+  left: ${props => props.left}px;
+  top: ${props => props.top}px;
+  width: 29px;
+
+  ${props =>
+    props.direction === 'right' &&
+    `
+      border-bottom-right-radius: 8px;
+    `}
+
+  ${props =>
+    props.direction === 'left' &&
+    `
+      border-top-right-radius: 8px;
+    `}
+
+  ${props =>
+    props.selected &&
+    css`
+      animation: ${slideDownAngledLineTop} 0.3s 1 ease-in;
+      background-position: left bottom;
+    `}
+`;
+
+const slideDownAngledLineMiddle = keyframes`
+  from,
+  30% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
+`;
+
+const AngledLineHoriztonal = styled(StyledAngledLine)<
+  AngledLineHoriztonalProps
+>`
   border-left: none;
   border-right: none;
+  left: ${props => props.left}px;
+  top: ${props => props.top}px;
+  width: ${props => props.width}px;
+
+  ${props =>
+    props.direction === 'left' &&
+    `
+      transform: scaleX(-1);
+      transform-origin: 0 0;
+  `}
+
+  ${props =>
+    props.selected &&
+    css`
+      animation: ${slideDownAngledLineMiddle} 1s 1;
+      background-position: left bottom;
+    `}
+`;
+
+const slideDownAngledLineBottom = keyframes`
+  from,
+  70% {
+    background-position: right top;
+  }
+
+  to {
+    background-position: left bottom;
+  }
+`;
+
+const AngledLineVerticalBottom = styled(AngledLineVertical)<
+  AngledLineVerticalProps
+>`
+  left: ${props => props.left}px;
+  top: ${props => props.top}px;
+  width: 31px;
+
+  ${props =>
+    props.direction === 'right' &&
+    `
+        border-top-left-radius: 8px;
+      `}
+
+  ${props =>
+    props.direction === 'left' &&
+    `
+      border-bottom-left-radius: 8px;
+    `}
+
+    ${props =>
+      props.selected &&
+      css`
+        animation: ${slideDownAngledLineBottom} 1.2s 1 ease-out;
+        background-position: left bottom;
+      `}
 `;
