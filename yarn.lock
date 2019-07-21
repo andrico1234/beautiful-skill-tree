@@ -2328,7 +2328,7 @@ css.escape@^1.5.1:
   resolved "https://registry.yarnpkg.com/css.escape/-/css.escape-1.5.1.tgz#42e27d4fa04ae32f931a4b4d4191fa9cddee97cb"
   integrity sha1-QuJ9T6BK4y+TGktNQZH6nN3ul8s=
 
-css@^2.2.3:
+css@^2.2.3, css@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/css/-/css-2.2.4.tgz#c646755c73971f2bba6a601e2cf2fd71b1298929"
   integrity sha512-oUnjmWpy0niI3x/mPL8dVEI1l7MnG3+HHyRPHf+YFSbK+svOhXpmSOcDURUh2aOCgl2grzrOPt1nHLuCVFULLw==
@@ -4092,6 +4092,13 @@ jest-snapshot@^24.8.0:
     natural-compare "^1.4.0"
     pretty-format "^24.8.0"
     semver "^5.5.0"
+
+jest-styled-components@^7.0.0-beta.1:
+  version "7.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-7.0.0-beta.1.tgz#0801db07ecca2cd3b0a8f2cc89d8d3c1027430a0"
+  integrity sha512-88iel5OXmmvLSz9VsNfm7MtQl81iyUmysWJhKI3Fd4zK25x5LnQoqcHYwJMN3KpWGllEGxaak4pOsGJsXw+h6A==
+  dependencies:
+    css "^2.2.4"
 
 jest-util@^24.8.0:
   version "24.8.0"

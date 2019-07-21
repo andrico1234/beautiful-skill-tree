@@ -100,7 +100,7 @@ describe('SkillTree', () => {
 
     fireEvent.click(topNode);
 
-    expect(topNode).toHaveClass('Node Node--selected');
+    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
     expect(getSelectedSkillCount()).toBe(1);
   });
 
@@ -111,12 +111,12 @@ describe('SkillTree', () => {
 
     fireEvent.click(topNode);
 
-    expect(topNode).toHaveClass('Node Node--selected');
+    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
 
     fireEvent.click(topNode);
 
-    expect(topNode).toHaveClass('Node');
-    expect(topNode).not.toHaveClass('Node Node--selected');
+    expect(topNode).toHaveStyleRule('background', '#282c34');
+    expect(topNode).not.toHaveStyleRule('background', /linear-gradient/);
 
     expect(getSelectedSkillCount()).toBe(0);
   });
@@ -130,15 +130,15 @@ describe('SkillTree', () => {
 
     fireEvent.click(topNode);
 
-    expect(topNode).toHaveClass('Node Node--selected');
+    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
 
     fireEvent.click(middleNode);
 
-    expect(middleNode).toHaveClass('Node Node--selected');
+    expect(middleNode).toHaveStyleRule('background', /linear-gradient/);
 
     fireEvent.click(bottomNode);
 
-    expect(bottomNode).toHaveClass('Node Node--selected');
+    expect(bottomNode).toHaveStyleRule('background', /linear-gradient/);
 
     expect(getSelectedSkillCount()).toBe(3);
   });
@@ -150,8 +150,8 @@ describe('SkillTree', () => {
 
     fireEvent.click(middleNode);
 
-    expect(middleNode).not.toHaveClass('Node Node--selected');
-    expect(middleNode).not.toHaveStyle(`background-color: #f44336`);
+    expect(middleNode).not.toHaveStyleRule('background', /linear-gradient/);
+    expect(middleNode).not.toHaveStyleRule('background-color', '#f44336');
     expect(getSelectedSkillCount()).toBe(0);
   });
 
@@ -170,9 +170,12 @@ describe('SkillTree', () => {
     const middleNode = getByTestId('item-two');
     const bottomNode = getByTestId('item-three');
 
-    expect(topNode).toHaveClass('Node Node--selected');
-    expect(middleNode).toHaveClass('Node Node--unlocked');
-    expect(bottomNode).toHaveClass('Node Node--locked');
+    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
+    expect(middleNode).toHaveStyleRule(
+      'box-shadow',
+      '0 0 6px 0 rgba(255,255,255,0.5)'
+    );
+    expect(bottomNode).toHaveStyleRule('opacity', '0.65');
 
     expect(getSelectedSkillCount()).toBe(1);
   });
@@ -192,17 +195,17 @@ describe('SkillTree', () => {
     fireEvent.click(middleNode);
     fireEvent.click(bottomNode);
 
-    expect(topNode).toHaveClass('Node Node--selected');
-    expect(middleNode).toHaveClass('Node Node--selected');
-    expect(bottomNode).toHaveClass('Node Node--selected');
+    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
+    expect(middleNode).toHaveStyleRule('background', /linear-gradient/);
+    expect(bottomNode).toHaveStyleRule('background', /linear-gradient/);
 
     expect(getSelectedSkillCount()).toBe(3);
 
     resetSkillsHandler();
 
-    expect(topNode).toHaveClass('Node Node--locked');
-    expect(middleNode).toHaveClass('Node Node--locked');
-    expect(bottomNode).toHaveClass('Node Node--locked');
+    expect(topNode).toHaveStyleRule('opacity', '0.65');
+    expect(middleNode).toHaveStyleRule('opacity', '0.65');
+    expect(bottomNode).toHaveStyleRule('opacity', '0.65');
 
     expect(getSelectedSkillCount()).toBe(0);
   });

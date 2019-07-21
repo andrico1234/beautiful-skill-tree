@@ -23,8 +23,8 @@ export default Icon;
 
 const StyledIcon = styled.div<StyledIconProps>`
   display: flex;
-  height: ${props => props.containerWidth};
-  width: ${props => props.containerWidth};
+  height: ${props => props.containerWidth}px;
+  width: ${props => props.containerWidth}px;
 `;
 
 const Image = styled.img`

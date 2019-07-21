@@ -26,7 +26,10 @@ describe('SkillNode component', () => {
   it('should successfully render the skill node', () => {
     const { getByTestId } = renderComponent();
 
-    expect(getByTestId('skill-node-overlay')).toHaveClass('SkillNode__overlay');
+    expect(getByTestId('skill-node-overlay')).toHaveStyleRule(
+      'background-color',
+      'white'
+    );
   });
 
   it("should not change the state of the node when clicked while it's parent is lockaed", () => {
@@ -34,11 +37,11 @@ describe('SkillNode component', () => {
 
     const node = getByTestId('test-node');
 
-    expect(node).toHaveClass('Node Node--locked');
+    expect(node).toHaveStyleRule('opacity', '0.65');
 
     fireEvent.click(node);
 
-    expect(node).toHaveClass('Node Node--locked');
+    expect(node).toHaveStyleRule('opacity', '0.65');
   });
 
   it('should handle resizing of the window correctly', () => {

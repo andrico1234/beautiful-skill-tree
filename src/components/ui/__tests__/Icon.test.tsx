@@ -21,6 +21,6 @@ describe('Icon component', () => {
     });
 
     expect(queryByAltText('test icon.')).toBeTruthy();
-    expect(getByTestId('icon-container')).toHaveStyle(`width: 20px;`);
+    expect(getByTestId('icon-container')).toHaveStyleRule('width', '20px');
   });
 });
