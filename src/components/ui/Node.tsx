@@ -36,7 +36,7 @@ const Node = React.forwardRef(
           </IconNode>
         ) : (
           <TextNode>
-            <Text className="Node__text">{skill.title}</Text>
+            <Text>{skill.title}</Text>
           </TextNode>
         )}
       </StyledNode>

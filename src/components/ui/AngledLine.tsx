@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import classnames from 'classnames';
 import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
 
@@ -59,10 +58,6 @@ function AngledLine({ topX, topY, bottomX, direction, state }: Props) {
         direction={direction}
         data-testid="angled-line-three"
         selected={state === SELECTED_STATE}
-        className={classnames({
-          'AngledLine--rounded-bottom-left': direction === 'left',
-          'AngledLine--rounded-top-left': direction === 'right',
-        })}
       />
     </AngledLineContainer>
   );
