@@ -7,6 +7,9 @@ const mockTheme = {
   tree: {
     backgroundColor: 'red',
   },
+  heading: {
+    font: 'comic-sans',
+  },
   node: {
     backgroundColor: 'grey',
     overlayColor: 'white',
