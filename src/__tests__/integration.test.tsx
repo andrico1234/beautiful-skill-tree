@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { SkillTreeGroup, SkillProvider, SkillTree, SkillType } from '../index';
-import defaultTheme, { SkillThemeType } from '../theme';
+import defaultTheme, { SkillTheme } from '../theme';
 import mockTheme from '../__mocks__/mockTheme';
 
 const simpleData: SkillType[] = [
@@ -79,7 +79,7 @@ const complexData: SkillType[] = [
 
 function renderComponent(
   renderComplexTree = false,
-  theme: Partial<SkillThemeType> = defaultTheme
+  theme: Partial<SkillTheme> = defaultTheme
 ) {
   const skillTreeTheme = { ...defaultTheme, ...theme };
 

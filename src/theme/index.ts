@@ -1,5 +1,3 @@
-import React from 'react';
-
 const defaultTheme = {
   backgroundColor: 'transparent',
   border: '2px solid white',
@@ -37,14 +35,6 @@ const defaultTheme = {
   edgeBorder: '1px solid white',
 };
 
-export type SkillThemeType = typeof defaultTheme;
+export type SkillTheme = typeof defaultTheme;
 
 export default defaultTheme;
-
-declare class ThemeProvider extends React.Component<ThemeProviderProps, any> {}
-
-type ThemeProviderProps = {
-  theme: SkillThemeType;
-};
-
-export type ThemeProviderType = typeof ThemeProvider;
