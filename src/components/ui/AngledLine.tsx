@@ -79,7 +79,7 @@ const StyledAngledLine = styled.div<AngledLineProps>`
   );
   background-size: 210% 100%;
   background-position: right top;
-  border: ${({ theme }) => theme.edge.border};
+  border: ${({ theme }) => theme.edgeBorder};
   height: 4px;
   position: absolute;
   opacity: 0.5;

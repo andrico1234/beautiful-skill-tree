@@ -72,9 +72,9 @@ const shadowpulse = keyframes`
 `;
 
 const StyledNode = styled.div<StyledNodeProps>`
-  background: ${({ theme }) => theme.node.backgroundColor};
+  background: ${({ theme }) => theme.nodeBackgroundColor};
   border: 2px solid;
-  border-color: ${({ theme }) => theme.node.borderColor};
+  border-color: ${({ theme }) => theme.nodeBorderColor};
   box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0);
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
@@ -95,7 +95,7 @@ const StyledNode = styled.div<StyledNodeProps>`
     props.selected &&
     css`
       animation: ${shadowburst} 1s 1;
-      background: ${({ theme }) => theme.node.activeBackgroundColor};
+      background: ${({ theme }) => theme.nodeActiveBackgroundColor};
     `}
 
   ${props =>
@@ -107,7 +107,7 @@ const StyledNode = styled.div<StyledNodeProps>`
       &:after,
       &:before {
         border: 0 solid;
-        border-image-source: ${({ theme }) => theme.node.hoverBorderColor};
+        border-image-source: ${({ theme }) => theme.nodeHoverBorderColor};
         border-image-slice: 1;
         content: ' ';
         opacity: 0;
@@ -118,8 +118,8 @@ const StyledNode = styled.div<StyledNodeProps>`
       }
 
       &:after {
-        border-top: ${({ theme }) => theme.node.hoverBorder};
-        border-left: ${({ theme }) => theme.node.hoverBorder};
+        border-top: ${({ theme }) => theme.nodeHoverBorder};
+        border-left: ${({ theme }) => theme.nodeHoverBorder};
         top: 0;
         left: 0;
       }
@@ -127,8 +127,8 @@ const StyledNode = styled.div<StyledNodeProps>`
       &:before {
         bottom: 0px;
         right: 0px;
-        border-bottom: ${({ theme }) => theme.node.hoverBorder};
-        border-right: ${({ theme }) => theme.node.hoverBorder};
+        border-bottom: ${({ theme }) => theme.nodeHoverBorder};
+        border-right: ${({ theme }) => theme.nodeHoverBorder};
       }
       &:hover {
         animation: none;
@@ -152,7 +152,7 @@ const StyledNode = styled.div<StyledNodeProps>`
 `;
 
 const IconNode = styled.div`
-  width: ${({ theme }) => theme.node.iconNodeWidth};
+  width: ${({ theme }) => theme.nodeIconNodeWidth};
 `;
 
 const TextNode = styled.div`
@@ -160,17 +160,17 @@ const TextNode = styled.div`
   display: flex;
   font-weight: 600;
   justify-content: center;
-  height: ${({ theme }) => theme.node.mobile.textNodeHeight};
-  width: ${({ theme }) => theme.node.mobile.textNodeWidth};
+  height: ${({ theme }) => theme.nodeMobileTextNodeHeight};
+  width: ${({ theme }) => theme.nodeMobileTextNodeWidth};
 
   @media (min-width: 900px) {
-    height: ${({ theme }) => theme.node.desktop.textNodeHeight};
-    width: ${({ theme }) => theme.node.desktop.textNodeWidth};
+    height: ${({ theme }) => theme.nodeDesktopTextNodeHeight};
+    width: ${({ theme }) => theme.nodeDesktopTextNodeWidth};
   }
 `;
 
 const Text = styled.p`
-  font-size: ${({ theme }) => theme.node.mobile.fontSize};
+  font-size: ${({ theme }) => theme.nodeMobileFontSize};
   text-overflow: ellipsis;
   margin: 0;
   overflow: hidden;
@@ -178,6 +178,6 @@ const Text = styled.p`
   white-space: nowrap;
 
   @media (min-width: 900px) {
-    font-size: ${({ theme }) => theme.node.desktop.fontSize};
+    font-size: ${({ theme }) => theme.nodeDesktopFontSize};
   }
 `;

@@ -1,3 +1,5 @@
+import React from 'react';
+
 const defaultTheme = {
   backgroundColor: 'transparent',
   border: '2px solid white',
@@ -5,47 +7,44 @@ const defaultTheme = {
   primaryFont: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
   primaryFontColor: 'white',
-  tree: {
-    backgroundColor: '#282c34',
-  },
-  heading: {
-    font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
-  },
-  node: {
-    backgroundColor: '#282c34',
-    borderColor: 'white',
-    overlayColor: 'white',
-    activeBackgroundColor: `linear-gradient(
+  treeBackgroundColor: '#282c34',
+  headingFont: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
+  headingFontColor: 'white',
+  headingFontSize: '24px',
+  nodeBackgroundColor: '#282c34',
+  nodeBorderColor: 'white',
+  nodeOverlayColor: 'white',
+  nodeActiveBackgroundColor: `linear-gradient(
       to right,
       #d0e6a5 0%,
       #86e3ce 50%,
       #ccabd8 100%
     )`,
-    hoverBorder: '4px solid',
-    hoverBorderColor: `linear-gradient(
+  nodeHoverBorder: '4px solid',
+  nodeHoverBorderColor: `linear-gradient(
       to right,
       #d0e6a5 0%,
       #86e3ce 50%,
       #ccabd8 100%
     )`,
-    iconNodeWidth: '64px',
-    mobile: {
-      textNodeHeight: '32px',
-      textNodeWidth: '108px',
-      fontSize: '14px',
-    },
-    desktop: {
-      textNodeHeight: '28px',
-      textNodeWidth: '144px',
-      fontSize: '16px',
-    },
-  },
-  edge: {
-    border: '1px solid white',
-  },
+  nodeIconWidth: '64px',
+  nodeMobileTextNodeHeight: '32px',
+  nodeMobileTextNodeWidth: '108px',
+  nodeMobileFontSize: '14px',
+  nodeDesktopTextNodeHeight: '28px',
+  nodeDesktopTextNodeWidth: '144px',
+  nodeDesktopFontSize: '16px',
+  edgeBorder: '1px solid white',
 };
 
-export const SkillThemeType = typeof defaultTheme;
+export type SkillThemeType = typeof defaultTheme;
 
 export default defaultTheme;
+
+declare class ThemeProvider extends React.Component<ThemeProviderProps, any> {}
+
+type ThemeProviderProps = {
+  theme: SkillThemeType;
+};
+
+export type ThemeProviderType = typeof ThemeProvider;

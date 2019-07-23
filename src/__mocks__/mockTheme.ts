@@ -1,47 +1,23 @@
-const mockTheme = {
+import { SkillThemeType } from '../index';
+
+const mockTheme: Partial<SkillThemeType> = {
   backgroundColor: 'grey',
-  border: '2px solid white',
-  borderRadius: '4px',
   primaryFont: `comic-sans`,
   primaryFontColor: 'white',
-  tree: {
-    backgroundColor: 'red',
-  },
-  heading: {
-    font: 'comic-sans',
-  },
-  node: {
-    backgroundColor: 'grey',
-    overlayColor: 'white',
-    activeBackgroundColor: `linear-gradient(
-      to right,
-      #d0e6a5 0%,
-      #86e3ce 50%,
-      #ccabd8 100%
-    )`,
-    borderColor: 'red',
-    hoverBorderColor: `linear-gradient(
-      to right,
-      #d0e6a5 0%,
-      #86e3ce 50%,
-      #ccabd8 100%
-    )`,
-    hoverBorder: '4px solid',
-    iconNodeWidth: '1000px',
-    mobile: {
-      textNodeHeight: '32px',
-      textNodeWidth: '108px',
-      fontSize: '14px',
-    },
-    desktop: {
-      textNodeHeight: '28px',
-      textNodeWidth: '144px',
-      fontSize: '16px',
-    },
-  },
-  edge: {
-    border: '1px solid black',
-  },
+  treeBackgroundColor: 'red',
+  headingFont: 'comic-sans',
+  headingFontColor: 'white',
+  headingFontSize: '100px',
+  nodeBackgroundColor: 'grey',
+  nodeOverlayColor: 'white',
+  nodeIconWidth: '1000px',
+  nodeMobileTextNodeHeight: '32px',
+  nodeMobileTextNodeWidth: '108px',
+  nodeMobileFontSize: '14px',
+  nodeDesktopTextNodeHeight: '28px',
+  nodeDesktopTextNodeWidth: '144px',
+  nodeDesktopFontSize: '16px',
+  edgeBorder: '1px solid black',
 };
 
 export default mockTheme;

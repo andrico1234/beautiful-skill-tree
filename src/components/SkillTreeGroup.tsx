@@ -2,6 +2,7 @@ import * as React from 'react';
 import AppContext from '../context/AppContext';
 import styled, { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme/index';
+import { DeepPartial } from 'models/utils';
 
 export interface TreeData {
   skillCount: number;
@@ -11,7 +12,7 @@ export interface TreeData {
 
 type Props = {
   children: (treeData: TreeData) => React.ReactNode;
-} & typeof defaultProps;
+} & DeepPartial<typeof defaultProps>;
 
 const defaultProps = {
   theme: defaultTheme,
@@ -22,6 +23,8 @@ function SkillTreeGroup({ theme, children }: Props) {
     AppContext
   );
 
+  const skillTreeTheme = { ...defaultTheme, ...theme };
+
   const treeData = {
     skillCount,
     selectedSkillCount,
@@ -29,7 +32,7 @@ function SkillTreeGroup({ theme, children }: Props) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={skillTreeTheme}>
       <StyleSkillTreeGroup>{children(treeData)}</StyleSkillTreeGroup>
     </ThemeProvider>
   );

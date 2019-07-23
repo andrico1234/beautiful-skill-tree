@@ -73,7 +73,7 @@ const SkillTreeContainer = styled.div`
 `;
 
 const SkillTreeTitle = styled.h2`
-  font-family: ${({ theme }) => theme.heading.font};
+  font-family: ${({ theme }) => theme.headingFont};
   min-width: 152px;
   text-align: center;
 
@@ -83,7 +83,7 @@ const SkillTreeTitle = styled.h2`
 `;
 
 const StyledSkillTree = styled.div`
-  background: ${({ theme }) => theme.tree.backgroundColor};
+  background: ${({ theme }) => theme.treeBackgroundColor};
   border: ${({ theme }) => theme.border};
   border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;

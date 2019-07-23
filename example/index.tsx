@@ -8,7 +8,7 @@ import { legsPushData, legsPullData } from './mockData';
 const App = () => {
   return (
     <SkillProvider>
-      <SkillTreeGroup>
+      <SkillTreeGroup theme={{ headingFont: 'impact' }}>
         {({ skillCount, selectedSkillCount, resetSkills }) => {
           return (
             <React.Fragment>

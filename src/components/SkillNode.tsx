@@ -159,7 +159,7 @@ const StyledSkillNode = styled.div`
 `;
 
 const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
-  background-color: ${({ theme }) => theme.node.overlayColor};
+  background-color: ${({ theme }) => theme.nodeOverlayColor};
   border-radius: ${({ theme }) => theme.borderRadius};
   height: 100%;
   left: 8px;
@@ -181,9 +181,9 @@ const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
 `;
 
 const StyledTippy = styled(Tippy)`
-  background-color: ${({ theme }) => theme.tree.backgroundColor};
+  background-color: ${({ theme }) => theme.treeBackgroundColor};
   border: ${({ theme }) => theme.border};
-  border-image-source: ${({ theme }) => theme.node.hoverBorderColor};
+  border-image-source: ${({ theme }) => theme.nodeHoverBorderColor};
   border-image-slice: 1;
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 0 8px;
@@ -191,7 +191,7 @@ const StyledTippy = styled(Tippy)`
   width: 320px;
 
   .tippy-backdrop {
-    background-color: ${({ theme }) => theme.tree.backgroundColor};
+    background-color: ${({ theme }) => theme.treeBackgroundColor};
   }
 `;
 
