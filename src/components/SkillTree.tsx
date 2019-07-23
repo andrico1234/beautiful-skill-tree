@@ -61,8 +61,10 @@ function SkillTree({ data, title, treeId }: Props) {
 export default SkillTree;
 
 const SkillTreeContainer = styled.div`
+  background-color: ${({ theme }) => theme.backgroundColor};
   margin: 0 8px 48px;
   min-width: fit-content;
+  padding: 16px;
 
   @media (min-width: 900px) {
     margin: 0 8px 16px;
@@ -80,6 +82,7 @@ const SkillTreeTitle = styled.h2`
 `;
 
 const StyledSkillTree = styled.div`
+  background: ${({ theme }) => theme.tree.backgroundColor};
   border: ${({ theme }) => theme.border};
   border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;

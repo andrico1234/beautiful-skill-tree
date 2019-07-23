@@ -4,6 +4,9 @@ const mockTheme = {
   borderRadius: '4px',
   primaryFont: `comic-sans`,
   primaryFontColor: 'white',
+  tree: {
+    backgroundColor: 'red',
+  },
   node: {
     backgroundColor: 'grey',
     overlayColor: 'white',

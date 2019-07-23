@@ -1,10 +1,13 @@
 const defaultTheme = {
-  backgroundColor: '#282c34',
+  backgroundColor: 'transparent',
   border: '2px solid white',
   borderRadius: '4px',
   primaryFont: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
   primaryFontColor: 'white',
+  tree: {
+    backgroundColor: '#282c34',
+  },
   node: {
     backgroundColor: '#282c34',
     overlayColor: 'white',

@@ -40,11 +40,10 @@ SkillTreeGroup.defaultProps = defaultProps;
 export default SkillTreeGroup;
 
 const StyleSkillTreeGroup = styled.div`
-  background-color: ${props => props.theme.backgroundColor};
   display: flex;
   flex-wrap: wrap;
-  font-family: ${props => props.theme.primaryFont};
-  color: ${props => props.theme.primaryFontColor};
+  font-family: ${({ theme }) => theme.primaryFont};
+  color: ${({ theme }) => theme.primaryFontColor};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   justify-content: center;
