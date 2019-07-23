@@ -181,7 +181,7 @@ const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
 `;
 
 const StyledTippy = styled(Tippy)`
-  background-color: ${({ theme }) => theme.backgroundColor};
+  background-color: ${({ theme }) => theme.tree.backgroundColor};
   border: ${({ theme }) => theme.border};
   border-image-source: ${({ theme }) => theme.node.borderColor};
   border-image-slice: 1;
@@ -191,7 +191,7 @@ const StyledTippy = styled(Tippy)`
   width: 320px;
 
   .tippy-backdrop {
-    background-color: ${props => props.theme.backgroundColor};
+    background-color: ${({ theme }) => theme.tree.backgroundColor};
   }
 `;
 

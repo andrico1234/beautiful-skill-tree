@@ -8,6 +8,10 @@ const defaultTheme = {
   tree: {
     backgroundColor: '#282c34',
   },
+  heading: {
+    font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
+  },
   node: {
     backgroundColor: '#282c34',
     overlayColor: 'white',
