@@ -19,12 +19,14 @@ const mockTheme = {
       #86e3ce 50%,
       #ccabd8 100%
     )`,
-    borderColor: `linear-gradient(
+    borderColor: 'red',
+    hoverBorderColor: `linear-gradient(
       to right,
       #d0e6a5 0%,
       #86e3ce 50%,
       #ccabd8 100%
     )`,
+    hoverBorder: '4px solid',
     iconNodeWidth: '1000px',
     mobile: {
       textNodeHeight: '32px',
@@ -36,7 +38,6 @@ const mockTheme = {
       textNodeWidth: '144px',
       fontSize: '16px',
     },
-    hoverBorder: '4px solid',
   },
   edge: {
     border: '1px solid black',

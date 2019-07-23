@@ -73,7 +73,8 @@ const shadowpulse = keyframes`
 
 const StyledNode = styled.div<StyledNodeProps>`
   background: ${({ theme }) => theme.node.backgroundColor};
-  border: ${({ theme }) => theme.border};
+  border: 2px solid;
+  border-color: ${({ theme }) => theme.node.borderColor}
   box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0);
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
@@ -106,7 +107,7 @@ const StyledNode = styled.div<StyledNodeProps>`
       &:after,
       &:before {
         border: 0 solid;
-        border-image-source: ${({ theme }) => theme.node.borderColor};
+        border-image-source: ${({ theme }) => theme.node.hoverBorderColor};
         border-image-slice: 1;
         content: ' ';
         opacity: 0;

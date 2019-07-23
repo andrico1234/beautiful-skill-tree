@@ -14,6 +14,7 @@ const defaultTheme = {
   },
   node: {
     backgroundColor: '#282c34',
+    borderColor: 'white',
     overlayColor: 'white',
     activeBackgroundColor: `linear-gradient(
       to right,
@@ -21,7 +22,8 @@ const defaultTheme = {
       #86e3ce 50%,
       #ccabd8 100%
     )`,
-    borderColor: `linear-gradient(
+    hoverBorder: '4px solid',
+    hoverBorderColor: `linear-gradient(
       to right,
       #d0e6a5 0%,
       #86e3ce 50%,
@@ -38,7 +40,6 @@ const defaultTheme = {
       textNodeWidth: '144px',
       fontSize: '16px',
     },
-    hoverBorder: '4px solid',
   },
   edge: {
     border: '1px solid white',

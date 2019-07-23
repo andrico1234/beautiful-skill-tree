@@ -183,7 +183,7 @@ const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
 const StyledTippy = styled(Tippy)`
   background-color: ${({ theme }) => theme.tree.backgroundColor};
   border: ${({ theme }) => theme.border};
-  border-image-source: ${({ theme }) => theme.node.borderColor};
+  border-image-source: ${({ theme }) => theme.node.hoverBorderColor};
   border-image-slice: 1;
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 0 8px;
