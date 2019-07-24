@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 import SkillNode from '../SkillNode';
 import { NodeState } from 'models';
 import { ThemeProvider } from 'styled-components';
@@ -46,6 +46,22 @@ describe('SkillNode component', () => {
     expect(node).toHaveStyleRule('opacity', '0.65');
 
     fireEvent.click(node);
+
+    expect(node).toHaveStyleRule('opacity', '0.65');
+  });
+
+  it('should select a focused item on on keypress enter', () => {
+    const { getByTestId } = renderComponent();
+
+    const node = getByTestId('test-node');
+
+    // expect(node).toHaveStyleRule('opacity', '0.65');
+
+    act(() => node.focus());
+
+    fireEvent.keyPress(node, {
+      keyCode: 13,
+    });
 
     expect(node).toHaveStyleRule('opacity', '0.65');
   });

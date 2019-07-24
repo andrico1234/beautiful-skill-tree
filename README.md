@@ -49,21 +49,24 @@ const data: Skill[] = [
   {
     id: 'hello-world',
     title: 'Hello World',
-    tooltipDescription:
-      'This node is the top most level, and will be unlocked, and ready to be clicked.',
+    tooltip: {
+      description: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
+    }
     children: [
       {
         id: 'hello-sun',
         title: 'Hello Sun',
-        tooltipDescription:
-          'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
+        tooltip: {
+          description: 'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
+        },
         children: [],
       },
       {
         id: 'hello-stars',
         title: 'Hello Stars',
-        tooltipDescription:
-          'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
+        tooltip: {
+          description:  'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
+        },
         children: [],
       },
     ],
@@ -99,7 +102,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### theme: `SkillThemeType` [*optional*]
 
-#### children: `(treeData) => React.ReactNode` [*required*]
+#### children: `(treeData: SkillTreeGroupData) => React.ReactNode` [*required*]
 
 ### SkillProvider
 
@@ -109,16 +112,20 @@ Unfortunately there aren't any React packages that enable us developers to easil
 type SkillType[] = {
 	id: string;
 	title: string;
-	tooltipDescription: string;
+	tooltip: {
+    description: string;
+    direction?: 'top' | 'left' | 'right' | 'bottom', // bottom = default
+    visible?: boolean;
+  };
 	icon?: string;
 	children: SkillType[];
 }
 ```
 
-### TreeData
+### SkillTreeGroupData
 
 ```typescript
-type TreeData = {
+type SkillTreeGroupData = {
   skillCount: number;
   selectedSkillCount: number;
   resetSkills: () => void;
@@ -141,6 +148,10 @@ linear-gradient(
 
 ---
 
+## Keyboard only use
+
+The tree is currently fully navigable using the keyboard. Pressing the tab button will cycle through the nodes, while pressing enter will select the focused node.
+
 ## V1 Checklist
 
 - [x] Skill
@@ -152,10 +163,9 @@ linear-gradient(
 - [x] Expose skill tree state
 - [x] Reset skill tree
 - [x] CSS theming
-- [ ] Optional nodes
-- [ ] Side nodes
-- [ ] Collapsable skill trees
 - [ ] Keyboard only use
+- [ ] Optional nodes
+- [ ] Collapsable skill trees
 - [ ] Secret special surprise on tree completion
 
 ---

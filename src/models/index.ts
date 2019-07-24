@@ -6,6 +6,12 @@ export type TooltipDirection = 'right' | 'left' | 'top' | 'bottom';
 
 export type NodeState = 'locked' | 'unlocked' | 'selected';
 
+export interface SkillTreeGroupData {
+  skillCount: number;
+  selectedSkillCount: number;
+  resetSkills: VoidFunction;
+}
+
 export interface Tooltip {
   description: string;
   direction?: TooltipDirection;

@@ -3,15 +3,10 @@ import AppContext from '../context/AppContext';
 import styled, { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme/index';
 import { DeepPartial } from 'models/utils';
-
-export interface TreeData {
-  skillCount: number;
-  selectedSkillCount: number;
-  resetSkills: VoidFunction;
-}
+import { SkillTreeGroupData } from 'models';
 
 type Props = {
-  children: (treeData: TreeData) => React.ReactNode;
+  children: (treeData: SkillTreeGroupData) => React.ReactNode;
 } & DeepPartial<typeof defaultProps>;
 
 const defaultProps = {

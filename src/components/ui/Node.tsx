@@ -19,11 +19,17 @@ interface StyledNodeProps {
 
 const Node = React.forwardRef(
   (props: Props, ref: React.Ref<HTMLDivElement>) => {
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+      if (e.keyCode === 13) {
+        handleClick();
+      }
+    }
     const { handleClick, id, currentState, skill } = props;
 
     return (
       <StyledNode
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
         ref={ref}
         data-testid={id}
         selected={currentState === SELECTED_STATE}
@@ -130,6 +136,14 @@ const StyledNode = styled.div<StyledNodeProps>`
         border-bottom: ${({ theme }) => theme.nodeHoverBorder};
         border-right: ${({ theme }) => theme.nodeHoverBorder};
       }
+
+      &:focus {
+        animation: none;
+        outline: none;
+        border: 2px solid #86e3ce;
+        box-shadow: 0px 0px 4px 0px #86e3ce;
+      }
+
       &:hover {
         animation: none;
         box-shadow: 0 0 12px 0 rgba(255, 255, 255, 1);
