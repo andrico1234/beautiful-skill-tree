@@ -28,6 +28,7 @@ export default Line;
 
 const LineContainer = styled.div`
   height: 56px;
+  margin-right: -4px;
   transform: translateX(50%);
 `;
 
