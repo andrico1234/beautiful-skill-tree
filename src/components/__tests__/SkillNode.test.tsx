@@ -50,22 +50,6 @@ describe('SkillNode component', () => {
     expect(node).toHaveStyleRule('opacity', '0.65');
   });
 
-  it('should select a focused item on on keypress enter', () => {
-    const { getByTestId } = renderComponent();
-
-    const node = getByTestId('test-node');
-
-    // expect(node).toHaveStyleRule('opacity', '0.65');
-
-    act(() => node.focus());
-
-    fireEvent.keyPress(node, {
-      keyCode: 13,
-    });
-
-    expect(node).toHaveStyleRule('opacity', '0.65');
-  });
-
   it('should handle resizing of the window correctly', () => {
     // @ts-ignore
     window.innerWidth = 200;
