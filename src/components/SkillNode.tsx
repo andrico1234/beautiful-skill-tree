@@ -20,7 +20,8 @@ interface SkillNodeOverlayProps {
 }
 
 function SkillNode({ skill, nodeState }: Props) {
-  const { children, title, tooltipDescription, id } = skill;
+  const { children, title, tooltip, id } = skill;
+  const { direction = 'bottom', description, visible } = tooltip;
   const [isMobile, setMobileState] = React.useState(window.innerWidth < 900);
   const [parentPosition, setParentPosition] = React.useState({
     bottom: 0,
@@ -99,12 +100,11 @@ function SkillNode({ skill, nodeState }: Props) {
           data-testid="skill-node-overlay"
         />
         <StyledTippy
-          placement={isMobile ? 'top' : 'bottom'}
+          placement={isMobile ? 'bottom' : direction}
+          visible={isMobile ? undefined : visible}
+          hideOnClick={false}
           content={
-            <TooltipContent
-              tooltipDescription={tooltipDescription}
-              title={title}
-            />
+            <TooltipContent tooltipDescription={description} title={title} />
           }
         >
           <Node

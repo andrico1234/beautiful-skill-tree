@@ -4,26 +4,33 @@ import SkillTree from '../SkillTree';
 import MockLocalStorage from '../../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
+import { Skill } from '../../models/index';
 
-const mockSkillTreeData = [
+const mockSkillTreeData: Skill[] = [
   {
     id: 'item-one',
     icon: './222',
-    tooltipDescription:
-      "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
+    tooltip: {
+      description:
+        "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
+    },
     title: 'Phasewalker',
     children: [
       {
         id: 'item-two',
+        tooltip: {
+          description:
+            "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
+        },
         icon: './222',
-        tooltipDescription:
-          "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
         title: 'Phasewalker',
         children: [
           {
             id: 'item-three',
-            tooltipDescription:
-              "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
+            tooltip: {
+              description:
+                "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
+            },
             title: 'Phasewalker',
             children: [],
           },
@@ -34,7 +41,9 @@ const mockSkillTreeData = [
   {
     id: 'item-four',
     icon: './222',
-    tooltipDescription: 'second tree',
+    tooltip: {
+      description: 'second tree',
+    },
     title: 'hasewaler÷',
     children: [],
   },

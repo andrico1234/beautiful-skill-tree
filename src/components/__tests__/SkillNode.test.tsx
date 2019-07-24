@@ -15,7 +15,9 @@ function renderComponent(nodeState: NodeState = 'locked') {
           id: 'test-node',
           icon: './hey',
           title: 'Hey there',
-          tooltipDescription: 'Description',
+          tooltip: {
+            description: 'Description',
+          },
         }}
       />
     </ThemeProvider>

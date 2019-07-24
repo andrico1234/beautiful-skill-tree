@@ -2,20 +2,28 @@ import { Nullable } from './utils';
 
 export type Skill = MajorSkill | MinorSkill;
 
+export type TooltipDirection = 'right' | 'left' | 'top' | 'bottom';
+
 export type NodeState = 'locked' | 'unlocked' | 'selected';
+
+export interface Tooltip {
+  description: string;
+  direction?: TooltipDirection;
+  visible?: boolean;
+}
 
 export type MajorSkill = {
   id: string;
   icon: string;
   title: string;
-  tooltipDescription: string;
+  tooltip: Tooltip;
   children: Skill[];
 };
 
 export type MinorSkill = {
   id: string;
   title: string;
-  tooltipDescription: string;
+  tooltip: Tooltip;
   children: Skill[];
 };
 

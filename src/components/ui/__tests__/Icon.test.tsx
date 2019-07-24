@@ -18,13 +18,12 @@ function renderComponent(props: Props) {
 
 describe('Icon component', () => {
   it('should render the correct icon', () => {
-    const { queryByAltText, getByTestId } = renderComponent({
+    const { queryByAltText } = renderComponent({
       src: './',
       title: 'test icon.',
       containerWidth: 20,
     });
 
     expect(queryByAltText('test icon.')).toBeTruthy();
-    expect(getByTestId('icon-container')).toHaveStyleRule('width', '20px');
   });
 });

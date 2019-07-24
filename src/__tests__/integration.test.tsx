@@ -8,18 +8,25 @@ const simpleData: SkillType[] = [
   {
     id: 'html',
     title: 'html',
-    tooltipDescription: 'the method of structuring websites',
+    tooltip: {
+      description: 'the method of structuring websites',
+    },
     icon: '../',
     children: [
       {
         id: 'css',
         title: 'css',
-        tooltipDescription: 'how to affect the appearance of a website',
+        tooltip: {
+          description:
+            "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
+        },
         children: [
           {
             id: 'javascript-basics',
             title: 'javascript basics',
-            tooltipDescription: 'adding interactivity',
+            tooltip: {
+              description: 'adding interactivity',
+            },
             children: [],
           },
         ],
@@ -32,31 +39,45 @@ const complexData: SkillType[] = [
   {
     id: 'languages',
     title: 'languages',
-    tooltipDescription:
-      'used as the building blocks for creating amazing projects',
+    tooltip: {
+      description: 'used as the building blocks for creating amazing projects',
+    },
+
     icon: '../',
     children: [
       {
         id: 'python',
         title: 'python',
-        tooltipDescription: 'language one',
+        tooltip: {
+          description:
+            'used as the building blocks for creating amazing projects',
+        },
         children: [],
       },
       {
         id: 'javascript',
         title: 'javascript',
-        tooltipDescription: 'language one',
+        tooltip: {
+          description:
+            'used as the building blocks for creating amazing projects',
+        },
         children: [
           {
             id: 'typescript',
             title: 'typescript',
-            tooltipDescription: 'language one',
+            tooltip: {
+              description:
+                'used as the building blocks for creating amazing projects',
+            },
             children: [],
           },
           {
             id: 'nodejs',
             title: 'nodejs',
-            tooltipDescription: 'language one',
+            tooltip: {
+              description:
+                'used as the building blocks for creating amazing projects',
+            },
             children: [],
           },
         ],
@@ -64,7 +85,10 @@ const complexData: SkillType[] = [
       {
         id: 'golang',
         title: 'golang',
-        tooltipDescription: 'language one',
+        tooltip: {
+          description:
+            'used as the building blocks for creating amazing projects',
+        },
         children: [],
       },
     ],
@@ -72,7 +96,9 @@ const complexData: SkillType[] = [
   {
     id: 'paradigms',
     title: 'OOP',
-    tooltipDescription: 'for objects',
+    tooltip: {
+      description: 'used as the building blocks for creating amazing projects',
+    },
     children: [],
   },
 ];
