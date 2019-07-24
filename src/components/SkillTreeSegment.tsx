@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useContext,
-  useLayoutEffect,
-} from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { throttle, isEmpty } from 'lodash';
 import styled from 'styled-components';
 import SkillNode from './SkillNode';
@@ -62,7 +56,7 @@ function SkillTreeSegment({
     }
   }, [nodeState, parentState]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     function calculatePosition() {
       const { left, width } = skillNodeRef.current!.getBoundingClientRect();
 
@@ -73,7 +67,7 @@ function SkillTreeSegment({
       });
     }
 
-    window.addEventListener('resize', throttle(calculatePosition, 250));
+    window.addEventListener('resize', throttle(calculatePosition, 500));
     calculatePosition();
 
     if (isEmpty(skills)) {
@@ -81,7 +75,7 @@ function SkillTreeSegment({
     }
 
     return function cleanup() {
-      window.removeEventListener('resize', throttle(calculatePosition));
+      window.removeEventListener('resize', throttle(calculatePosition, 500));
     };
   }, []);
 

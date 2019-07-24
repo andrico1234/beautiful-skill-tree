@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { throttle, Cancelable } from 'lodash';
+import { throttle } from 'lodash';
 import styled, { keyframes, css } from 'styled-components';
 import Tippy from '@tippy.js/react';
 import SkillContext, { ISkillContext } from '../context/SkillContext';
@@ -50,17 +50,14 @@ function SkillNode({ skill, nodeState }: Props) {
     return updateSkillState(id, UNLOCKED_STATE);
   }
 
-  React.useLayoutEffect(() => {
-    const throttledResize: VoidFunction & Cancelable = throttle(
-      handleResize,
-      200
-    );
-
+  React.useEffect(() => {
     function handleResize() {
       calculatePosition();
       calculateOverlayWidth();
 
-      setMobileState(window.innerWidth < 900);
+      if (window.innerWidth < 900) {
+        setMobileState(true);
+      }
     }
 
     function calculatePosition() {
@@ -86,10 +83,10 @@ function SkillNode({ skill, nodeState }: Props) {
     calculatePosition();
     calculateOverlayWidth();
 
-    window.addEventListener('resize', throttledResize);
+    window.addEventListener('resize', throttle(handleResize, 500));
 
     return () => {
-      window.removeEventListener('resize', throttledResize);
+      window.removeEventListener('resize', throttle(handleResize, 500));
     };
   }, []);
 

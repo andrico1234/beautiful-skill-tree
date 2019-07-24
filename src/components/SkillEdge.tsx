@@ -16,8 +16,8 @@ const SkillEdge = React.memo(function({
   bottomX,
   nodeState,
 }: Props) {
-  if (topX === bottomX) {
-    return <Line topX={topX} topY={topY} state={nodeState} />;
+  if (Math.floor(topX) === Math.floor(bottomX)) {
+    return <Line state={nodeState} />;
   }
 
   return (

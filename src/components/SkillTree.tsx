@@ -26,11 +26,11 @@ function SkillTree({ data, title, treeId }: Props) {
       setIsMobile(window.innerWidth < 900);
     }
 
-    window.addEventListener('resize', throttle(setState, 250));
+    window.addEventListener('resize', throttle(setState, 500));
     setState();
 
     return function cleanup() {
-      window.removeEventListener('resize', throttle(setState, 250));
+      window.removeEventListener('resize', throttle(setState, 500));
     };
   }, []);
 

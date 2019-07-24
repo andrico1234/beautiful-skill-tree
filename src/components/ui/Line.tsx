@@ -4,24 +4,18 @@ import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
 
 interface LineProps {
-  topX: number;
-  topY: number;
   state: NodeState;
 }
 
 interface StyledLineProps {
-  topX: number;
-  topY: number;
   selected: boolean;
   unlocked: boolean;
 }
 
-function Line({ topX, topY, state }: LineProps) {
+function Line({ state }: LineProps) {
   return (
     <LineContainer>
       <StyledLine
-        topY={topY}
-        topX={topX}
         data-testid="straight-line"
         selected={state === SELECTED_STATE}
         unlocked={state !== LOCKED_STATE}
@@ -34,6 +28,7 @@ export default Line;
 
 const LineContainer = styled.div`
   height: 56px;
+  transform: translateX(50%);
 `;
 
 const slidedown = keyframes`
@@ -59,10 +54,7 @@ const StyledLine = styled.div<StyledLineProps>`
   background-position: right top;
   border: ${({ theme }) => theme.edgeBorder};
   height: 4px;
-  position: absolute;
   opacity: 0.5;
-  top: ${props => props.topY - 1}px;
-  left: ${props => props.topX + 3}px;
   transform: rotate(90deg);
   transform-origin: 0 0;
   transition: opacity 0.6s;

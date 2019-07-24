@@ -21,10 +21,13 @@ const Icon = React.memo(function({ src, title, containerWidth }: Props) {
 
 export default Icon;
 
-const StyledIcon = styled.div<StyledIconProps>`
+const StyledIcon = styled.div.attrs<StyledIconProps>(props => ({
+  style: {
+    height: `${props.containerWidth}px`,
+    width: `${props.containerWidth}px`,
+  },
+}))<StyledIconProps>`
   display: flex;
-  height: ${props => props.containerWidth}px;
-  width: ${props => props.containerWidth}px;
 `;
 
 const Image = styled.img`
