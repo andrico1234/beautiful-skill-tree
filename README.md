@@ -1,6 +1,6 @@
 # Beautiful Skill Tree
 
-A small library to help get you implement beautiful, responsive, and satisfying skill trees to your React applications
+A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications
 
 ---
 
@@ -16,36 +16,36 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 The package exposes three components `SkillTree`, `SkillTreeGroup` and `SkillProvider`.
 
-The `SkillTree` is the component that takes your data and renders the tree of components.
+The `SkillTree` takes your data and renders the tree.
 
-The `SkillTreeGroup` is the component that groups skill trees and will expose in the future expose various methods and properties related to the skill tree.
+The `SkillTreeGroup` groups skill trees and exposes various methods and properties related to the collection of skill tree.
 
 The `SkillProvider` is the skill tree's context provider.
 
-For those that like their data typed, you can import `SkillType` from the package.
+For those that like their data typed, you can also import `SkillType` from the package.
 
 Wrap your application like this:
 
 ```typescript
 import { SkillTreeGroup, SkillTree, SkillProvider, SkillType } from 'beautiful-skill-tree';
 
-const data: Skill[] = [];
+const data: SkillTypr[] = [];
 
 <SkillProvider>
   <SkillTreeGroup>
-    {skillCount => {
+    {({ skillCount }) => {
       <SkillTree treeId="first-tree" title="Skill Tree" data={data} />
     }}
     </SkillTreeGroup>
 <SkillProvider>
 ```
 
-Run your application's starting script and access localhost to find an empty skill tree. The skill tree group will be empty until data is passed to the skill tree.
+Run your application's starting script and access localhost to find an empty skill tree. The skill tree will remain empty until data of type `Skill[]` is passed to through as a prop.
 
 Add the following data to your skill tree and see what happens:
 
 ```typescript
-const data: Skill[] = [
+const data: SkillType[] = [
   {
     id: 'hello-world',
     title: 'Hello World',
@@ -82,9 +82,9 @@ Go to your browser and you should see this:
 
 ## Motivation
 
-Is there anything more satisfying than the feeling of progression; you know, improving at something you care deeply about? Not likely! Be it in video games, web development, or your physical capabilities, very little gives us a sense of pride and accomplishment than gaining new skills and using them. My motivation was to make skill trees that feel satisfying and fun to use.
+Is there anything more satisfying than the feeling of progression; improving at something you care deeply about? Not likely! Be it in video games, web development, or your physical capabilities, very little gives us a sense of pride and accomplishment than gaining new skills and using them. My motivation was to make skill trees that feel satisfying and fun to use.
 
-Unfortunately there aren't any React packages that enable us developers to easily create skill tree in their applications. This is where Beautiful Skill Tree comes in. BST is a small package that allows you to easily create your own skill trees that look great across devices and screen sizes.
+Unfortunately there aren't any React packages that enable us developers to easily create skill trees in their applications. This is where Beautiful Skill Tree comes in. BST is a small package that allows you to easily create your own skill trees that look great across devices and screen sizes.
 
 ---
 
@@ -163,7 +163,7 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 - [x] Expose skill tree state
 - [x] Reset skill tree
 - [x] CSS theming
-- [ ] Keyboard only use
+- [x] Keyboard only use
 - [ ] Optional nodes
 - [ ] Collapsable skill trees
 - [ ] Secret special surprise on tree completion

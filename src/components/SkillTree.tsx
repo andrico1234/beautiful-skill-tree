@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { throttle } from 'lodash';
+import React, { useContext } from 'react';
 import { Skill } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillContext';
 import styled from 'styled-components';
+import MobileContext from '../context/MobileContext';
 
 interface Props {
   treeId: string;
@@ -19,20 +19,7 @@ const defaultParentPosition = {
 };
 
 function SkillTree({ data, title, treeId }: Props) {
-  const [isMobile, setIsMobile] = useState(true);
-
-  useEffect(() => {
-    function setState() {
-      setIsMobile(window.innerWidth < 900);
-    }
-
-    window.addEventListener('resize', throttle(setState, 500));
-    setState();
-
-    return function cleanup() {
-      window.removeEventListener('resize', throttle(setState, 500));
-    };
-  }, []);
+  const { isMobile } = useContext(MobileContext);
 
   return (
     <SkillTreeProvider treeId={treeId}>
@@ -64,11 +51,11 @@ const SkillTreeContainer = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
   margin: 0 8px 48px;
   min-width: fit-content;
-  padding: 16px;
 
   @media (min-width: 900px) {
     margin: 0 8px 16px;
     min-width: initial;
+    padding: 16px;
   }
 `;
 

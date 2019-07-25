@@ -28,8 +28,10 @@ export default Line;
 
 const LineContainer = styled.div`
   height: 56px;
-  margin-right: -4px;
-  transform: translateX(50%);
+  left: 4px;
+  margin: 0 auto;
+  position: relative;
+  width: 4px;
 `;
 
 const slidedown = keyframes`

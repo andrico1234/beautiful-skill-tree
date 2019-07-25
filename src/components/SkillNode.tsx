@@ -3,6 +3,7 @@ import { throttle } from 'lodash';
 import styled, { keyframes, css } from 'styled-components';
 import Tippy from '@tippy.js/react';
 import SkillContext, { ISkillContext } from '../context/SkillContext';
+import MobileContext from '../context/MobileContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
@@ -22,7 +23,7 @@ interface SkillNodeOverlayProps {
 function SkillNode({ skill, nodeState }: Props) {
   const { children, title, tooltip, id } = skill;
   const { direction = 'bottom', description, visible } = tooltip;
-  const [isMobile, setMobileState] = React.useState(window.innerWidth < 900);
+  const { isMobile } = React.useContext(MobileContext);
   const [parentPosition, setParentPosition] = React.useState({
     bottom: 0,
     center: 0,
@@ -55,10 +56,6 @@ function SkillNode({ skill, nodeState }: Props) {
     function handleResize() {
       calculatePosition();
       calculateOverlayWidth();
-
-      if (window.innerWidth < 900) {
-        setMobileState(true);
-      }
     }
 
     function calculatePosition() {
@@ -100,8 +97,8 @@ function SkillNode({ skill, nodeState }: Props) {
           data-testid="skill-node-overlay"
         />
         <StyledTippy
-          placement={isMobile ? 'bottom' : direction}
-          visible={isMobile ? undefined : visible}
+          placement={isMobile ? 'top' : direction}
+          visible={isMobile ? undefined : visible} // this is buggy on screen size changes
           hideOnClick={false}
           content={
             <TooltipContent tooltipDescription={description} title={title} />
