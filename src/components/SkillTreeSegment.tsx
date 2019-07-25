@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useContext,
+  useCallback,
+} from 'react';
 import { throttle, isEmpty } from 'lodash';
 import styled from 'styled-components';
 import SkillNode from './SkillNode';
@@ -26,9 +32,12 @@ function SkillTreeSegment({
   parentState,
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
-  const { skills, updateSkillState, decrementSelectedSkillCount } = useContext(
-    SkillContext
-  );
+  const {
+    skills,
+    updateSkillState,
+    decrementSelectedSkillCount,
+    incrementSelectedSkillCount,
+  } = useContext(SkillContext);
 
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
@@ -90,7 +99,13 @@ function SkillTreeSegment({
         />
       )}
       <div ref={skillNodeRef}>
-        <SkillNode skill={skill} nodeState={nodeState} />
+        <SkillNode
+          incSkillCount={useCallback(incrementSelectedSkillCount, [])}
+          decSkillCount={useCallback(decrementSelectedSkillCount, [])}
+          updateSkillState={updateSkillState}
+          skill={skill}
+          nodeState={nodeState}
+        />
       </div>
     </StyledSkillTreeSegment>
   );

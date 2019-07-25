@@ -2,7 +2,6 @@ import * as React from 'react';
 import { throttle } from 'lodash';
 import styled, { keyframes, css } from 'styled-components';
 import Tippy from '@tippy.js/react';
-import SkillContext, { ISkillContext } from '../context/SkillContext';
 import MobileContext from '../context/MobileContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
@@ -13,6 +12,9 @@ import Node from './ui/Node';
 interface Props {
   skill: Skill;
   nodeState: NodeState;
+  incSkillCount: VoidFunction;
+  decSkillCount: VoidFunction;
+  updateSkillState: (key: string, updatedState: NodeState) => void;
 }
 
 interface SkillNodeOverlayProps {
@@ -20,7 +22,13 @@ interface SkillNodeOverlayProps {
   selected: boolean;
 }
 
-function SkillNode({ skill, nodeState }: Props) {
+function SkillNode({
+  skill,
+  nodeState,
+  incSkillCount,
+  decSkillCount,
+  updateSkillState,
+}: Props) {
   const { children, title, tooltip, id } = skill;
   const { direction = 'bottom', description, visible } = tooltip;
   const { isMobile } = React.useContext(MobileContext);
@@ -28,12 +36,6 @@ function SkillNode({ skill, nodeState }: Props) {
     bottom: 0,
     center: 0,
   });
-
-  const {
-    incrementSelectedSkillCount,
-    decrementSelectedSkillCount,
-    updateSkillState,
-  }: ISkillContext = React.useContext(SkillContext);
 
   const skillNodeRef: React.RefObject<HTMLDivElement> = React.useRef(null);
   const childWidth: React.MutableRefObject<number> = React.useRef(0);
@@ -44,11 +46,11 @@ function SkillNode({ skill, nodeState }: Props) {
     }
 
     if (nodeState === UNLOCKED_STATE) {
-      incrementSelectedSkillCount();
+      incSkillCount();
       return updateSkillState(id, SELECTED_STATE);
     }
 
-    decrementSelectedSkillCount();
+    decSkillCount();
     return updateSkillState(id, UNLOCKED_STATE);
   }
 
@@ -133,7 +135,7 @@ function SkillNode({ skill, nodeState }: Props) {
   );
 }
 
-export default SkillNode;
+export default React.memo(SkillNode);
 
 const fadeout = keyframes`
   from,
