@@ -1,12 +1,10 @@
 import * as React from 'react';
+
 import uuid from 'uuid';
 
-interface State {
-  resetId: string;
-  skillCount: number;
-  selectedSkillCount: number;
-}
-
+type Props = {
+  children: React.ReactNode;
+};
 export interface IAppContext {
   resetId: string;
   skillCount: number;
@@ -27,60 +25,45 @@ const AppContext = React.createContext<IAppContext>({
   resetSkills: () => undefined,
 });
 
-export class SkillProvider extends React.Component<{}, State> {
-  state = {
-    resetId: '',
-    skillCount: 0,
-    selectedSkillCount: 0,
-  };
+export function SkillProvider({ children }: Props) {
+  const [resetId, setResetId] = React.useState('');
+  const [skillCount, setSkillCount] = React.useState(0);
+  const [selectedSkillCount, setSelectedSkillCount] = React.useState(0);
 
-  // refactor the increment items to use just one method.
-  addToSkillCount = (number: number): void => {
-    this.setState(({ skillCount }) => ({
-      skillCount: skillCount + number,
-    }));
-  };
-
-  incrementSelectedSkillCount = (number: number = 1): void => {
-    return this.setState(({ selectedSkillCount }) => {
-      return {
-        selectedSkillCount: selectedSkillCount + number,
-      };
-    });
-  };
-
-  decrementSelectedSkillCount = (): void => {
-    return this.setState(({ selectedSkillCount }) => {
-      return {
-        selectedSkillCount: selectedSkillCount - 1,
-      };
-    });
-  };
-
-  resetSkills = () => {
-    this.setState({
-      resetId: uuid(),
-      selectedSkillCount: 0,
-    });
-  };
-
-  render() {
-    return (
-      <AppContext.Provider
-        value={{
-          addToSkillCount: this.addToSkillCount,
-          skillCount: this.state.skillCount,
-          incrementSelectedSkillCount: this.incrementSelectedSkillCount,
-          decrementSelectedSkillCount: this.decrementSelectedSkillCount,
-          selectedSkillCount: this.state.selectedSkillCount,
-          resetSkills: this.resetSkills,
-          resetId: this.state.resetId,
-        }}
-      >
-        {this.props.children}
-      </AppContext.Provider>
-    );
+  function addToSkillCount(number: number): void {
+    return setSkillCount(prev => prev + number);
   }
+
+  function incrementSelectedSkillCount(number: number = 1): void {
+    return setSelectedSkillCount(prev => prev + number);
+  }
+
+  function decrementSelectedSkillCount(): void {
+    return setSelectedSkillCount(prev => prev - 1);
+  }
+
+  function resetSkills() {
+    setSelectedSkillCount(0);
+    setResetId(uuid());
+
+    return;
+  }
+
+  return (
+    <AppContext.Provider
+      value={{
+        addToSkillCount: addToSkillCount,
+        skillCount: skillCount,
+        incrementSelectedSkillCount: incrementSelectedSkillCount,
+        decrementSelectedSkillCount: decrementSelectedSkillCount,
+        selectedSkillCount: selectedSkillCount,
+        resetSkills: resetSkills,
+        resetId: resetId,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export default AppContext;
