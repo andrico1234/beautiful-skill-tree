@@ -29,7 +29,7 @@ Wrap your application like this:
 ```typescript
 import { SkillTreeGroup, SkillTree, SkillProvider, SkillType } from 'beautiful-skill-tree';
 
-const data: SkillTypr[] = [];
+const data: SkillType[] = [];
 
 <SkillProvider>
   <SkillTreeGroup>
@@ -166,7 +166,6 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 - [x] Keyboard only use
 - [ ] Optional nodes
 - [ ] Collapsable skill trees
-- [ ] Secret special surprise on tree completion
 
 ---
 
