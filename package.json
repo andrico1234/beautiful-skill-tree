@@ -43,9 +43,6 @@
       "<rootDir>src/setupTests.ts",
       "@testing-library/react/cleanup-after-each"
     ],
-    "moduleNameMapper": {
-      ".*\\.(css)$": "<rootDir>src/components/__mocks__/styleMock.ts"
-    },
     "testMatch": [
       "<rootDir>src/**/__tests__/*.{ts,tsx}"
     ],
