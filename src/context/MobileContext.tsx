@@ -14,17 +14,17 @@ const MobileContext = createContext<IMobileContext>({ isMobile: true });
 export function MobileProvider({ children }: Props) {
   const [isMobile, setMobileState] = useState(window.innerWidth < 900);
 
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < 900 && !isMobile) {
-        setMobileState(true);
-      }
-
-      if (window.innerWidth >= 900 && isMobile) {
-        setMobileState(false);
-      }
+  function handleResize() {
+    if (window.innerWidth < 900 && !isMobile) {
+      setMobileState(true);
     }
 
+    if (window.innerWidth >= 900 && isMobile) {
+      setMobileState(false);
+    }
+  }
+
+  useEffect(() => {
     window.addEventListener('resize', throttle(handleResize, 500));
 
     return function cleanup() {

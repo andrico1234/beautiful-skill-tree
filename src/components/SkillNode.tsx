@@ -40,6 +40,31 @@ function SkillNode({
   const skillNodeRef: React.RefObject<HTMLDivElement> = React.useRef(null);
   const childWidth: React.MutableRefObject<number> = React.useRef(0);
 
+  function calculatePosition() {
+    const {
+      bottom,
+      left,
+      right,
+    } = skillNodeRef.current!.getBoundingClientRect();
+
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+
+    setParentPosition({
+      bottom: bottom + scrollY,
+      center: (right - left) / 2 + left + scrollX,
+    });
+  }
+
+  function calculateOverlayWidth() {
+    childWidth.current = skillNodeRef.current!.clientWidth;
+  }
+
+  function handleResize() {
+    calculatePosition();
+    calculateOverlayWidth();
+  }
+
   function handleClick() {
     if (nodeState === LOCKED_STATE) {
       return null;
@@ -55,31 +80,6 @@ function SkillNode({
   }
 
   React.useEffect(() => {
-    function handleResize() {
-      calculatePosition();
-      calculateOverlayWidth();
-    }
-
-    function calculatePosition() {
-      const {
-        bottom,
-        left,
-        right,
-      } = skillNodeRef.current!.getBoundingClientRect();
-
-      const scrollX = window.scrollX;
-      const scrollY = window.scrollY;
-
-      setParentPosition({
-        bottom: bottom + scrollY,
-        center: (right - left) / 2 + left + scrollX,
-      });
-    }
-
-    function calculateOverlayWidth() {
-      childWidth.current = skillNodeRef.current!.clientWidth;
-    }
-
     calculatePosition();
     calculateOverlayWidth();
 

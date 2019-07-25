@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import uuid from 'uuid';
 
 type Props = {

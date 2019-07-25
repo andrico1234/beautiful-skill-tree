@@ -46,6 +46,16 @@ function SkillTreeSegment({
   const nodeState = skills[skill.id];
   const parentNodeIsSelected = !parentNodeId || parentState === SELECTED_STATE;
 
+  function calculatePosition() {
+    const { left, width } = skillNodeRef.current!.getBoundingClientRect();
+
+    const scrollX = window.scrollX;
+
+    setChildPosition({
+      center: left + width / 2 + scrollX,
+    });
+  }
+
   useEffect(() => {
     if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
       decrementSelectedSkillCount();
@@ -66,16 +76,6 @@ function SkillTreeSegment({
   }, [nodeState, parentState]);
 
   useEffect(() => {
-    function calculatePosition() {
-      const { left, width } = skillNodeRef.current!.getBoundingClientRect();
-
-      const scrollX = window.scrollX;
-
-      setChildPosition({
-        center: left + width / 2 + scrollX,
-      });
-    }
-
     window.addEventListener('resize', throttle(calculatePosition, 500));
     calculatePosition();
 
