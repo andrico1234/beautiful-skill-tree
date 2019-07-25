@@ -20,7 +20,7 @@ export function MobileProvider({ children }: Props) {
         setMobileState(true);
       }
 
-      if (window.innerHeight >= 900 && isMobile) {
+      if (window.innerWidth >= 900 && isMobile) {
         setMobileState(false);
       }
     }
