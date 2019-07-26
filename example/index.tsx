@@ -1,7 +1,8 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { SkillTree, SkillTreeGroup, SkillProvider } from '../src';
+// import { SkillTree, SkillTreeGroup, SkillProvider } from '../src';
+import { SkillTree, SkillTreeGroup, SkillProvider } from 'beautiful-skill-tree';
 import './index.css';
 import { legsPushData, legsPullData } from './mockData';
 import { MobileProvider } from '../src/context/MobileContext';

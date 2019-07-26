@@ -2,7 +2,6 @@ import * as React from 'react';
 import { throttle } from 'lodash';
 import styled, { keyframes, css } from 'styled-components';
 import Tippy from '@tippy.js/react';
-import MobileContext from '../context/MobileContext';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
@@ -31,7 +30,7 @@ function SkillNode({
 }: Props) {
   const { children, title, tooltip, id } = skill;
   const { direction = 'bottom', description, visible } = tooltip;
-  const { isMobile } = React.useContext(MobileContext);
+  const [isMobile, setMobileState] = React.useState(window.innerWidth < 900);
   const [parentPosition, setParentPosition] = React.useState({
     bottom: 0,
     center: 0,
@@ -61,6 +60,14 @@ function SkillNode({
   }
 
   function handleResize() {
+    if (window.innerWidth < 900 && !isMobile) {
+      setMobileState(true);
+    }
+
+    if (window.innerWidth >= 900 && isMobile) {
+      setMobileState(false);
+    }
+
     calculatePosition();
     calculateOverlayWidth();
   }
@@ -85,7 +92,7 @@ function SkillNode({
 
     window.addEventListener('resize', throttle(handleResize, 500));
 
-    return () => {
+    return function cleanup() {
       window.removeEventListener('resize', throttle(handleResize, 500));
     };
   }, []);

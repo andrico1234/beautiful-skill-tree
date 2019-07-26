@@ -9,6 +9,7 @@
     "serve": "serve -s dist"
   },
   "dependencies": {
+    "beautiful-skill-tree": "^0.7.11",
     "react-app-polyfill": "^1.0.0"
   },
   "alias": {
