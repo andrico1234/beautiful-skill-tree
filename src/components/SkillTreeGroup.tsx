@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme/index';
 import { DeepPartial } from 'models/utils';
 import { SkillTreeGroupData } from 'models';
+import { MobileProvider } from '../context/MobileContext';
 
 type Props = {
   children: (treeData: SkillTreeGroupData) => React.ReactNode;
@@ -28,7 +29,9 @@ function SkillTreeGroup({ theme, children }: Props) {
 
   return (
     <ThemeProvider theme={skillTreeTheme}>
-      <StyleSkillTreeGroup>{children(treeData)}</StyleSkillTreeGroup>
+      <MobileProvider>
+        <StyleSkillTreeGroup>{children(treeData)}</StyleSkillTreeGroup>
+      </MobileProvider>
     </ThemeProvider>
   );
 }

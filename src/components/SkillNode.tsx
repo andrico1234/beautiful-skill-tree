@@ -7,6 +7,7 @@ import SkillTreeSegment from './SkillTreeSegment';
 import TooltipContent from './ui/TooltipContent';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
+import MobileContext from '../context/MobileContext';
 
 interface Props {
   skill: Skill;
@@ -30,7 +31,7 @@ function SkillNode({
 }: Props) {
   const { children, title, tooltip, id } = skill;
   const { direction = 'bottom', description, visible } = tooltip;
-  const [isMobile, setMobileState] = React.useState(window.innerWidth < 900);
+  const { isMobile } = React.useContext(MobileContext);
   const [parentPosition, setParentPosition] = React.useState({
     bottom: 0,
     center: 0,
@@ -60,14 +61,6 @@ function SkillNode({
   }
 
   function handleResize() {
-    if (window.innerWidth < 900 && !isMobile) {
-      setMobileState(true);
-    }
-
-    if (window.innerWidth >= 900 && isMobile) {
-      setMobileState(false);
-    }
-
     calculatePosition();
     calculateOverlayWidth();
   }

@@ -9,19 +9,17 @@ interface IMobileContext {
   isMobile: boolean;
 }
 
-const MobileContext = createContext<IMobileContext>({ isMobile: true });
+const isSmallScreen = () => window.innerWidth < 900;
+
+const MobileContext = createContext<IMobileContext>({
+  isMobile: isSmallScreen(),
+});
 
 export function MobileProvider({ children }: Props) {
-  const [isMobile, setMobileState] = useState(window.innerWidth < 900);
+  const [isMobile, setMobileState] = useState(isSmallScreen());
 
   function handleResize() {
-    if (window.innerWidth < 900 && !isMobile) {
-      setMobileState(true);
-    }
-
-    if (window.innerWidth >= 900 && isMobile) {
-      setMobileState(false);
-    }
+    setMobileState(isSmallScreen());
   }
 
   useEffect(() => {
