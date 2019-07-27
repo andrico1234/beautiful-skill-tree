@@ -31,8 +31,9 @@ function SkillTree({ data, title, treeId }: Props) {
             return (
               <React.Fragment key={skill.id}>
                 <SkillTreeSegment
-                  parentState="unlocked"
+                  shouldBeUnlocked={true}
                   parentPosition={defaultParentPosition}
+                  hasParent={false}
                   skill={skill}
                 />
                 {data.length - 1 !== i && isMobile && <HSeparator />}

@@ -29,7 +29,7 @@ function SkillNode({
   decSkillCount,
   updateSkillState,
 }: Props) {
-  const { children, title, tooltip, id } = skill;
+  const { children, title, tooltip, id, optional } = skill;
   const { direction = 'bottom', description, visible } = tooltip;
   const { isMobile } = React.useContext(MobileContext);
   const [parentPosition, setParentPosition] = React.useState({
@@ -122,10 +122,13 @@ function SkillNode({
             return (
               <SkillTreeSegment
                 key={child.id}
+                hasParent={true}
                 parentPosition={parentPosition}
-                parentState={nodeState}
+                shouldBeUnlocked={
+                  (optional && nodeState === UNLOCKED_STATE) ||
+                  nodeState === SELECTED_STATE
+                }
                 skill={child}
-                parentNodeId={id}
               />
             );
           })}

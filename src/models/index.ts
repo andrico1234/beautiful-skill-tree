@@ -1,6 +1,6 @@
 import { Nullable } from './utils';
 
-export type Skill = MajorSkill | MinorSkill;
+export type Skill = MajorSkill | BaseSkill;
 
 export type TooltipDirection = 'right' | 'left' | 'top' | 'bottom';
 
@@ -18,20 +18,17 @@ export interface Tooltip {
   visible?: boolean;
 }
 
-export type MajorSkill = {
+interface BaseSkill {
   id: string;
-  icon: string;
+  optional?: boolean;
   title: string;
   tooltip: Tooltip;
   children: Skill[];
-};
+}
 
-export type MinorSkill = {
-  id: string;
-  title: string;
-  tooltip: Tooltip;
-  children: Skill[];
-};
+interface MajorSkill extends BaseSkill {
+  icon: string;
+}
 
 export type ParentPosition = {
   bottom: number;

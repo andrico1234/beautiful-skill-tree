@@ -9,17 +9,16 @@ import { throttle, isEmpty } from 'lodash';
 import styled from 'styled-components';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
-import { Skill, ParentPosition, ChildPosition, NodeState } from '../models';
+import { Skill, ParentPosition, ChildPosition } from '../models';
 import { Nullable } from '../models/utils';
 import SkillContext from '../context/SkillContext';
 import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
 
-interface Props {
+type Props = {
   skill: Skill;
   parentPosition: ParentPosition;
-  parentNodeId?: string;
-  parentState: NodeState;
-}
+  shouldBeUnlocked: boolean;
+} & typeof SkillTreeSegment.defaultProps;
 
 const defaultParentPosition: ChildPosition = {
   center: 0,
@@ -27,9 +26,9 @@ const defaultParentPosition: ChildPosition = {
 
 function SkillTreeSegment({
   skill,
-  parentNodeId,
+  hasParent,
   parentPosition,
-  parentState,
+  shouldBeUnlocked,
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
   const {
@@ -44,7 +43,6 @@ function SkillTreeSegment({
   );
 
   const nodeState = skills[skill.id];
-  const parentNodeIsSelected = !parentNodeId || parentState === SELECTED_STATE;
 
   function calculatePosition() {
     const { left, width } = skillNodeRef.current!.getBoundingClientRect();
@@ -57,23 +55,23 @@ function SkillTreeSegment({
   }
 
   useEffect(() => {
-    if (nodeState === SELECTED_STATE && !parentNodeIsSelected) {
+    if (nodeState === SELECTED_STATE && !shouldBeUnlocked) {
       decrementSelectedSkillCount();
       return updateSkillState(skill.id, LOCKED_STATE);
     }
 
-    if (nodeState === UNLOCKED_STATE && !parentNodeIsSelected) {
+    if (nodeState === UNLOCKED_STATE && !shouldBeUnlocked) {
       return updateSkillState(skill.id, LOCKED_STATE);
     }
 
-    if (!parentNodeIsSelected) {
+    if (!shouldBeUnlocked) {
       return;
     }
 
-    if (nodeState === LOCKED_STATE && parentNodeIsSelected) {
+    if (nodeState === LOCKED_STATE && shouldBeUnlocked) {
       return updateSkillState(skill.id, UNLOCKED_STATE);
     }
-  }, [nodeState, parentState]);
+  }, [nodeState, shouldBeUnlocked]);
 
   useEffect(() => {
     window.addEventListener('resize', throttle(calculatePosition, 500));
@@ -90,7 +88,7 @@ function SkillTreeSegment({
 
   return (
     <StyledSkillTreeSegment>
-      {parentNodeId && (
+      {hasParent && (
         <SkillEdge
           nodeState={nodeState}
           topX={parentPosition.center}
@@ -110,6 +108,10 @@ function SkillTreeSegment({
     </StyledSkillTreeSegment>
   );
 }
+
+SkillTreeSegment.defaultProps = {
+  hasParent: true,
+};
 
 export default SkillTreeSegment;
 

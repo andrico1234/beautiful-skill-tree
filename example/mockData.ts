@@ -7,6 +7,7 @@ export const legsPushData: SkillType[] = [
   {
     id: 'ass-squat',
     title: 'Assisted Squat',
+    optional: true,
     tooltip: {
       description: lorem,
     },
@@ -83,6 +84,7 @@ export const legsPushData: SkillType[] = [
                       {
                         id: 'beg-shrimp-squat',
                         title: 'Beginner Shrimp Squat',
+                        optional: true,
                         tooltip: {
                           description: lorem,
                         },
