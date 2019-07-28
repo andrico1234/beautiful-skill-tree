@@ -12,6 +12,7 @@ interface Props {
 }
 
 interface StyledNodeProps {
+  optional: boolean;
   selected: boolean;
   unlocked: boolean;
   locked: boolean;
@@ -32,6 +33,7 @@ const Node = React.forwardRef(
         onKeyDown={handleKeyDown}
         ref={ref}
         data-testid={id}
+        optional={skill.optional || false}
         selected={currentState === SELECTED_STATE}
         unlocked={currentState === UNLOCKED_STATE}
         locked={currentState === LOCKED_STATE}
@@ -137,14 +139,8 @@ const StyledNode = styled.div<StyledNodeProps>`
         border-right: ${({ theme }) => theme.nodeHoverBorder};
       }
 
+      &:hover,
       &:focus {
-        animation: none;
-        outline: none;
-        border: 2px solid #86e3ce;
-        box-shadow: 0px 0px 4px 0px #86e3ce;
-      }
-
-      &:hover {
         animation: none;
         box-shadow: 0 0 12px 0 rgba(255, 255, 255, 1);
 
@@ -157,6 +153,14 @@ const StyledNode = styled.div<StyledNodeProps>`
         }
       }
     `}
+
+    ${props =>
+      props.unlocked &&
+      props.optional &&
+      css`
+        background: ${({ theme }) => theme.nodeBackgroundColor};
+      `}
+
   ${props =>
     props.locked &&
     `
