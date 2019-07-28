@@ -14,16 +14,16 @@ const defaultTheme = {
   nodeOverlayColor: 'white',
   nodeActiveBackgroundColor: `linear-gradient(
       to right,
-      #d0e6a5 0%,
-      #86e3ce 50%,
-      #ccabd8 100%
+      #b9e562 0%,
+      #41e2bd 50%,
+      #c284d8 100%
     )`,
   nodeHoverBorder: '4px solid',
   nodeHoverBorderColor: `linear-gradient(
       to right,
-      #d0e6a5 0%,
-      #86e3ce 50%,
-      #ccabd8 100%
+      #b9e562 0%,
+      #41e2bd 50%,
+      #c284d8 100%
     )`,
   nodeIconWidth: '64px',
   nodeMobileTextNodeHeight: '32px',
