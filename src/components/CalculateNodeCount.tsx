@@ -1,19 +1,37 @@
 import { useContext, useEffect } from 'react';
-import { Skill } from '../models';
+import { Skill, SkillCount } from '../models';
 import AppContext from '../context/AppContext';
 
 interface Props {
   data: Skill[];
 }
 
-function calculateNodeCount(data: Skill[]): number {
-  return data.reduce((prev, curr) => {
-    if (curr.children.length > 0) {
-      return prev + 1 + calculateNodeCount(curr.children);
-    }
+function calculateNodeCount(data: Skill[]): SkillCount {
+  return data.reduce(
+    (prev, curr) => {
+      const nodeType = curr.optional ? 'optional' : 'required';
 
-    return prev + 1;
-  }, 0);
+      if (curr.children.length > 0) {
+        const incOptional = nodeType === 'optional' ? 1 : 0;
+        const incRequired = nodeType === 'required' ? 1 : 0;
+        const childNodeCount = calculateNodeCount(curr.children);
+
+        return {
+          optional: prev.optional + childNodeCount.optional + incOptional,
+          required: prev.required + childNodeCount.required + incRequired,
+        };
+      }
+
+      return {
+        ...prev,
+        [nodeType]: prev[nodeType] + 1,
+      };
+    },
+    {
+      required: 0,
+      optional: 0,
+    }
+  );
 }
 
 function CalculateNodeCount({ data }: Props) {

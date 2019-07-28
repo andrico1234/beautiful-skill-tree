@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { render } from '@testing-library/react';
 import CalculateSkillNodes from '../CalculateNodeCount';
-import { Skill } from '../../models';
+import { Skill, SkillCount } from '../../models';
 import AppContext from '../../context/AppContext';
 import { SkillTreeProvider } from '../../context/SkillContext';
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../../theme';
 
 interface GetDummyCounterProps {
-  children: (skillCount: number) => JSX.Element;
+  children: (skillCount: SkillCount) => JSX.Element;
 }
 
 function GetDummyCounter({ children }: GetDummyCounterProps) {
@@ -27,7 +27,8 @@ function renderComponent(data: Skill[]) {
   const api = render(
     <GetDummyCounter>
       {skillCount => {
-        counter = skillCount;
+        counter = skillCount.optional + skillCount.required;
+
         return (
           <ThemeProvider theme={defaultTheme}>
             <SkillTreeProvider treeId="hey">

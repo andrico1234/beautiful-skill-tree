@@ -3,11 +3,11 @@ import AppContext from '../context/AppContext';
 import styled, { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme/index';
 import { DeepPartial } from 'models/utils';
-import { SkillTreeGroupData } from 'models';
+import { SkillGroupData } from '../models';
 import { MobileProvider } from '../context/MobileContext';
 
 type Props = {
-  children: (treeData: SkillTreeGroupData) => React.ReactNode;
+  children: (treeData: SkillGroupData) => React.ReactNode;
 } & DeepPartial<typeof defaultProps>;
 
 const defaultProps = {

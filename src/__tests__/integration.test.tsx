@@ -144,13 +144,18 @@ function renderComponent(
   return render(
     <SkillProvider>
       <SkillTreeGroup theme={skillTreeTheme}>
-        {({ skillCount, selectedSkillCount, resetSkills }) => {
+        {({ skillCount, selectedSkillCount, resetSkills }: SkillTreeGroup) => {
+          const totalSkillCount = skillCount.required + skillCount.optional;
+          const totalSelectedSkillCount =
+            selectedSkillCount.optional + selectedSkillCount.required;
           return (
             <React.Fragment>
               <h2 className="Example__heading">
-                Completed skills:{' '}
-                <span data-testid="selected-count">{selectedSkillCount}</span>/
-                <span data-testid="total-count">{skillCount}</span>
+                Completed skills:
+                <span data-testid="selected-count">
+                  {totalSelectedSkillCount}
+                </span>
+                /<span data-testid="total-count">{totalSkillCount}</span>
                 <button data-testid="reset-button" onClick={resetSkills}>
                   Reset
                 </button>

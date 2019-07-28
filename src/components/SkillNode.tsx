@@ -12,9 +12,13 @@ import MobileContext from '../context/MobileContext';
 interface Props {
   skill: Skill;
   nodeState: NodeState;
-  incSkillCount: VoidFunction;
-  decSkillCount: VoidFunction;
-  updateSkillState: (key: string, updatedState: NodeState) => void;
+  incSkillCount: (optional?: boolean) => void;
+  decSkillCount: (optional?: boolean) => void;
+  updateSkillState: (
+    key: string,
+    updatedState: NodeState,
+    optional?: boolean
+  ) => void;
 }
 
 interface SkillNodeOverlayProps {
@@ -71,12 +75,12 @@ function SkillNode({
     }
 
     if (nodeState === UNLOCKED_STATE) {
-      incSkillCount();
-      return updateSkillState(id, SELECTED_STATE);
+      incSkillCount(optional);
+      return updateSkillState(id, SELECTED_STATE, optional);
     }
 
-    decSkillCount();
-    return updateSkillState(id, UNLOCKED_STATE);
+    decSkillCount(optional);
+    return updateSkillState(id, UNLOCKED_STATE, optional);
   }
 
   React.useEffect(() => {

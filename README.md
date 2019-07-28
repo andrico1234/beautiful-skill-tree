@@ -6,8 +6,8 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 ## Examples
 
-[Calisthenics Progressions](https://calisthenicsskills.com/)
-[Borderlands Skill Tree](http://borderlands-skill-tree.s3-website.eu-west-2.amazonaws.com/)
+- [Calisthenics Progressions](https://calisthenicsskills.com/)
+- [Borderlands Skill Tree](http://borderlands-skill-tree.s3-website.eu-west-2.amazonaws.com/)
 
 ---
 
@@ -23,18 +23,18 @@ The `SkillTreeGroup` groups skill trees and exposes various methods and properti
 
 The `SkillProvider` is the skill tree's context provider.
 
-For those that like their data typed, you can also import `SkillType` from the package.
+For those that like their data typed, you can also import `SkillType` and `SkillGroupDataType`, `SkillThemeType` from the package.
 
 Wrap your application like this:
 
 ```typescript
-import { SkillTreeGroup, SkillTree, SkillProvider, SkillType } from 'beautiful-skill-tree';
+import { SkillTreeGroup, SkillTree, SkillProvider, SkillType, SkillGroupDataType } from 'beautiful-skill-tree';
 
 const data: SkillType[] = [];
 
 <SkillProvider>
   <SkillTreeGroup>
-    {({ skillCount }) => {
+    {({ skillCount }: SkillGroupDataType) => {
       <SkillTree treeId="first-tree" title="Skill Tree" data={data} />
     }}
     </SkillTreeGroup>
@@ -103,7 +103,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### theme: `SkillThemeType` [*optional*]
 
-#### children: `(treeData: SkillTreeGroupData) => React.ReactNode` [*required*]
+#### children: `(treeData: SkillGroupDataType) => React.ReactNode` [*required*]
 
 ### SkillProvider
 
@@ -112,7 +112,8 @@ Unfortunately there aren't any React packages that enable us developers to easil
 ```typescript
 type SkillType[] = {
 	id: string;
-	title: string;
+  title: string;
+  optional?: boolean;
 	tooltip: {
     description: string;
     direction?: 'top' | 'left' | 'right' | 'bottom', // bottom = default
@@ -123,13 +124,18 @@ type SkillType[] = {
 }
 ```
 
-### SkillTreeGroupData
+### SkillGroupDataType
 
 ```typescript
-type SkillTreeGroupData = {
-  skillCount: number;
-  selectedSkillCount: number;
+type SkillGroupData = {
+  skillCount: SkillCount;
+  selectedSkillCount: SkillCount;
   resetSkills: () => void;
+};
+
+type SkillCount = {
+  optional: number;
+  required: number;
 };
 ```
 
@@ -165,7 +171,7 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 - [x] Reset skill tree
 - [x] CSS theming
 - [x] Keyboard only use
-- [ ] Optional nodes
+- [x] Optional nodes
 - [ ] Collapsable skill trees
 
 ---

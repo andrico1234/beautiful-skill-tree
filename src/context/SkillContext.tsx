@@ -13,7 +13,12 @@ type DefaultProps = {
   storage: ContextStorage;
 };
 
-type Skills = Dictionary<NodeState>;
+type Skills = Dictionary<SkillData>;
+
+type SkillData = {
+  optional: boolean;
+  nodeState: NodeState;
+};
 
 interface State {
   skills: Skills;
@@ -22,16 +27,20 @@ interface State {
 
 export interface ISkillContext {
   skills: Skills;
-  updateSkillState: (key: string, updatedState: NodeState) => void;
-  incrementSelectedSkillCount: VoidFunction;
-  decrementSelectedSkillCount: VoidFunction;
+  updateSkillState: (
+    key: string,
+    updatedState: NodeState,
+    optional?: boolean
+  ) => void;
+  incrementSelectedCount: VoidFunction;
+  decrementSelectedCount: VoidFunction;
 }
 
 const SkillContext = React.createContext<ISkillContext>({
   skills: {},
   updateSkillState: () => undefined,
-  incrementSelectedSkillCount: () => undefined,
-  decrementSelectedSkillCount: () => undefined,
+  incrementSelectedCount: () => undefined,
+  decrementSelectedCount: () => undefined,
 });
 
 export class SkillTreeProvider extends React.Component<Props, State> {
@@ -46,15 +55,11 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     const treeSkills: Skills =
       JSON.parse(props.storage.getItem(`skills-${props.treeId}`)!) || {};
 
-    const selectedSkillCount = Object.keys(treeSkills).reduce((acc, i) => {
-      if (treeSkills[i] === SELECTED_STATE) {
-        return acc + 1;
+    Object.keys(treeSkills).map(key => {
+      if (treeSkills[key].nodeState === SELECTED_STATE) {
+        context.incrementSelectedCount(treeSkills[key].optional);
       }
-
-      return acc;
-    }, 0);
-
-    context.incrementSelectedSkillCount(selectedSkillCount);
+    });
 
     this.state = {
       skills: treeSkills,
@@ -80,7 +85,10 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     return this.setState(prevState => {
       const { skills } = prevState;
 
-      const resettedSkills = mapValues(skills, (): NodeState => LOCKED_STATE);
+      const resettedSkills: Skills = mapValues(skills, (skill: SkillData) => ({
+        optional: skill.optional,
+        nodeState: LOCKED_STATE,
+      }));
 
       return {
         skills: resettedSkills,
@@ -89,11 +97,18 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     });
   };
 
-  updateSkillState = (key: string, updatedState: NodeState) => {
+  updateSkillState = (
+    key: string,
+    updatedState: NodeState,
+    optional: boolean = false
+  ) => {
     return this.setState(prevState => {
       const updatedSkills = {
         ...prevState.skills,
-        [key]: updatedState,
+        [key]: {
+          optional,
+          nodeState: updatedState,
+        },
       };
 
       return {
@@ -115,8 +130,8 @@ export class SkillTreeProvider extends React.Component<Props, State> {
         value={{
           skills: this.state.skills,
           updateSkillState: this.updateSkillState,
-          incrementSelectedSkillCount: this.context.incrementSelectedSkillCount,
-          decrementSelectedSkillCount: this.context.decrementSelectedSkillCount,
+          incrementSelectedCount: this.context.incrementSelectedCount,
+          decrementSelectedCount: this.context.decrementSelectedCount,
         }}
       >
         {this.props.children}

@@ -34,15 +34,15 @@ function SkillTreeSegment({
   const {
     skills,
     updateSkillState,
-    decrementSelectedSkillCount,
-    incrementSelectedSkillCount,
+    decrementSelectedCount,
+    incrementSelectedCount,
   } = useContext(SkillContext);
 
   const skillNodeRef: React.MutableRefObject<Nullable<HTMLDivElement>> = useRef(
     null
   );
 
-  const nodeState = skills[skill.id];
+  const nodeState = skills[skill.id] ? skills[skill.id].nodeState : 'locked';
 
   function calculatePosition() {
     const { left, width } = skillNodeRef.current!.getBoundingClientRect();
@@ -56,7 +56,7 @@ function SkillTreeSegment({
 
   useEffect(() => {
     if (nodeState === SELECTED_STATE && !shouldBeUnlocked) {
-      decrementSelectedSkillCount();
+      decrementSelectedCount();
       return updateSkillState(skill.id, LOCKED_STATE);
     }
 
@@ -98,8 +98,8 @@ function SkillTreeSegment({
       )}
       <div ref={skillNodeRef}>
         <SkillNode
-          incSkillCount={useCallback(incrementSelectedSkillCount, [])}
-          decSkillCount={useCallback(decrementSelectedSkillCount, [])}
+          incSkillCount={useCallback(incrementSelectedCount, [])}
+          decSkillCount={useCallback(decrementSelectedCount, [])}
           updateSkillState={updateSkillState}
           skill={skill}
           nodeState={nodeState}

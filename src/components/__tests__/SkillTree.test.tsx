@@ -4,7 +4,7 @@ import SkillTree from '../SkillTree';
 import MockLocalStorage from '../../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
-import { Skill } from '../../models/index';
+import { Skill, SkillCount } from '../../models/index';
 
 const mockSkillTreeData: Skill[] = [
   {
@@ -27,6 +27,7 @@ const mockSkillTreeData: Skill[] = [
         children: [
           {
             id: 'item-three',
+            optional: true,
             tooltip: {
               description:
                 "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
@@ -54,7 +55,7 @@ const defaultStoreContents = {
 };
 
 function renderComponent() {
-  let selectedSkillCount: number;
+  let selectedSkillCount: SkillCount;
   let resetSkills: VoidFunction;
 
   const api = render(
@@ -110,7 +111,10 @@ describe('SkillTree', () => {
     fireEvent.click(topNode);
 
     expect(topNode).toHaveStyleRule('background', /linear-gradient/);
-    expect(getSelectedSkillCount()).toBe(1);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 0,
+      required: 1,
+    });
   });
 
   it('on second click should deactivate the first style', () => {
@@ -127,7 +131,10 @@ describe('SkillTree', () => {
     expect(topNode).toHaveStyleRule('background', '#282c34');
     expect(topNode).not.toHaveStyleRule('background', /linear-gradient/);
 
-    expect(getSelectedSkillCount()).toBe(0);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 0,
+      required: 0,
+    });
   });
 
   it('on sequential clicks should select all nodes', async () => {
@@ -149,7 +156,10 @@ describe('SkillTree', () => {
 
     expect(bottomNode).toHaveStyleRule('background', /linear-gradient/);
 
-    expect(getSelectedSkillCount()).toBe(3);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 1,
+      required: 2,
+    });
   });
 
   it('on disabled click no selected a node', () => {
@@ -161,14 +171,26 @@ describe('SkillTree', () => {
 
     expect(middleNode).not.toHaveStyleRule('background', /linear-gradient/);
     expect(middleNode).not.toHaveStyleRule('background-color', '#f44336');
-    expect(getSelectedSkillCount()).toBe(0);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 0,
+      required: 0,
+    });
   });
 
   it('should load the correct skills that are saved to the store', () => {
     const defaultSkills = {
-      'item-one': 'selected',
-      'item-two': 'unlocked',
-      'item-three': 'locked',
+      'item-one': {
+        nodeState: 'selected',
+        optional: false,
+      },
+      'item-two': {
+        nodeState: 'unlocked',
+        optional: false,
+      },
+      'item-three': {
+        nodeState: 'locked',
+        optional: false,
+      },
     };
 
     window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
@@ -186,7 +208,10 @@ describe('SkillTree', () => {
     );
     expect(bottomNode).toHaveStyleRule('opacity', '0.65');
 
-    expect(getSelectedSkillCount()).toBe(1);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 0,
+      required: 1,
+    });
   });
 
   it('should deselect all skill trees when resetSkills is invoked', () => {
@@ -208,7 +233,10 @@ describe('SkillTree', () => {
     expect(middleNode).toHaveStyleRule('background', /linear-gradient/);
     expect(bottomNode).toHaveStyleRule('background', /linear-gradient/);
 
-    expect(getSelectedSkillCount()).toBe(3);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 1,
+      required: 2,
+    });
 
     resetSkillsHandler();
 
@@ -216,7 +244,10 @@ describe('SkillTree', () => {
     expect(middleNode).toHaveStyleRule('opacity', '0.65');
     expect(bottomNode).toHaveStyleRule('opacity', '0.65');
 
-    expect(getSelectedSkillCount()).toBe(0);
+    expect(getSelectedSkillCount()).toEqual({
+      optional: 0,
+      required: 0,
+    });
   });
 
   it('should diplay the separator component on mobile', () => {
