@@ -4,10 +4,9 @@ import styled, { keyframes, css } from 'styled-components';
 import Tippy from '@tippy.js/react';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
-import TooltipContent from './ui/TooltipContent';
+import Tooltip from './ui/Tooltip';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
-import MobileContext from '../context/MobileContext';
 
 interface Props {
   skill: Skill;
@@ -34,8 +33,7 @@ function SkillNode({
   updateSkillState,
 }: Props) {
   const { children, title, tooltip, id, optional } = skill;
-  const { direction = 'bottom', description, visible } = tooltip;
-  const { isMobile } = React.useContext(MobileContext);
+  const { direction = 'top', content } = tooltip;
   const [parentPosition, setParentPosition] = React.useState({
     bottom: 0,
     center: 0,
@@ -103,12 +101,10 @@ function SkillNode({
           data-testid="skill-node-overlay"
         />
         <StyledTippy
-          placement={isMobile ? 'top' : direction}
-          visible={isMobile ? undefined : visible} // this is buggy on screen size changes
+          interactive
+          placement={direction}
           hideOnClick={false}
-          content={
-            <TooltipContent tooltipDescription={description} title={title} />
-          }
+          content={<Tooltip content={content} title={title} />}
         >
           <Node
             handleClick={handleClick}

@@ -18,9 +18,8 @@ export interface SkillCount {
 }
 
 export interface Tooltip {
-  description: string;
+  content: React.ReactNode;
   direction?: TooltipDirection;
-  visible?: boolean;
 }
 
 interface BaseSkill {

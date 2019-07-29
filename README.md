@@ -1,4 +1,4 @@
-# Beautiful Skill Tree
+Beautiful Skill Tree
 
 A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications
 
@@ -51,14 +51,14 @@ const data: SkillType[] = [
     id: 'hello-world',
     title: 'Hello World',
     tooltip: {
-      description: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
+      content: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
     }
     children: [
       {
         id: 'hello-sun',
         title: 'Hello Sun',
         tooltip: {
-          description: 'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
+          content: 'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
         },
         children: [],
       },
@@ -66,7 +66,7 @@ const data: SkillType[] = [
         id: 'hello-stars',
         title: 'Hello Stars',
         tooltip: {
-          description:  'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
+          content:  'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
         },
         children: [],
       },
@@ -115,9 +115,8 @@ type SkillType[] = {
   title: string;
   optional?: boolean;
 	tooltip: {
-    description: string;
+    content: React.ReactNode;
     direction?: 'top' | 'left' | 'right' | 'bottom', // bottom = default
-    visible?: boolean;
   };
 	icon?: string;
 	children: SkillType[];

@@ -9,7 +9,7 @@ const simpleData: SkillType[] = [
     id: 'html',
     title: 'html',
     tooltip: {
-      description: 'the method of structuring websites',
+      content: 'the method of structuring websites',
     },
     icon: '../',
     children: [
@@ -17,7 +17,7 @@ const simpleData: SkillType[] = [
         id: 'css',
         title: 'css',
         tooltip: {
-          description:
+          content:
             "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
         },
         children: [
@@ -25,7 +25,7 @@ const simpleData: SkillType[] = [
             id: 'javascript-basics',
             title: 'javascript basics',
             tooltip: {
-              description: 'adding interactivity',
+              content: 'adding interactivity',
             },
             children: [],
           },
@@ -40,7 +40,7 @@ const complexData: SkillType[] = [
     id: 'languages',
     title: 'languages',
     tooltip: {
-      description: 'used as the building blocks for creating amazing projects',
+      content: 'used as the building blocks for creating amazing projects',
     },
 
     icon: '../',
@@ -49,8 +49,7 @@ const complexData: SkillType[] = [
         id: 'python',
         title: 'python',
         tooltip: {
-          description:
-            'used as the building blocks for creating amazing projects',
+          content: 'used as the building blocks for creating amazing projects',
         },
         children: [],
       },
@@ -58,15 +57,14 @@ const complexData: SkillType[] = [
         id: 'javascript',
         title: 'javascript',
         tooltip: {
-          description:
-            'used as the building blocks for creating amazing projects',
+          content: 'used as the building blocks for creating amazing projects',
         },
         children: [
           {
             id: 'typescript',
             title: 'typescript',
             tooltip: {
-              description:
+              content:
                 'used as the building blocks for creating amazing projects',
             },
             children: [],
@@ -75,7 +73,7 @@ const complexData: SkillType[] = [
             id: 'nodejs',
             title: 'nodejs',
             tooltip: {
-              description:
+              content:
                 'used as the building blocks for creating amazing projects',
             },
             children: [],
@@ -86,8 +84,7 @@ const complexData: SkillType[] = [
         id: 'golang',
         title: 'golang',
         tooltip: {
-          description:
-            'used as the building blocks for creating amazing projects',
+          content: 'used as the building blocks for creating amazing projects',
         },
         children: [],
       },
@@ -97,7 +94,7 @@ const complexData: SkillType[] = [
     id: 'paradigms',
     title: 'OOP',
     tooltip: {
-      description: 'used as the building blocks for creating amazing projects',
+      content: 'used as the building blocks for creating amazing projects',
     },
     children: [],
   },
@@ -108,7 +105,7 @@ const optionalNodeData: SkillType[] = [
     id: 'html-req',
     title: 'html',
     tooltip: {
-      description: 'the method of structuring websites',
+      content: 'the method of structuring websites',
     },
     icon: '../',
     children: [
@@ -117,7 +114,7 @@ const optionalNodeData: SkillType[] = [
         title: 'css',
         optional: true,
         tooltip: {
-          description:
+          content:
             "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
         },
         children: [
@@ -125,7 +122,7 @@ const optionalNodeData: SkillType[] = [
             id: 'javascript-basics-req',
             title: 'javascript basics',
             tooltip: {
-              description: 'adding interactivity',
+              content: 'adding interactivity',
             },
             children: [],
           },

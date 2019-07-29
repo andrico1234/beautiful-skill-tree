@@ -7,7 +7,7 @@ export const legsPushData: Skill[] = [
     id: 'ass-squat',
     title: 'Assisted Squat',
     tooltip: {
-      description: lorem,
+      content: lorem,
     },
     children: [
       {
@@ -15,7 +15,7 @@ export const legsPushData: Skill[] = [
         title: 'Parallel Squat',
         optional: true,
         tooltip: {
-          description: lorem,
+          content: lorem,
         },
         children: [
           {
@@ -23,7 +23,7 @@ export const legsPushData: Skill[] = [
             icon: './',
             title: 'Reverse Hyperextensions',
             tooltip: {
-              description: lorem,
+              content: lorem,
             },
             children: [
               {
@@ -31,14 +31,14 @@ export const legsPushData: Skill[] = [
                 icon: './',
                 title: 'Cossack Squat',
                 tooltip: {
-                  description: lorem,
+                  content: lorem,
                 },
                 children: [
                   {
                     id: 'ass-pistol-squat',
                     title: 'Pistol Squat (Assisted)',
                     tooltip: {
-                      description: lorem,
+                      content: lorem,
                     },
                     children: [
                       {
@@ -46,7 +46,7 @@ export const legsPushData: Skill[] = [
                         icon: './',
                         title: 'Pistol Squat',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         children: [],
                       },
@@ -58,7 +58,7 @@ export const legsPushData: Skill[] = [
                 id: 'split-squat',
                 title: 'Split Squat',
                 tooltip: {
-                  description: lorem,
+                  content: lorem,
                 },
                 children: [
                   {
@@ -66,14 +66,14 @@ export const legsPushData: Skill[] = [
                     icon: './',
                     title: 'Bulgarian Split Squat',
                     tooltip: {
-                      description: lorem,
+                      content: lorem,
                     },
                     children: [
                       {
                         id: 'deep-step-up',
                         title: 'Deep Step Up',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         children: [],
                       },
@@ -81,7 +81,7 @@ export const legsPushData: Skill[] = [
                         id: 'beg-shrimp-squat',
                         title: 'Beginner Shrimp Squat',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         children: [
                           {
@@ -89,7 +89,7 @@ export const legsPushData: Skill[] = [
                             icon: './',
                             title: 'Shrimp Squat',
                             tooltip: {
-                              description: lorem,
+                              content: lorem,
                             },
                             children: [],
                           },
@@ -111,21 +111,21 @@ export const legsPullData: Skill[] = [
   {
     id: 'ol-deadlift',
     tooltip: {
-      description: lorem,
+      content: lorem,
     },
     title: 'One-Legged Deadlift',
     children: [
       {
         id: '45deg-hip-nc',
         tooltip: {
-          description: lorem,
+          content: lorem,
         },
         title: '45° Hip Nordic Curl',
         children: [
           {
             id: 'nordic-curl-negative',
             tooltip: {
-              description: lorem,
+              content: lorem,
             },
             title: 'Nordic Curl (Negative)',
             children: [
@@ -133,21 +133,21 @@ export const legsPullData: Skill[] = [
                 id: 'nordic-curl',
                 icon: './nnn',
                 tooltip: {
-                  description: lorem,
+                  content: lorem,
                 },
                 title: 'Nordic Curl',
                 children: [
                   {
                     id: 'tuck-ol-nordic-curl',
                     tooltip: {
-                      description: lorem,
+                      content: lorem,
                     },
                     title: 'Tuck One-Legged Nordic Curl',
                     children: [
                       {
                         id: 'ol-nordic-curl',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         title: 'One-Legged Nordic Curl',
                         children: [],

@@ -10,13 +10,16 @@ function renderComponent(nodeState: NodeState = 'locked') {
     <ThemeProvider theme={defaultTheme}>
       <SkillNode
         nodeState={nodeState}
+        incSkillCount={() => null}
+        decSkillCount={() => null}
+        updateSkillState={() => null}
         skill={{
           children: [],
           id: 'test-node',
           icon: './hey',
           title: 'Hey there',
           tooltip: {
-            description: 'Description',
+            content: 'content',
           },
         }}
       />

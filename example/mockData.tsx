@@ -1,14 +1,41 @@
+import React from 'react';
 import SquatIcon from './squat.svg';
 import { SkillType } from '../src';
 
 const lorem = 'lorem ipsum';
+
+function FakeContent() {
+  return (
+    <div>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: 'white', textDecoration: 'none' }}
+        href="https://calisthenicsskills.com"
+      >
+        Click here
+      </a>
+    </div>
+  );
+}
+
+function DummyVideo() {
+  return (
+    <iframe
+      style={{ border: 'none' }}
+      id="ytplayer"
+      width="100%"
+      src="https://www.youtube.com/embed/J3TjDUnlclk"
+    ></iframe>
+  );
+}
 
 export const legsPushData: SkillType[] = [
   {
     id: 'ass-squat',
     title: 'Assisted Squat',
     tooltip: {
-      description: lorem,
+      content: <FakeContent />,
     },
     children: [
       {
@@ -16,9 +43,8 @@ export const legsPushData: SkillType[] = [
         title: 'Parallel Squat',
         optional: true,
         tooltip: {
-          description: lorem,
+          content: lorem,
           direction: 'left',
-          visible: true,
         },
         children: [
           {
@@ -27,7 +53,7 @@ export const legsPushData: SkillType[] = [
             title: 'Reverse Hyperextensions',
             tooltip: {
               direction: 'right',
-              description: lorem,
+              content: lorem,
             },
             children: [
               {
@@ -35,14 +61,14 @@ export const legsPushData: SkillType[] = [
                 icon: SquatIcon,
                 title: 'Cossack Squat',
                 tooltip: {
-                  description: lorem,
+                  content: lorem,
                 },
                 children: [
                   {
                     id: 'ass-pistol-squat',
                     title: 'Pistol Squat (Assisted)',
                     tooltip: {
-                      description: lorem,
+                      content: <DummyVideo />,
                     },
                     children: [
                       {
@@ -50,7 +76,7 @@ export const legsPushData: SkillType[] = [
                         icon: SquatIcon,
                         title: 'Pistol Squat',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         children: [],
                       },
@@ -62,7 +88,7 @@ export const legsPushData: SkillType[] = [
                 id: 'split-squat',
                 title: 'Split Squat',
                 tooltip: {
-                  description: lorem,
+                  content: lorem,
                 },
                 children: [
                   {
@@ -70,14 +96,14 @@ export const legsPushData: SkillType[] = [
                     icon: SquatIcon,
                     title: 'Bulgarian Split Squat',
                     tooltip: {
-                      description: lorem,
+                      content: lorem,
                     },
                     children: [
                       {
                         id: 'deep-step-up',
                         title: 'Deep Step Up',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         children: [],
                       },
@@ -86,7 +112,7 @@ export const legsPushData: SkillType[] = [
                         title: 'Beginner Shrimp Squat',
                         optional: true,
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         children: [
                           {
@@ -94,7 +120,7 @@ export const legsPushData: SkillType[] = [
                             icon: SquatIcon,
                             title: 'Shrimp Squat',
                             tooltip: {
-                              description: lorem,
+                              content: lorem,
                             },
                             children: [],
                           },
@@ -113,7 +139,7 @@ export const legsPushData: SkillType[] = [
   {
     id: 'something-else',
     tooltip: {
-      description: 'burn those leg muscles',
+      content: 'burn those leg muscles',
     },
     title: 'Something Else',
     children: [],
@@ -124,7 +150,7 @@ export const legsPullData: SkillType[] = [
   {
     id: 'ol-deadlift',
     tooltip: {
-      description:
+      content:
         "Lilith's Action Skill is Phasewalk, which allows her to turn invisible and increase her running speed. Upon entering and exiting Phasewalk, Lilith releases a Phase Blast that damages enemies around her. While in Phasewalk, Lilith cannot shoot, jump, or collect loot, and a melee attack will cause her to exit Phasewalk.",
     },
     title: 'One-Legged Deadlift',
@@ -132,14 +158,14 @@ export const legsPullData: SkillType[] = [
       {
         id: '45deg-hip-nc',
         tooltip: {
-          description: lorem,
+          content: lorem,
         },
         title: '45° Hip Nordic Curl',
         children: [
           {
             id: 'nordic-curl-negative',
             tooltip: {
-              description: lorem,
+              content: lorem,
             },
             title: 'Nordic Curl (Negative)',
             children: [
@@ -147,21 +173,21 @@ export const legsPullData: SkillType[] = [
                 id: 'nordic-curl',
                 icon: SquatIcon,
                 tooltip: {
-                  description: lorem,
+                  content: lorem,
                 },
                 title: 'Nordic Curl',
                 children: [
                   {
                     id: 'tuck-ol-nordic-curl',
                     tooltip: {
-                      description: lorem,
+                      content: lorem,
                     },
                     title: 'Tuck One-Legged Nordic Curl',
                     children: [
                       {
                         id: 'ol-nordic-curl',
                         tooltip: {
-                          description: lorem,
+                          content: lorem,
                         },
                         title: 'One-Legged Nordic Curl',
                         children: [],

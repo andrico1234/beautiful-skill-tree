@@ -2,24 +2,25 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  tooltipDescription: string;
+  content: React.ReactNode;
   title: string;
 };
 
-const TooltipContent = React.memo(function({
-  tooltipDescription,
-  title,
-}: Props) {
+const Tooltip = React.memo(function({ content, title }: Props) {
   return (
     <React.Fragment>
       <Title>{title}</Title>
-      <p>{tooltipDescription}</p>
+      <ContentContainer>{content}</ContentContainer>
     </React.Fragment>
   );
 });
 
-export default TooltipContent;
+export default Tooltip;
 
 const Title = styled.h1`
+  margin: 8px 0;
+`;
+
+const ContentContainer = styled.div`
   margin: 8px 0;
 `;
