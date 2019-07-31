@@ -22,6 +22,17 @@ export interface Tooltip {
   direction?: TooltipDirection;
 }
 
+export type Action = {
+  type: ActionType;
+};
+
+export type ActionType =
+  | 'SELECT_REQUIRED_SKILL'
+  | 'DESELECT_REQUIRED_SKILL'
+  | 'SELECT_OPTIONAL_SKILL'
+  | 'DESELECT_OPTIONAL_SKILL'
+  | 'RESET_SKILLS';
+
 interface BaseSkill {
   id: string;
   optional?: boolean;

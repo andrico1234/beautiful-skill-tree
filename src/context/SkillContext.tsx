@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mapValues } from 'lodash';
-import { NodeState, ContextStorage } from '../models';
+import { NodeState, ContextStorage, Action } from '../models';
 import { Dictionary } from '../models/utils';
 import AppContext, { IAppContext } from './AppContext';
 import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
@@ -57,7 +57,13 @@ export class SkillTreeProvider extends React.Component<Props, State> {
 
     Object.keys(treeSkills).map(key => {
       if (treeSkills[key].nodeState === SELECTED_STATE) {
-        context.incrementSelectedCount(treeSkills[key].optional);
+        const action: Action = {
+          type: treeSkills[key].optional
+            ? 'SELECT_OPTIONAL_SKILL'
+            : 'SELECT_REQUIRED_SKILL',
+        };
+
+        context.dispatch(action);
       }
     });
 
@@ -80,6 +86,22 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       this.resetSkills();
     }
   }
+
+  incrementSelectedCount = (optional: boolean = false) => {
+    const action: Action = {
+      type: optional ? 'SELECT_OPTIONAL_SKILL' : 'SELECT_REQUIRED_SKILL',
+    };
+
+    this.context.dispatch(action);
+  };
+
+  decrementSelectedCount = (optional: boolean = false) => {
+    const action: Action = {
+      type: optional ? 'DESELECT_OPTIONAL_SKILL' : 'DESELECT_REQUIRED_SKILL',
+    };
+
+    this.context.dispatch(action);
+  };
 
   resetSkills = () => {
     return this.setState(prevState => {
@@ -130,8 +152,8 @@ export class SkillTreeProvider extends React.Component<Props, State> {
         value={{
           skills: this.state.skills,
           updateSkillState: this.updateSkillState,
-          incrementSelectedCount: this.context.incrementSelectedCount,
-          decrementSelectedCount: this.context.decrementSelectedCount,
+          incrementSelectedCount: this.incrementSelectedCount,
+          decrementSelectedCount: this.decrementSelectedCount,
         }}
       >
         {this.props.children}
