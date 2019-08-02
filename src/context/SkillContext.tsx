@@ -1,23 +1,22 @@
 import * as React from 'react';
 import { mapValues } from 'lodash';
-import { NodeState, ContextStorage, Action } from '../models';
-import { Dictionary } from '../models/utils';
+import {
+  NodeState,
+  ContextStorage,
+  Action,
+  Skills,
+  SkillData,
+} from '../models';
 import AppContext, { IAppContext } from './AppContext';
 import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
 
 type Props = typeof SkillTreeProvider.defaultProps & {
   treeId: string;
+  savedData?: Skills;
 };
 
 type DefaultProps = {
   storage: ContextStorage;
-};
-
-type Skills = Dictionary<SkillData>;
-
-type SkillData = {
-  optional: boolean;
-  nodeState: NodeState;
 };
 
 interface State {
@@ -52,8 +51,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   constructor(props: Props, context: IAppContext) {
     super(props, context);
 
-    const treeSkills: Skills =
-      JSON.parse(props.storage.getItem(`skills-${props.treeId}`)!) || {};
+    const treeSkills = this.getTreeSkills();
 
     Object.keys(treeSkills).map(key => {
       if (treeSkills[key].nodeState === SELECTED_STATE) {
@@ -72,6 +70,22 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       resetId: context.resetId,
     };
   }
+
+  getTreeSkills = (): Skills => {
+    if (this.props.savedData) {
+      return this.props.savedData;
+    }
+
+    const { storage, treeId } = this.props;
+
+    const storedItems = storage.getItem(`skills-${treeId}`);
+
+    if (storedItems === 'undefined' || storedItems === null) {
+      return {};
+    }
+
+    return JSON.parse(storedItems);
+  };
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.writeToStorage);

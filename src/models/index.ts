@@ -1,4 +1,4 @@
-import { Nullable } from './utils';
+import { Nullable, Dictionary } from './utils';
 
 export type Skill = MajorSkill | BaseSkill;
 
@@ -11,6 +11,13 @@ export interface SkillGroupData {
   selectedSkillCount: SkillCount;
   resetSkills: VoidFunction;
 }
+
+export type Skills = Dictionary<SkillData>;
+
+export type SkillData = {
+  optional: boolean;
+  nodeState: NodeState;
+};
 
 export interface SkillCount {
   required: number;

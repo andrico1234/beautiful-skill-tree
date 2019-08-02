@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Skill } from '../models';
+import { Skill, Skills } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
@@ -11,6 +11,7 @@ interface Props {
   treeId: string;
   data: Skill[];
   title: string;
+  savedData?: Skills;
 }
 
 const defaultParentPosition = {
@@ -18,11 +19,11 @@ const defaultParentPosition = {
   center: 0,
 };
 
-function SkillTree({ data, title, treeId }: Props) {
+function SkillTree({ data, title, treeId, savedData }: Props) {
   const { isMobile } = useContext(MobileContext);
 
   return (
-    <SkillTreeProvider treeId={treeId}>
+    <SkillTreeProvider treeId={treeId} savedData={savedData}>
       <CalculateTotalNodes data={data} />
       <SkillTreeContainer>
         <SkillTreeTitle>{title}</SkillTreeTitle>

@@ -9,7 +9,7 @@ import {
 } from '../src';
 // import { SkillTree, SkillTreeGroup, SkillProvider } from '../dist/index';
 import './index.css';
-import { legsPushData, legsPullData } from './mockData';
+import { legsPushData, legsPullData, hpSavedData } from './mockData';
 
 const App = () => {
   return (
@@ -43,6 +43,7 @@ const App = () => {
                 treeId="hp"
                 title="Hinge Progression"
                 data={legsPullData}
+                savedData={hpSavedData}
               />
             </React.Fragment>
           );

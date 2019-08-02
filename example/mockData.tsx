@@ -1,6 +1,6 @@
 import React from 'react';
 import SquatIcon from './squat.svg';
-import { SkillType } from '../src';
+import { SkillType, SavedDataType } from '../src';
 
 const lorem = 'lorem ipsum';
 
@@ -145,6 +145,33 @@ export const legsPushData: SkillType[] = [
     children: [],
   },
 ];
+
+export const hpSavedData: SavedDataType = {
+  'ol-deadlift': {
+    optional: false,
+    nodeState: 'unlocked',
+  },
+  '45deg-hip-nc': {
+    optional: false,
+    nodeState: 'locked',
+  },
+  'nordic-curl-negative': {
+    optional: false,
+    nodeState: 'locked',
+  },
+  'nordic-curl': {
+    optional: false,
+    nodeState: 'locked',
+  },
+  'tucked-ol-nordic-curl': {
+    optional: false,
+    nodeState: 'locked',
+  },
+  'ol-nordic-curl': {
+    optional: false,
+    nodeState: 'locked',
+  },
+};
 
 export const legsPullData: SkillType[] = [
   {
