@@ -8,7 +8,7 @@ import {
   SkillGroupDataType,
   SavedDataType,
 } from '../src';
-// import { SkillTree, SkillTreeGroup, SkillProvider } from '../dist/index';
+// import { SkillTree, SkillTreeGroup, SkillProvider, SkillGroupDataType , SavedDataType } from '../dist/index';
 import './index.css';
 import { legsPushData, legsPullData, hpSavedData } from './mockData';
 import { ContextStorage } from '../src/models';

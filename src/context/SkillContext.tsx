@@ -96,22 +96,30 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    const { storage, treeId, handleSave } = this.props;
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        handleSave(storage, treeId, this.state.skills);
+      }
+    });
+
     window.addEventListener('beforeunload', () =>
-      this.props.handleSave(
-        this.props.storage,
-        this.props.treeId,
-        this.state.skills
-      )
+      handleSave(storage, treeId, this.state.skills)
     );
   }
 
   componentWillUnmount() {
+    const { storage, treeId, handleSave } = this.props;
+
+    window.removeEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        handleSave(storage, treeId, this.state.skills);
+      }
+    });
+
     window.removeEventListener('beforeunload', () =>
-      this.props.handleSave(
-        this.props.storage,
-        this.props.treeId,
-        this.state.skills
-      )
+      handleSave(storage, treeId, this.state.skills)
     );
   }
 

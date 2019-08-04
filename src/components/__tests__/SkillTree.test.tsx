@@ -217,45 +217,6 @@ describe('SkillTree', () => {
     });
   });
 
-  it('should load the correct skills that are saved to the store', () => {
-    const defaultSkills = {
-      'item-one': {
-        nodeState: 'selected',
-        optional: false,
-      },
-      'item-two': {
-        nodeState: 'unlocked',
-        optional: false,
-      },
-      'item-three': {
-        nodeState: 'locked',
-        optional: false,
-      },
-    };
-
-    window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
-
-    const { getByTestId, getSelectedSkillCount } = renderComponent(
-      defaultProps
-    );
-
-    const topNode = getByTestId('item-one');
-    const middleNode = getByTestId('item-two');
-    const bottomNode = getByTestId('item-three');
-
-    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
-    expect(middleNode).toHaveStyleRule(
-      'box-shadow',
-      '0 0 6px 0 rgba(255,255,255,0.5)'
-    );
-    expect(bottomNode).toHaveStyleRule('opacity', '0.65');
-
-    expect(getSelectedSkillCount()).toEqual({
-      optional: 0,
-      required: 1,
-    });
-  });
-
   it('should deselect all skill trees when resetSkills is invoked', () => {
     const {
       getByTestId,
@@ -301,8 +262,76 @@ describe('SkillTree', () => {
     expect(queryByTestId('h-separator')).toBeTruthy();
   });
 
-  describe('when custom saving + loading is used', () => {
-    it('should correctly load the custom saved data passed through', () => {
+  describe('saving and loading', () => {
+    it('should load the correct skills that are saved to the store', () => {
+      const defaultSkills = {
+        'item-one': {
+          nodeState: 'selected',
+          optional: false,
+        },
+        'item-two': {
+          nodeState: 'unlocked',
+          optional: false,
+        },
+        'item-three': {
+          nodeState: 'locked',
+          optional: false,
+        },
+      };
+
+      window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
+
+      const { getByTestId, getSelectedSkillCount } = renderComponent(
+        defaultProps
+      );
+
+      const topNode = getByTestId('item-one');
+      const middleNode = getByTestId('item-two');
+      const bottomNode = getByTestId('item-three');
+
+      expect(topNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(middleNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(bottomNode).toHaveStyleRule('opacity', '0.65');
+
+      expect(getSelectedSkillCount()).toEqual({
+        optional: 0,
+        required: 1,
+      });
+    });
+
+    it('should save the current data when the page visibility is hidden', () => {
+      const handleSave = jest.fn();
+
+      Object.defineProperty(document, 'hidden', {
+        configurable: true,
+        get: function() {
+          return true;
+        },
+      });
+
+      const customSavingProps = {
+        ...defaultProps,
+        savedData: mockSavedData,
+        handleSave,
+      };
+
+      renderComponent(customSavingProps);
+
+      act(() => {
+        document.dispatchEvent(new Event('visibilitychange'));
+      });
+
+      expect(handleSave).toHaveBeenCalledWith(
+        window.localStorage,
+        'bl',
+        mockSavedData
+      );
+    });
+
+    it('should correctly load the custom saved data', () => {
       const customSavingProps = {
         ...defaultProps,
         savedData: mockSavedData,
