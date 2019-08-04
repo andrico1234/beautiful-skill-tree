@@ -23,11 +23,11 @@ The `SkillTreeGroup` groups skill trees and exposes various methods and properti
 
 The `SkillProvider` is the skill tree's context provider.
 
-For those that like their data typed, you can also import `SkillType` and `SkillGroupDataType`, `SkillThemeType` from the package.
+For those that like their data typed, you can also import `SkillType`, `SkillGroupDataType`, `SkillThemeType` and `SavedDataType` from the package.
 
 Wrap your application like this:
 
-```typescript
+```tsx
 import { SkillTreeGroup, SkillTree, SkillProvider, SkillType, SkillGroupDataType } from 'beautiful-skill-tree';
 
 const data: SkillType[] = [];
@@ -99,6 +99,10 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### data: `SkillType` [*required*]
 
+#### savedData: `SavedDataType` [*optional*]
+
+#### handleSave: `(context: ContextStorage, treeId: string, skills: SkillType) => void` [*optional*]
+
 ### SkillTreeGroup
 
 #### theme: `SkillThemeType` [*optional*]
@@ -109,7 +113,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ### SkillType
 
-```typescript
+```tsx
 type SkillType[] = {
 	id: string;
   title: string;
@@ -125,7 +129,7 @@ type SkillType[] = {
 
 ### SkillGroupDataType
 
-```typescript
+```tsx
 type SkillGroupData = {
   skillCount: SkillCount;
   selectedSkillCount: SkillCount;
@@ -135,6 +139,17 @@ type SkillGroupData = {
 type SkillCount = {
   optional: number;
   required: number;
+};
+```
+
+### SkillDataType
+
+```tsx
+type SavedDataType = {
+  [key: string]: {
+    optional: boolean;
+    nodeState: 'selected' | 'unlocked' | 'locked';
+  };
 };
 ```
 
@@ -150,6 +165,66 @@ linear-gradient(
   #ffffff 0%,
   #ffffff 100%
 )
+```
+
+---
+
+## Custom Saving
+
+`beautiful-skill-tree` automatically handles saving out of the box, but the implementation is fairly rudimental. The package saves the skills tree data to local storage when the application loads, which is great for:
+
+- Creating simple skill trees
+- Web apps that require no authentication
+- Rapid prototyping
+
+Saving to local storage is not great for:
+
+- Data persistence across devices
+- Web apps that require authentication
+- Giving control to power users
+
+Saving and loading works automatically, but it's possible pass in your own implementation, should you want to extend the save/loading capabilities, or if your application utilises authentication. The `SkillTree` component takes 2 optional properties that pertain solely to saving: `savedData` and `handleSave`. The former is an object with the shape of `SavedDataType` that sets the current state of the skill tree on load, while the `handleSave` function is an event handler that fires on save, and takes a `Storage` object, `treeId`, and `skills`.
+
+```tsx
+// the state of the skill tree, as per my custom implementation
+const savedData: SavedDataType = {
+  'item-one': {
+    optional: false,
+    nodeState: 'unlocked',
+  },
+  'item-two': {
+    optional: false,
+    nodeState: 'locked',
+  },
+};
+
+function handleSave(
+  storage: ContextStorage,
+  treeId: string,
+  skills: SavedDataType
+) {
+  return storage.setItem(`skills-${treeId}`, JSON.stringify(skills));
+}
+
+const App = () => {
+  return (
+    <SkillProvider>
+      <SkillTreeGroup theme={{ headingFont: 'impact' }}>
+        {() => {
+          return (
+            <SkillTree
+              treeId="treeOne"
+              title="Save Example"
+              data={exampleData} // defined elsewhere
+              handleSave={handleSave}
+              savedData={savedData}
+            />
+          );
+        }}
+      </SkillTreeGroup>
+    </SkillProvider>
+  );
+};
 ```
 
 ---
@@ -171,6 +246,7 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 - [x] CSS theming
 - [x] Keyboard only use
 - [x] Optional nodes
+- [x] Custom Saving
 - [ ] Collapsable skill trees
 
 ---

@@ -4,7 +4,7 @@ import {
   NodeState,
   ContextStorage,
   Action,
-  Skills,
+  SavedDataType,
   SkillData,
 } from '../models';
 import AppContext, { IAppContext } from './AppContext';
@@ -12,21 +12,25 @@ import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
 
 type Props = typeof SkillTreeProvider.defaultProps & {
   treeId: string;
-  savedData?: Skills;
+  savedData?: SavedDataType;
 };
 
 type DefaultProps = {
   storage: ContextStorage;
-  handleSave: (storage: ContextStorage, id: string, skills: Skills) => void;
+  handleSave: (
+    storage: ContextStorage,
+    id: string,
+    skills: SavedDataType
+  ) => void;
 };
 
 interface State {
-  skills: Skills;
+  skills: SavedDataType;
   resetId: string;
 }
 
 export interface ISkillContext {
-  skills: Skills;
+  skills: SavedDataType;
   updateSkillState: (
     key: string,
     updatedState: NodeState,
@@ -47,8 +51,8 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   static contextType = AppContext;
   static defaultProps: DefaultProps = {
     storage: localStorage,
-    handleSave(storage, id, skills) {
-      return storage.setItem(`skills-${id}`, JSON.stringify(skills));
+    handleSave(storage, treeId, skills) {
+      return storage.setItem(`skills-${treeId}`, JSON.stringify(skills));
     },
   };
 
@@ -75,7 +79,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     };
   }
 
-  getTreeSkills = (): Skills => {
+  getTreeSkills = (): SavedDataType => {
     if (this.props.savedData) {
       return this.props.savedData;
     }
@@ -137,10 +141,13 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     return this.setState(prevState => {
       const { skills } = prevState;
 
-      const resettedSkills: Skills = mapValues(skills, (skill: SkillData) => ({
-        optional: skill.optional,
-        nodeState: LOCKED_STATE,
-      }));
+      const resettedSkills: SavedDataType = mapValues(
+        skills,
+        (skill: SkillData) => ({
+          optional: skill.optional,
+          nodeState: LOCKED_STATE,
+        })
+      );
 
       return {
         skills: resettedSkills,

@@ -4,7 +4,7 @@ import SkillTree from '../SkillTree';
 import MockLocalStorage from '../../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
-import { Skill, SkillCount, Skills, ContextStorage } from '../../models/index';
+import { Skill, SkillCount, ContextStorage } from '../../models/index';
 import { SavedDataType } from '../../';
 
 const mockSkillTreeData: Skill[] = [
@@ -78,8 +78,12 @@ type Props = {
   treeId: string;
   data: Skill[];
   title: string;
-  savedData?: Skills;
-  handleSave?: (storage: ContextStorage, id: string, skills: Skills) => void;
+  savedData?: SavedDataType;
+  handleSave?: (
+    storage: ContextStorage,
+    treeId: string,
+    skills: SavedDataType
+  ) => void;
 };
 
 function renderComponent(props: Props) {

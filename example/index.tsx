@@ -6,14 +6,19 @@ import {
   SkillTreeGroup,
   SkillProvider,
   SkillGroupDataType,
+  SavedDataType,
 } from '../src';
 // import { SkillTree, SkillTreeGroup, SkillProvider } from '../dist/index';
 import './index.css';
 import { legsPushData, legsPullData, hpSavedData } from './mockData';
-import { Skills, ContextStorage } from '../src/models';
+import { ContextStorage } from '../src/models';
 
-function handleSave(storage: ContextStorage, id: string, skills: Skills) {
-  return storage.setItem(`skills-${id}`, JSON.stringify(skills));
+function handleSave(
+  storage: ContextStorage,
+  treeId: string,
+  skills: SavedDataType
+) {
+  return storage.setItem(`skills-${treeId}`, JSON.stringify(skills));
 }
 
 const App = () => {

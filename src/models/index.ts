@@ -12,7 +12,7 @@ export interface SkillGroupData {
   resetSkills: VoidFunction;
 }
 
-export type Skills = Dictionary<SkillData>;
+export type SavedDataType = Dictionary<SkillData>;
 
 export type SkillData = {
   optional: boolean;

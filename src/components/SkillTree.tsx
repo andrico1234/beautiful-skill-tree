@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Skill, Skills, ContextStorage } from '../models';
+import { Skill, SavedDataType, ContextStorage } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateTotalNodes from './CalculateNodeCount';
@@ -11,8 +11,12 @@ interface Props {
   treeId: string;
   data: Skill[];
   title: string;
-  savedData?: Skills;
-  handleSave?: (storage: ContextStorage, id: string, skills: Skills) => void;
+  savedData?: SavedDataType;
+  handleSave?: (
+    storage: ContextStorage,
+    treeId: string,
+    skills: SavedDataType
+  ) => void;
 }
 
 const defaultParentPosition = {
