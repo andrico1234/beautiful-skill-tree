@@ -4,7 +4,8 @@ import SkillTree from '../SkillTree';
 import MockLocalStorage from '../../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
-import { Skill, SkillCount } from '../../models/index';
+import { Skill, SkillCount, Skills, ContextStorage } from '../../models/index';
+import { SavedDataType } from '../../';
 
 const mockSkillTreeData: Skill[] = [
   {
@@ -50,11 +51,38 @@ const mockSkillTreeData: Skill[] = [
   },
 ];
 
+const mockSavedData: SavedDataType = {
+  'item-one': {
+    optional: false,
+    nodeState: 'selected',
+  },
+  'item-two': {
+    optional: false,
+    nodeState: 'unlocked',
+  },
+  'item-three': {
+    optional: true,
+    nodeState: 'locked',
+  },
+  'item-four': {
+    optional: false,
+    nodeState: 'unlocked',
+  },
+};
+
 const defaultStoreContents = {
   [`skills-bl`]: JSON.stringify({}),
 };
 
-function renderComponent() {
+type Props = {
+  treeId: string;
+  data: Skill[];
+  title: string;
+  savedData?: Skills;
+  handleSave?: (storage: ContextStorage, id: string, skills: Skills) => void;
+};
+
+function renderComponent(props: Props) {
   let selectedSkillCount: SkillCount;
   let resetSkills: VoidFunction;
 
@@ -64,13 +92,7 @@ function renderComponent() {
         {treeData => {
           selectedSkillCount = treeData.selectedSkillCount;
           resetSkills = treeData.resetSkills;
-          return (
-            <SkillTree
-              treeId="bl"
-              title="borderlands"
-              data={mockSkillTreeData}
-            />
-          );
+          return <SkillTree {...props} />;
         }}
       </SkillTreeGroup>
     </SkillProvider>
@@ -96,15 +118,23 @@ beforeEach(() => {
   window.localStorage = new MockLocalStorage(defaultStoreContents);
 });
 
+const defaultProps = {
+  treeId: 'bl',
+  title: 'borderlands',
+  data: mockSkillTreeData,
+};
+
 describe('SkillTree', () => {
   it('creates the correct number of Nodes', () => {
-    const { queryAllByTestId } = renderComponent();
+    const { queryAllByTestId } = renderComponent(defaultProps);
 
     expect(queryAllByTestId(/item-/).length).toBe(4);
   });
 
   it('on first click should activate the node', () => {
-    const { getByTestId, getSelectedSkillCount } = renderComponent();
+    const { getByTestId, getSelectedSkillCount } = renderComponent(
+      defaultProps
+    );
 
     const topNode = getByTestId('item-one');
 
@@ -118,7 +148,9 @@ describe('SkillTree', () => {
   });
 
   it('on second click should deactivate the first style', () => {
-    const { getByTestId, getSelectedSkillCount } = renderComponent();
+    const { getByTestId, getSelectedSkillCount } = renderComponent(
+      defaultProps
+    );
 
     const topNode = getByTestId('item-one');
 
@@ -138,7 +170,9 @@ describe('SkillTree', () => {
   });
 
   it('on sequential clicks should select all nodes', async () => {
-    const { getByTestId, getSelectedSkillCount } = renderComponent();
+    const { getByTestId, getSelectedSkillCount } = renderComponent(
+      defaultProps
+    );
 
     const topNode = getByTestId('item-one');
     const middleNode = getByTestId('item-two');
@@ -163,7 +197,9 @@ describe('SkillTree', () => {
   });
 
   it('on disabled click no selected a node', () => {
-    const { getByTestId, getSelectedSkillCount } = renderComponent();
+    const { getByTestId, getSelectedSkillCount } = renderComponent(
+      defaultProps
+    );
 
     const middleNode = getByTestId('item-two');
 
@@ -195,7 +231,9 @@ describe('SkillTree', () => {
 
     window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
 
-    const { getByTestId, getSelectedSkillCount } = renderComponent();
+    const { getByTestId, getSelectedSkillCount } = renderComponent(
+      defaultProps
+    );
 
     const topNode = getByTestId('item-one');
     const middleNode = getByTestId('item-two');
@@ -219,7 +257,7 @@ describe('SkillTree', () => {
       getByTestId,
       getSelectedSkillCount,
       resetSkillsHandler,
-    } = renderComponent();
+    } = renderComponent(defaultProps);
 
     const topNode = getByTestId('item-one');
     const middleNode = getByTestId('item-two');
@@ -254,9 +292,58 @@ describe('SkillTree', () => {
     //@ts-ignore
     window.innerWidth = 200;
 
-    const { queryByTestId } = renderComponent();
+    const { queryByTestId } = renderComponent(defaultProps);
 
     expect(queryByTestId('h-separator')).toBeTruthy();
+  });
+
+  describe('when custom saving + loading is used', () => {
+    it('should correctly load the custom saved data passed through', () => {
+      const customSavingProps = {
+        ...defaultProps,
+        savedData: mockSavedData,
+      };
+
+      const { getByTestId } = renderComponent(customSavingProps);
+
+      const topNode = getByTestId('item-one');
+      const middleNode = getByTestId('item-two');
+      const bottomNode = getByTestId('item-three');
+      const loneNode = getByTestId('item-four');
+
+      expect(topNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(middleNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(bottomNode).toHaveStyleRule('opacity', '0.65');
+      expect(loneNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+    });
+
+    it('should correctly save the data using the custom onSave handler', () => {
+      const handleSave = jest.fn();
+
+      const customSavingProps = {
+        ...defaultProps,
+        handleSave,
+        savedData: mockSavedData,
+      };
+
+      renderComponent(customSavingProps);
+
+      act(() => {
+        window.dispatchEvent(new Event('beforeunload'));
+      });
+
+      expect(handleSave).toHaveBeenCalledWith(
+        window.localStorage,
+        'bl',
+        mockSavedData
+      );
+    });
   });
 
   xdescribe('resizing', () => {
@@ -273,7 +360,7 @@ describe('SkillTree', () => {
       window.innerWidth = 1000;
       resizeEvent.initEvent('resize', true, true);
 
-      const { queryByTestId } = renderComponent();
+      const { queryByTestId } = renderComponent(defaultProps);
 
       expect(queryByTestId('h-separator')).toBeFalsy();
 

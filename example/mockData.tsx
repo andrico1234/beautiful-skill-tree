@@ -163,7 +163,7 @@ export const hpSavedData: SavedDataType = {
     optional: false,
     nodeState: 'locked',
   },
-  'tucked-ol-nordic-curl': {
+  'tuck-ol-nordic-curl': {
     optional: false,
     nodeState: 'locked',
   },

@@ -17,6 +17,7 @@ type Props = typeof SkillTreeProvider.defaultProps & {
 
 type DefaultProps = {
   storage: ContextStorage;
+  handleSave: (storage: ContextStorage, id: string, skills: Skills) => void;
 };
 
 interface State {
@@ -46,6 +47,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   static contextType = AppContext;
   static defaultProps: DefaultProps = {
     storage: localStorage,
+    handleSave(storage, id, skills) {
+      return storage.setItem(`skills-${id}`, JSON.stringify(skills));
+    },
   };
 
   constructor(props: Props, context: IAppContext) {
@@ -88,11 +92,23 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    window.addEventListener('beforeunload', this.writeToStorage);
+    window.addEventListener('beforeunload', () =>
+      this.props.handleSave(
+        this.props.storage,
+        this.props.treeId,
+        this.state.skills
+      )
+    );
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.writeToStorage);
+    window.removeEventListener('beforeunload', () =>
+      this.props.handleSave(
+        this.props.storage,
+        this.props.treeId,
+        this.state.skills
+      )
+    );
   }
 
   componentDidUpdate() {
@@ -151,13 +167,6 @@ export class SkillTreeProvider extends React.Component<Props, State> {
         skills: updatedSkills,
       };
     });
-  };
-
-  private writeToStorage = () => {
-    this.props.storage.setItem(
-      `skills-${this.props.treeId}`,
-      JSON.stringify(this.state.skills)
-    );
   };
 
   render() {

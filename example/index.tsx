@@ -10,6 +10,11 @@ import {
 // import { SkillTree, SkillTreeGroup, SkillProvider } from '../dist/index';
 import './index.css';
 import { legsPushData, legsPullData, hpSavedData } from './mockData';
+import { Skills, ContextStorage } from '../src/models';
+
+function handleSave(storage: ContextStorage, id: string, skills: Skills) {
+  return storage.setItem(`skills-${id}`, JSON.stringify(skills));
+}
 
 const App = () => {
   return (
@@ -44,6 +49,7 @@ const App = () => {
                 title="Hinge Progression"
                 data={legsPullData}
                 savedData={hpSavedData}
+                handleSave={handleSave}
               />
             </React.Fragment>
           );
