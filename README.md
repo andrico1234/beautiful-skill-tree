@@ -115,15 +115,15 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ```tsx
 type SkillType[] = {
-	id: string;
+  id: string;
   title: string;
   optional?: boolean;
-	tooltip: {
+  tooltip: {
     content: React.ReactNode;
     direction?: 'top' | 'left' | 'right' | 'bottom', // bottom = default
   };
-	icon?: string;
-	children: SkillType[];
+  icon?: string;
+  children: SkillType[];
 }
 ```
 
