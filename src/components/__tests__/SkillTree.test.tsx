@@ -302,15 +302,8 @@ describe('SkillTree', () => {
       });
     });
 
-    it('should save the current data when the page visibility is hidden', () => {
+    it('should save the current data with the custom save hanlder', () => {
       const handleSave = jest.fn();
-
-      Object.defineProperty(document, 'hidden', {
-        configurable: true,
-        get: function() {
-          return true;
-        },
-      });
 
       const customSavingProps = {
         ...defaultProps,
@@ -318,16 +311,26 @@ describe('SkillTree', () => {
         handleSave,
       };
 
-      renderComponent(customSavingProps);
+      const mockDataToSave = {
+        ...mockSavedData,
+        'item-one': {
+          optional: false,
+          nodeState: 'unlocked',
+        },
+        'item-two': {
+          optional: false,
+          nodeState: 'locked',
+        },
+      };
 
-      act(() => {
-        document.dispatchEvent(new Event('visibilitychange'));
-      });
+      const { getByTestId } = renderComponent(customSavingProps);
+
+      fireEvent.click(getByTestId('item-one'));
 
       expect(handleSave).toHaveBeenCalledWith(
         window.localStorage,
         'bl',
-        mockSavedData
+        mockDataToSave
       );
     });
 
@@ -353,28 +356,6 @@ describe('SkillTree', () => {
       expect(loneNode).toHaveStyleRule(
         'box-shadow',
         '0 0 6px 0 rgba(255,255,255,0.5)'
-      );
-    });
-
-    it('should correctly save the data using the custom onSave handler', () => {
-      const handleSave = jest.fn();
-
-      const customSavingProps = {
-        ...defaultProps,
-        handleSave,
-        savedData: mockSavedData,
-      };
-
-      renderComponent(customSavingProps);
-
-      act(() => {
-        window.dispatchEvent(new Event('beforeunload'));
-      });
-
-      expect(handleSave).toHaveBeenCalledWith(
-        window.localStorage,
-        'bl',
-        mockSavedData
       );
     });
   });

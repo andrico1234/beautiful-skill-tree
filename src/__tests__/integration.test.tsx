@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import { SkillTreeGroup, SkillProvider, SkillTree, SkillType } from '../index';
 import defaultTheme, { SkillTheme } from '../theme';
 import mockTheme from '../__mocks__/mockTheme';
+import MockLocalStorage from '../__mocks__/mockLocalStorage';
 
 const simpleData: SkillType[] = [
   {
@@ -170,6 +171,16 @@ function renderComponent(
     </SkillProvider>
   );
 }
+
+afterEach(() => {
+  window.localStorage.setItem('skills-be', JSON.stringify({}));
+  window.localStorage.setItem('skills-fe', JSON.stringify({}));
+});
+
+beforeAll(() => {
+  //@ts-ignore
+  window.localStorage = new MockLocalStorage();
+});
 
 describe('SkillTreeGroup component', () => {
   describe('simple data structure', () => {
