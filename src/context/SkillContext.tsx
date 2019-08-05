@@ -95,26 +95,6 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     return JSON.parse(storedItems);
   };
 
-  componentDidMount() {
-    window.addEventListener('beforeunload', () =>
-      this.props.handleSave(
-        this.props.storage,
-        this.props.treeId,
-        this.state.skills
-      )
-    );
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', () =>
-      this.props.handleSave(
-        this.props.storage,
-        this.props.treeId,
-        this.state.skills
-      )
-    );
-  }
-
   componentDidUpdate() {
     if (this.context.resetId !== this.state.resetId) {
       this.resetSkills();
@@ -161,6 +141,8 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     updatedState: NodeState,
     optional: boolean = false
   ) => {
+    const { handleSave, storage, treeId } = this.props;
+
     return this.setState(prevState => {
       const updatedSkills = {
         ...prevState.skills,
@@ -169,6 +151,8 @@ export class SkillTreeProvider extends React.Component<Props, State> {
           nodeState: updatedState,
         },
       };
+
+      handleSave(storage, treeId, updatedSkills);
 
       return {
         skills: updatedSkills,

@@ -7,6 +7,7 @@ import SkillTreeSegment from './SkillTreeSegment';
 import Tooltip from './ui/Tooltip';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
+import MobileContext from '../context/MobileContext';
 
 interface Props {
   skill: Skill;
@@ -34,6 +35,7 @@ function SkillNode({
 }: Props) {
   const { children, title, tooltip, id, optional } = skill;
   const { direction = 'top', content } = tooltip;
+  const { isMobile } = React.useContext(MobileContext);
   const [parentPosition, setParentPosition] = React.useState({
     bottom: 0,
     center: 0,
@@ -102,7 +104,7 @@ function SkillNode({
         />
         <StyledTippy
           interactive
-          placement={direction}
+          placement={isMobile ? 'top' : direction}
           hideOnClick={false}
           content={<Tooltip content={content} title={title} />}
         >

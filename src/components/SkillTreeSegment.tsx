@@ -57,11 +57,11 @@ function SkillTreeSegment({
   useEffect(() => {
     if (nodeState === SELECTED_STATE && !shouldBeUnlocked) {
       decrementSelectedCount();
-      return updateSkillState(skill.id, LOCKED_STATE);
+      return updateSkillState(skill.id, LOCKED_STATE, skill.optional);
     }
 
     if (nodeState === UNLOCKED_STATE && !shouldBeUnlocked) {
-      return updateSkillState(skill.id, LOCKED_STATE);
+      return updateSkillState(skill.id, LOCKED_STATE, skill.optional);
     }
 
     if (!shouldBeUnlocked) {
@@ -69,7 +69,7 @@ function SkillTreeSegment({
     }
 
     if (nodeState === LOCKED_STATE && shouldBeUnlocked) {
-      return updateSkillState(skill.id, UNLOCKED_STATE);
+      return updateSkillState(skill.id, UNLOCKED_STATE, skill.optional);
     }
   }, [nodeState, shouldBeUnlocked]);
 

@@ -217,45 +217,6 @@ describe('SkillTree', () => {
     });
   });
 
-  it('should load the correct skills that are saved to the store', () => {
-    const defaultSkills = {
-      'item-one': {
-        nodeState: 'selected',
-        optional: false,
-      },
-      'item-two': {
-        nodeState: 'unlocked',
-        optional: false,
-      },
-      'item-three': {
-        nodeState: 'locked',
-        optional: false,
-      },
-    };
-
-    window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
-
-    const { getByTestId, getSelectedSkillCount } = renderComponent(
-      defaultProps
-    );
-
-    const topNode = getByTestId('item-one');
-    const middleNode = getByTestId('item-two');
-    const bottomNode = getByTestId('item-three');
-
-    expect(topNode).toHaveStyleRule('background', /linear-gradient/);
-    expect(middleNode).toHaveStyleRule(
-      'box-shadow',
-      '0 0 6px 0 rgba(255,255,255,0.5)'
-    );
-    expect(bottomNode).toHaveStyleRule('opacity', '0.65');
-
-    expect(getSelectedSkillCount()).toEqual({
-      optional: 0,
-      required: 1,
-    });
-  });
-
   it('should deselect all skill trees when resetSkills is invoked', () => {
     const {
       getByTestId,
@@ -301,8 +262,79 @@ describe('SkillTree', () => {
     expect(queryByTestId('h-separator')).toBeTruthy();
   });
 
-  describe('when custom saving + loading is used', () => {
-    it('should correctly load the custom saved data passed through', () => {
+  describe('saving and loading', () => {
+    it('should load the correct skills that are saved to the store', () => {
+      const defaultSkills = {
+        'item-one': {
+          nodeState: 'selected',
+          optional: false,
+        },
+        'item-two': {
+          nodeState: 'unlocked',
+          optional: false,
+        },
+        'item-three': {
+          nodeState: 'locked',
+          optional: false,
+        },
+      };
+
+      window.localStorage.setItem(`skills-bl`, JSON.stringify(defaultSkills));
+
+      const { getByTestId, getSelectedSkillCount } = renderComponent(
+        defaultProps
+      );
+
+      const topNode = getByTestId('item-one');
+      const middleNode = getByTestId('item-two');
+      const bottomNode = getByTestId('item-three');
+
+      expect(topNode).toHaveStyleRule('background', /linear-gradient/);
+      expect(middleNode).toHaveStyleRule(
+        'box-shadow',
+        '0 0 6px 0 rgba(255,255,255,0.5)'
+      );
+      expect(bottomNode).toHaveStyleRule('opacity', '0.65');
+
+      expect(getSelectedSkillCount()).toEqual({
+        optional: 0,
+        required: 1,
+      });
+    });
+
+    it('should save the current data with the custom save hanlder', () => {
+      const handleSave = jest.fn();
+
+      const customSavingProps = {
+        ...defaultProps,
+        savedData: mockSavedData,
+        handleSave,
+      };
+
+      const mockDataToSave = {
+        ...mockSavedData,
+        'item-one': {
+          optional: false,
+          nodeState: 'unlocked',
+        },
+        'item-two': {
+          optional: false,
+          nodeState: 'locked',
+        },
+      };
+
+      const { getByTestId } = renderComponent(customSavingProps);
+
+      fireEvent.click(getByTestId('item-one'));
+
+      expect(handleSave).toHaveBeenCalledWith(
+        window.localStorage,
+        'bl',
+        mockDataToSave
+      );
+    });
+
+    it('should correctly load the custom saved data', () => {
       const customSavingProps = {
         ...defaultProps,
         savedData: mockSavedData,
@@ -324,28 +356,6 @@ describe('SkillTree', () => {
       expect(loneNode).toHaveStyleRule(
         'box-shadow',
         '0 0 6px 0 rgba(255,255,255,0.5)'
-      );
-    });
-
-    it('should correctly save the data using the custom onSave handler', () => {
-      const handleSave = jest.fn();
-
-      const customSavingProps = {
-        ...defaultProps,
-        handleSave,
-        savedData: mockSavedData,
-      };
-
-      renderComponent(customSavingProps);
-
-      act(() => {
-        window.dispatchEvent(new Event('beforeunload'));
-      });
-
-      expect(handleSave).toHaveBeenCalledWith(
-        window.localStorage,
-        'bl',
-        mockSavedData
       );
     });
   });

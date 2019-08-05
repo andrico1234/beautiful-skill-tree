@@ -120,7 +120,7 @@ type SkillType[] = {
   optional?: boolean;
   tooltip: {
     content: React.ReactNode;
-    direction?: 'top' | 'left' | 'right' | 'bottom', // bottom = default
+    direction?: 'top' | 'left' | 'right' | 'bottom', // top = default
   };
   icon?: string;
   children: SkillType[];
