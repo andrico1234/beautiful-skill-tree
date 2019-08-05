@@ -142,7 +142,7 @@ type SkillCount = {
 };
 ```
 
-### SkillDataType
+### SavedDataType
 
 ```tsx
 type SavedDataType = {
