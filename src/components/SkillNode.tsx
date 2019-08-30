@@ -163,12 +163,16 @@ const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
   background-color: ${({ theme }) => theme.nodeOverlayColor};
   border-radius: ${({ theme }) => theme.borderRadius};
   height: 100%;
-  left: 8px;
+  left: 3px;
   opacity: 0;
   pointer-events: none;
   position: absolute;
   width: ${props => props.childWidth + 4}px;
   z-index: 10;
+
+  @media (min-width: 410px) {
+    left: 8px;
+  }
 
   @media (min-width: 900px) {
     left: 16px;

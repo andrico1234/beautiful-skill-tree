@@ -87,11 +87,15 @@ const StyledNode = styled.div<StyledNodeProps>`
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
   display: flex;
-  margin: 0 8px;
+  margin: 0 3px;
   outline: none;
   position: relative;
   transition: box-shadow 0.6s, opacity 1s;
   user-select: none;
+
+  @media (min-width: 410px) {
+    margin: 0 8px;
+  }
 
   @media (min-width: 900px) {
     margin: 0 16px;
