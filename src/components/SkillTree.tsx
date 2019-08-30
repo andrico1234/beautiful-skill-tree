@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { Skill, SavedDataType, ContextStorage } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
-import CalculateTotalNodes from './CalculateNodeCount';
+import CalculateNodeCount from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillContext';
 import styled from 'styled-components';
 import MobileContext from '../context/MobileContext';
+import SkillCountSubtitle from './SkillCountSubtitle';
 
 interface Props {
   treeId: string;
@@ -33,9 +34,10 @@ function SkillTree({ data, title, treeId, savedData, handleSave }: Props) {
       savedData={savedData}
       handleSave={handleSave}
     >
-      <CalculateTotalNodes data={data} />
+      <CalculateNodeCount data={data} />
       <SkillTreeContainer>
         <SkillTreeTitle>{title}</SkillTreeTitle>
+        <SkillCountSubtitle />
         <StyledSkillTree>
           {data.map((skill, i) => {
             return (
@@ -74,10 +76,6 @@ const SkillTreeTitle = styled.h2`
   font-family: ${({ theme }) => theme.headingFont};
   min-width: 152px;
   text-align: center;
-
-  @media (min-width: 900px) {
-    min-height: 56px;
-  }
 `;
 
 const StyledSkillTree = styled.div`

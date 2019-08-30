@@ -1,7 +1,10 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { BaseThemedCssFunction } from 'styled-components';
 import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
+
+const keyframes = require('styled-components').keyframes;
+const css: BaseThemedCssFunction<any> = require('styled-components').css;
 
 interface LineProps {
   state: NodeState;

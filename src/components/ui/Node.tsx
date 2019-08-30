@@ -1,8 +1,11 @@
 import * as React from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import styled, { BaseThemedCssFunction } from 'styled-components';
 import { SELECTED_STATE, UNLOCKED_STATE, LOCKED_STATE } from '../constants';
 import { Skill } from '../../models';
 import Icon from './Icon';
+
+const keyframes = require('styled-components').keyframes;
+const css: BaseThemedCssFunction<any> = require('styled-components').css;
 
 interface Props {
   handleClick: VoidFunction;

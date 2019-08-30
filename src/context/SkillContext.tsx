@@ -26,23 +26,28 @@ type DefaultProps = {
 
 interface State {
   skills: SavedDataType;
+  skillCount: number;
   resetId: string;
 }
 
 export interface ISkillContext {
   skills: SavedDataType;
+  skillCount: number;
   updateSkillState: (
     key: string,
     updatedState: NodeState,
     optional?: boolean
   ) => void;
+  setSkillCount: (skillCount: number) => void;
   incrementSelectedCount: VoidFunction;
   decrementSelectedCount: VoidFunction;
 }
 
 const SkillContext = React.createContext<ISkillContext>({
   skills: {},
+  skillCount: 0,
   updateSkillState: () => undefined,
+  setSkillCount: () => undefined,
   incrementSelectedCount: () => undefined,
   decrementSelectedCount: () => undefined,
 });
@@ -75,6 +80,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
 
     this.state = {
       skills: treeSkills,
+      skillCount: 0,
       resetId: context.resetId,
     };
   }
@@ -136,6 +142,12 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     });
   };
 
+  setSkillCount = (skillCount: number) => {
+    return this.setState({
+      skillCount,
+    });
+  };
+
   updateSkillState = (
     key: string,
     updatedState: NodeState,
@@ -165,7 +177,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       <SkillContext.Provider
         value={{
           skills: this.state.skills,
+          skillCount: this.state.skillCount,
           updateSkillState: this.updateSkillState,
+          setSkillCount: this.setSkillCount,
           incrementSelectedCount: this.incrementSelectedCount,
           decrementSelectedCount: this.decrementSelectedCount,
         }}

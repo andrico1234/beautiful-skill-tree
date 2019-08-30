@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { throttle } from 'lodash';
-import styled, { keyframes, css } from 'styled-components';
+import styled, { BaseThemedCssFunction } from 'styled-components';
 import Tippy from '@tippy.js/react';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
@@ -8,6 +8,9 @@ import Tooltip from './ui/Tooltip';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
 import MobileContext from '../context/MobileContext';
+
+const keyframes = require('styled-components').keyframes;
+const css: BaseThemedCssFunction<any> = require('styled-components').css;
 
 interface Props {
   skill: Skill;
