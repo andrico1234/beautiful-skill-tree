@@ -6,7 +6,7 @@ function SkillCountSubtitle() {
   const { skillCount } = useContext(SkillContext);
 
   return (
-    <StyledSkillCountSubtitle>({skillCount} skills)</StyledSkillCountSubtitle>
+    <StyledSkillCountSubtitle>{skillCount} skills</StyledSkillCountSubtitle>
   );
 }
 
