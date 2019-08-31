@@ -87,7 +87,7 @@ const StyledSkillTree = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  @media (min-width: 900px) {
+  @media (min-width: 1200px) {
     flex-direction: row;
   }
 `;

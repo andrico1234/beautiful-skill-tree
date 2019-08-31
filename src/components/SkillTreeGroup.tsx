@@ -50,10 +50,4 @@ const StyleSkillTreeGroup = styled.div`
   justify-content: center;
   margin: 0 0 48px;
   min-width: fit-content;
-}
-
-@media (min-width: 900px) {
-  .SkillTreeGroup {
-    flex-wrap: nowrap;
-  }
 `;

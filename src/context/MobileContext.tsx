@@ -9,7 +9,7 @@ interface IMobileContext {
   isMobile: boolean;
 }
 
-const isSmallScreen = () => window.innerWidth < 900;
+const isSmallScreen = () => window.innerWidth < 1200;
 
 const MobileContext = createContext<IMobileContext>({
   isMobile: isSmallScreen(),
