@@ -36,7 +36,7 @@ function SkillTree({ data, title, treeId, savedData, handleSave }: Props) {
     >
       <CalculateNodeCount data={data} />
       <SkillTreeContainer>
-        <SkillTreeTitle>{title}</SkillTreeTitle>
+        <SkillTreeTitle id={treeId}>{title}</SkillTreeTitle>
         <SkillCountSubtitle />
         <StyledSkillTree>
           {data.map((skill, i) => {

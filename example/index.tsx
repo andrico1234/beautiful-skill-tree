@@ -42,6 +42,16 @@ const App = () => {
 
           return (
             <React.Fragment>
+              <nav>
+                <ul>
+                  <li>
+                    <a href="#sp">Squat Progression</a>
+                  </li>
+                  <li>
+                    <a href="#hp">Hinge Progression</a>
+                  </li>
+                </ul>
+              </nav>
               <div className="Example__header">
                 <h2 className="Example__heading">
                   Completed skills: {totalSelectedCount}/{totalSkillCount}
