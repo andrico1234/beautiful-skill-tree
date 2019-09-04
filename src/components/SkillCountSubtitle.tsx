@@ -13,5 +13,6 @@ function SkillCountSubtitle() {
 export default SkillCountSubtitle;
 
 const StyledSkillCountSubtitle = styled.p`
-  margin: 0;
+  margin-top: 0;
+  text-align: center;
 `;

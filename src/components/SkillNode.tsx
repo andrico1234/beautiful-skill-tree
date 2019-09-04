@@ -107,6 +107,7 @@ function SkillNode({
         />
         <StyledTippy
           interactive
+          animateFill={false}
           placement={isMobile ? 'top' : direction}
           hideOnClick={false}
           content={<Tooltip content={content} title={title} />}

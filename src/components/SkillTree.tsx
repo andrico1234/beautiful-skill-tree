@@ -74,6 +74,7 @@ const SkillTreeContainer = styled.div`
 
 const SkillTreeTitle = styled.h2`
   font-family: ${({ theme }) => theme.headingFont};
+  margin-bottom: 0;
   min-width: 152px;
   text-align: center;
 `;
