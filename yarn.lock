@@ -2164,11 +2164,6 @@ constants-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
 
-context@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/context/-/context-0.0.1.tgz#293ae7ac1f6c5951f78738299a0f741351e0694e"
-  integrity sha1-KTrnrB9sWVH3hzgpmg90E1HgaU4=
-
 convert-source-map@^1.1.0, convert-source-map@^1.4.0, convert-source-map@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.6.0.tgz#51b537a8c43e0f04dec1993bffcdd504e758ac20"
