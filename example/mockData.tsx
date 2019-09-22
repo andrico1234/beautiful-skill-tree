@@ -142,7 +142,26 @@ export const legsPushData: SkillType[] = [
       content: 'burn those leg muscles',
     },
     title: 'Something Else',
-    children: [],
+    children: [
+      {
+        id: 'shrimp-squat',
+        icon: SquatIcon,
+        title: 'Shrimp Squat',
+        tooltip: {
+          content: lorem,
+        },
+        children: [],
+      },
+      {
+        id: 'other-squat',
+        icon: SquatIcon,
+        title: 'Other Squat',
+        tooltip: {
+          content: lorem,
+        },
+        children: [],
+      },
+    ],
   },
 ];
 

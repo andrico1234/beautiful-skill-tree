@@ -40,6 +40,8 @@ function SkillTree({ data, title, treeId, savedData, handleSave }: Props) {
         <SkillCountSubtitle />
         <StyledSkillTree>
           {data.map((skill, i) => {
+            const displaySeparator = data.length - 1 !== i && isMobile;
+
             return (
               <React.Fragment key={skill.id}>
                 <SkillTreeSegment
@@ -48,7 +50,7 @@ function SkillTree({ data, title, treeId, savedData, handleSave }: Props) {
                   hasParent={false}
                   skill={skill}
                 />
-                {data.length - 1 !== i && isMobile && <HSeparator />}
+                <HSeparator display={displaySeparator} />
               </React.Fragment>
             );
           })}
@@ -84,7 +86,6 @@ const StyledSkillTree = styled.div`
   border: ${({ theme }) => theme.border};
   border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;
-  padding: 16px 0;
   flex-direction: column;
   justify-content: center;
 
