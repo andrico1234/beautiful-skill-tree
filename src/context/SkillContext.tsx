@@ -13,6 +13,7 @@ import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
 type Props = typeof SkillTreeProvider.defaultProps & {
   treeId: string;
   savedData?: SavedDataType;
+  storage?: ContextStorage;
 };
 
 type DefaultProps = {
@@ -28,9 +29,11 @@ interface State {
   skills: SavedDataType;
   skillCount: number;
   resetId: string;
+  mounting: boolean;
 }
 
 export interface ISkillContext {
+  mounting: boolean;
   skills: SavedDataType;
   skillCount: number;
   updateSkillState: (
@@ -44,6 +47,7 @@ export interface ISkillContext {
 }
 
 const SkillContext = React.createContext<ISkillContext>({
+  mounting: true,
   skills: {},
   skillCount: 0,
   updateSkillState: () => undefined,
@@ -61,8 +65,42 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     },
   };
 
+  storage: ContextStorage | null = null;
+
   constructor(props: Props, context: IAppContext) {
     super(props, context);
+
+    // const treeSkills = this.getTreeSkills();
+
+    // Object.keys(treeSkills).map(key => {
+    //   if (treeSkills[key].nodeState === SELECTED_STATE) {
+    //     const action: Action = {
+    //       type: treeSkills[key].optional
+    //         ? 'SELECT_OPTIONAL_SKILL'
+    //         : 'SELECT_REQUIRED_SKILL',
+    //     };
+
+    //     context.dispatch(action);
+    //   }
+    // });
+
+    this.state = {
+      skills: {},
+      skillCount: 0,
+      resetId: context.resetId,
+      mounting: true,
+    };
+  }
+
+  componentDidMount() {
+    const { storage } = this.props;
+    const { context } = this;
+
+    if (storage) {
+      this.storage = storage;
+    } else {
+      this.storage = localStorage;
+    }
 
     const treeSkills = this.getTreeSkills();
 
@@ -78,11 +116,12 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       }
     });
 
-    this.state = {
+    this.setState({
       skills: treeSkills,
-      skillCount: 0,
-      resetId: context.resetId,
-    };
+      mounting: false,
+    });
+
+    return null;
   }
 
   getTreeSkills = (): SavedDataType => {
@@ -90,9 +129,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       return this.props.savedData;
     }
 
-    const { storage, treeId } = this.props;
+    const { treeId, storage } = this.props;
 
-    const storedItems = storage.getItem(`skills-${treeId}`);
+    const storedItems = storage!.getItem(`skills-${treeId}`);
 
     if (storedItems === 'undefined' || storedItems === null) {
       return {};
@@ -153,7 +192,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     updatedState: NodeState,
     optional: boolean = false
   ) => {
-    const { handleSave, storage, treeId } = this.props;
+    const { handleSave, treeId } = this.props;
 
     return this.setState(prevState => {
       const updatedSkills = {
@@ -164,7 +203,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
         },
       };
 
-      handleSave(storage, treeId, updatedSkills);
+      handleSave(this.storage!, treeId, updatedSkills);
 
       return {
         skills: updatedSkills,
@@ -176,6 +215,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     return (
       <SkillContext.Provider
         value={{
+          mounting: this.state.mounting,
           skills: this.state.skills,
           skillCount: this.state.skillCount,
           updateSkillState: this.updateSkillState,

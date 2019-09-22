@@ -32,6 +32,7 @@ function SkillTreeSegment({
 }: Props) {
   const [childPosition, setChildPosition] = useState(defaultParentPosition);
   const {
+    mounting,
     skills,
     updateSkillState,
     decrementSelectedCount,
@@ -55,6 +56,8 @@ function SkillTreeSegment({
   }
 
   useEffect(() => {
+    if (mounting) return;
+
     if (nodeState === SELECTED_STATE && !shouldBeUnlocked) {
       decrementSelectedCount();
       return updateSkillState(skill.id, LOCKED_STATE, skill.optional);
@@ -71,15 +74,21 @@ function SkillTreeSegment({
     if (nodeState === LOCKED_STATE && shouldBeUnlocked) {
       return updateSkillState(skill.id, UNLOCKED_STATE, skill.optional);
     }
-  }, [nodeState, shouldBeUnlocked]);
+  }, [nodeState, shouldBeUnlocked, mounting]);
 
   useEffect(() => {
-    window.addEventListener('resize', throttle(calculatePosition, 500));
-    calculatePosition();
+    if (mounting) return;
 
     if (isEmpty(skills)) {
       return updateSkillState(skill.id, UNLOCKED_STATE);
     }
+
+    return;
+  }, [mounting]);
+
+  useEffect(() => {
+    window.addEventListener('resize', throttle(calculatePosition, 500));
+    calculatePosition();
 
     return function cleanup() {
       window.removeEventListener('resize', throttle(calculatePosition, 500));

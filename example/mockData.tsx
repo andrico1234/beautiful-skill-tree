@@ -149,11 +149,11 @@ export const legsPushData: SkillType[] = [
 export const hpSavedData: SavedDataType = {
   'ol-deadlift': {
     optional: false,
-    nodeState: 'unlocked',
+    nodeState: 'selected',
   },
   '45deg-hip-nc': {
     optional: false,
-    nodeState: 'locked',
+    nodeState: 'unlocked',
   },
   'nordic-curl-negative': {
     optional: false,
