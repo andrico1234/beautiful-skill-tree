@@ -17,7 +17,6 @@ type Props = typeof SkillTreeProvider.defaultProps & {
 };
 
 type DefaultProps = {
-  storage: ContextStorage;
   handleSave: (
     storage: ContextStorage,
     id: string,
@@ -59,7 +58,6 @@ const SkillContext = React.createContext<ISkillContext>({
 export class SkillTreeProvider extends React.Component<Props, State> {
   static contextType = AppContext;
   static defaultProps: DefaultProps = {
-    storage: localStorage,
     handleSave(storage, treeId, skills) {
       return storage.setItem(`skills-${treeId}`, JSON.stringify(skills));
     },
@@ -69,20 +67,6 @@ export class SkillTreeProvider extends React.Component<Props, State> {
 
   constructor(props: Props, context: IAppContext) {
     super(props, context);
-
-    // const treeSkills = this.getTreeSkills();
-
-    // Object.keys(treeSkills).map(key => {
-    //   if (treeSkills[key].nodeState === SELECTED_STATE) {
-    //     const action: Action = {
-    //       type: treeSkills[key].optional
-    //         ? 'SELECT_OPTIONAL_SKILL'
-    //         : 'SELECT_REQUIRED_SKILL',
-    //     };
-
-    //     context.dispatch(action);
-    //   }
-    // });
 
     this.state = {
       skills: {},
@@ -129,9 +113,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       return this.props.savedData;
     }
 
-    const { treeId, storage } = this.props;
+    const { treeId } = this.props;
 
-    const storedItems = storage!.getItem(`skills-${treeId}`);
+    const storedItems = this.storage!.getItem(`skills-${treeId}`);
 
     if (storedItems === 'undefined' || storedItems === null) {
       return {};
