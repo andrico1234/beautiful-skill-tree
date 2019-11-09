@@ -87,13 +87,15 @@ function SkillNode({
   }
 
   React.useEffect(() => {
+    const throttledHandleResize = throttle(handleResize, 500);
+
     calculatePosition();
     calculateOverlayWidth();
 
-    window.addEventListener('resize', throttle(handleResize, 500));
+    window.addEventListener('resize', throttledHandleResize);
 
     return function cleanup() {
-      window.removeEventListener('resize', throttle(handleResize, 500));
+      window.removeEventListener('resize', throttledHandleResize);
     };
   }, []);
 

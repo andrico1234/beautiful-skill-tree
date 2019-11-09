@@ -25,10 +25,12 @@ export function MobileProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', throttle(handleResize, 500));
+    const throttleHandleResize = throttle(handleResize, 500);
+
+    window.addEventListener('resize', throttleHandleResize);
 
     return function cleanup() {
-      window.removeEventListener('resize', throttle(handleResize, 500));
+      window.removeEventListener('resize', throttleHandleResize);
     };
   });
 

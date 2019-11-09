@@ -86,11 +86,13 @@ function SkillTreeSegment({
   }, [mounting]);
 
   useEffect(() => {
-    window.addEventListener('resize', throttle(calculatePosition, 500));
+    const throttledHandleResize = throttle(calculatePosition, 500);
+
+    window.addEventListener('resize', throttledHandleResize);
     calculatePosition();
 
     return function cleanup() {
-      window.removeEventListener('resize', throttle(calculatePosition, 500));
+      window.removeEventListener('resize', throttledHandleResize);
     };
   }, []);
 
