@@ -23,7 +23,7 @@ export interface Props {
   ) => void;
 }
 
-interface SkillTreeHeaderProps {
+interface CollapsibleContainerProps {
   isCollapsible: boolean;
 }
 
@@ -78,7 +78,7 @@ function SkillTree({
           data-testid="visibility-container"
           isVisible={isVisible}
         >
-          <StyledSkillTree>
+          <StyledSkillTree isCollapsible={collapsible}>
             {data.map((skill, i) => {
               const displaySeparator = data.length - 1 !== i && isMobile;
 
@@ -116,7 +116,7 @@ const SkillTreeContainer = styled.div`
   }
 `;
 
-const SkillTreeHeader = styled.div<SkillTreeHeaderProps>`
+const SkillTreeHeader = styled.div<CollapsibleContainerProps>`
   ${({ isCollapsible }) =>
     isCollapsible &&
     css`
@@ -152,9 +152,10 @@ const SkillTreeTitle = styled.h2`
   text-align: center;
 `;
 
-const StyledSkillTree = styled.div`
+const StyledSkillTree = styled.div<CollapsibleContainerProps>`
   background: ${({ theme }) => theme.treeBackgroundColor};
   border: ${({ theme }) => theme.border};
+  border-top: ${({ isCollapsible }) => (isCollapsible ? '0' : 'auto')};
   border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;
   flex-direction: column;
