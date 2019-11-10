@@ -28,6 +28,7 @@ interface SkillTreeHeaderProps {
 }
 
 interface HeaderCaretProps {
+  isCollapsible: boolean;
   isVisible: boolean;
 }
 
@@ -66,7 +67,9 @@ function SkillTree({
       <SkillTreeContainer>
         <SkillTreeHeader onClick={toggleVisibility} isCollapsible={collapsible}>
           <div style={{ position: 'relative' }}>
-            <HeaderCaret isVisible={isVisible}>▲</HeaderCaret>
+            <HeaderCaret isCollapsible={collapsible} isVisible={isVisible}>
+              ▲
+            </HeaderCaret>
             <SkillTreeTitle id={treeId}>{title}</SkillTreeTitle>
           </div>
           <SkillCountSubtitle />
@@ -127,6 +130,7 @@ const SkillTreeHeader = styled.div<SkillTreeHeaderProps>`
 `;
 
 const HeaderCaret = styled.span<HeaderCaretProps>`
+  display: ${({ isCollapsible }) => (isCollapsible ? 'inline' : 'none')};
   font-family: ${({ theme }) => theme.headingFont};
   font-size: 1.5em;
   left: 8px;

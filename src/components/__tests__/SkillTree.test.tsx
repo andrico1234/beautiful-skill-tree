@@ -355,10 +355,11 @@ describe('SkillTree', () => {
         collapsible: true,
       };
 
-      const { getByText, getByTestId } = renderComponent(props);
+      const { getByText, getByTestId, queryByText } = renderComponent(props);
 
       fireEvent.click(getByText('borderlands'));
 
+      expect(queryByText('▲')).toHaveStyle('display: inline;');
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 0;');
 
       fireEvent.click(getByText('borderlands'));
@@ -367,10 +368,13 @@ describe('SkillTree', () => {
     });
 
     it('should not cause a non-collapsible tree to react on header click', () => {
-      const { getByText, getByTestId } = renderComponent(defaultProps);
+      const { getByText, getByTestId, queryByText } = renderComponent(
+        defaultProps
+      );
 
       fireEvent.click(getByText('borderlands'));
 
+      expect(queryByText('▲')).toHaveStyle('display: none;');
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
     });
   });
