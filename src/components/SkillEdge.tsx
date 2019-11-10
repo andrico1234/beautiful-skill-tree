@@ -1,14 +1,14 @@
 import React from 'react';
-import { NodeState } from '../models';
+import { NodeState, Direction } from '../models';
 import Line from './ui/Line';
 import UpperAngledLine from './ui/UpperAngledLine';
 import MiddleAngledLine from './ui/MiddleAngledLine';
 import LowerAngledLine from './ui/LowerAngledLine';
 
-interface Props {
+export interface Props {
   parentHasMultipleChildren: boolean;
   state: NodeState;
-  direction: 'left' | 'right';
+  direction: Direction;
   parentCenterPosition: number;
   childCenterPosition: number;
 }
@@ -25,7 +25,7 @@ function SkillEdge(props: Props) {
   if (!parentHasMultipleChildren) return <Line state={state} />;
 
   return (
-    <>
+    <div style={{ height: '56px' }}>
       <UpperAngledLine state={state} direction={direction} />
       <div style={{ position: 'relative' }}>
         <MiddleAngledLine
@@ -36,7 +36,7 @@ function SkillEdge(props: Props) {
         />
         <LowerAngledLine direction={direction} state={state} />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -21,7 +21,6 @@ interface Props {
 }
 
 const defaultParentPosition = {
-  bottom: 0,
   center: 0,
 };
 

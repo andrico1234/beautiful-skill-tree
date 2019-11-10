@@ -1,25 +1,15 @@
 import React from 'react';
-import { NodeState } from '../../models';
+import { NodeState, Direction } from '../../models';
 import { LOCKED_STATE, SELECTED_STATE } from '../../components/constants';
 import styled, { BaseThemedCssFunction } from 'styled-components';
+import { StyledAngledLine, AngledLineVerticalProps } from './AngledLine';
 
 const keyframes = require('styled-components').keyframes;
 const css: BaseThemedCssFunction<any> = require('styled-components').css;
 
-type Direction = 'left' | 'right';
-
 interface Props {
   direction: Direction;
   state: NodeState;
-}
-
-interface AngledLineProps {
-  unlocked: boolean;
-  selected: boolean;
-}
-
-interface AngledLineVerticalProps {
-  direction: Direction;
 }
 
 function LowerAngledLine(props: Props) {
@@ -29,7 +19,7 @@ function LowerAngledLine(props: Props) {
     <AngledLineVerticalBottom
       unlocked={state !== LOCKED_STATE}
       direction={direction}
-      data-testid="angled-line-three"
+      data-testid="lower-angled-line"
       selected={state === SELECTED_STATE}
     />
   );
@@ -37,39 +27,13 @@ function LowerAngledLine(props: Props) {
 
 export default LowerAngledLine;
 
-const StyledAngledLine = styled.div<AngledLineProps>`
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0) 51%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 210% 100%;
-  background-position: right top;
-  border: ${({ theme }) => theme.edgeBorder};
-  height: 4px;
-  position: absolute;
-  opacity: 0.5;
-  transition: opacity 0.6s;
-
-  ${props =>
-    props.unlocked &&
-    `
-      opacity: 1;
-  `}
-`;
-
-const AngledLineVertical = styled(StyledAngledLine)`
-  transform: rotate(90deg) translateY(-50%);
-  transform-origin: 0 0;
-`;
-
-const AngledLineVerticalBottom = styled(AngledLineVertical)<
+const AngledLineVerticalBottom = styled(StyledAngledLine)<
   AngledLineVerticalProps
 >`
+  transform: rotate(90deg) translateY(-50%);
+  transform-origin: 0 0;
   left: 50%;
-  top: -32px;
+  top: 24px;
   width: 31px;
 
   ${props =>

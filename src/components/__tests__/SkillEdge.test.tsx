@@ -1,23 +1,21 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import SkillEdge from '../SkillEdge';
-import { NodeState } from 'models';
+import SkillEdge, { Props } from '../SkillEdge';
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../../theme';
 
-const defaultPosition = {
-  topX: 0,
-  topY: 0,
-  bottomX: 0,
+const defaultProps: Props = {
+  parentHasMultipleChildren: false,
+  state: 'unlocked',
+  direction: 'right',
+  parentCenterPosition: 0,
+  childCenterPosition: 0,
 };
 
-function renderComponent(startingState: NodeState, position = defaultPosition) {
-  let state = startingState;
-  const { topX, topY, bottomX } = position;
-
+function renderComponent(props = defaultProps) {
   return render(
     <ThemeProvider theme={defaultTheme}>
-      <SkillEdge nodeState={state} topX={topX} topY={topY} bottomX={bottomX} />
+      <SkillEdge {...props} />
     </ThemeProvider>
   );
 }
@@ -25,9 +23,7 @@ function renderComponent(startingState: NodeState, position = defaultPosition) {
 describe('SkillEdge', () => {
   describe('straight lines', () => {
     it('should be inactive if the next node is unlocked', async () => {
-      const startingState = 'unlocked';
-
-      const { getByTestId } = renderComponent(startingState);
+      const { getByTestId } = renderComponent();
 
       const skillEdge = getByTestId('straight-line');
 
@@ -39,9 +35,7 @@ describe('SkillEdge', () => {
     });
 
     it('should be inactive if the next node is locked', () => {
-      const startingState = 'unlocked';
-
-      const { getByTestId } = renderComponent(startingState);
+      const { getByTestId } = renderComponent();
 
       const skillEdge = getByTestId('straight-line');
 
@@ -53,9 +47,9 @@ describe('SkillEdge', () => {
     });
 
     it('should be active if the next node is selected', () => {
-      const startingState = 'selected';
+      const props: Props = { ...defaultProps, state: 'selected' };
 
-      const { getByTestId } = renderComponent(startingState);
+      const { getByTestId } = renderComponent(props);
 
       const skillEdge = getByTestId('straight-line');
 
@@ -66,28 +60,27 @@ describe('SkillEdge', () => {
 
   describe('angled lines', () => {
     const leftAngledLinePosition = {
-      topX: 100,
-      topY: 100,
-      bottomX: 50,
+      parentCenterPosition: 100,
+      childCenterPosition: 100,
     };
 
     const rightAngledLinePosition = {
-      topX: 100,
-      topY: 100,
-      bottomX: 150,
+      parentCenterPosition: 100,
+      childCenterPosition: 150,
     };
 
     it('should be inactive if the next node is unlocked', async () => {
-      const startingState = 'unlocked';
+      const props = {
+        ...defaultProps,
+        ...leftAngledLinePosition,
+        parentHasMultipleChildren: true,
+      };
 
-      const { getByTestId } = renderComponent(
-        startingState,
-        leftAngledLinePosition
-      );
+      const { getByTestId } = renderComponent(props);
 
-      const skillEdgeOne = getByTestId('angled-line-one');
-      const skillEdgeTwo = getByTestId('angled-line-two');
-      const skillEdgeThree = getByTestId('angled-line-three');
+      const skillEdgeOne = getByTestId('upper-angled-line');
+      const skillEdgeTwo = getByTestId('middle-angled-line');
+      const skillEdgeThree = getByTestId('lower-angled-line');
 
       expect(skillEdgeOne).toHaveStyleRule('opacity', '1');
       expect(skillEdgeOne).not.toHaveStyleRule(
@@ -109,16 +102,17 @@ describe('SkillEdge', () => {
     });
 
     it('should be inactive if the next node is locked', () => {
-      const startingState = 'unlocked';
+      const props = {
+        ...defaultProps,
+        ...leftAngledLinePosition,
+        parentHasMultipleChildren: true,
+      };
 
-      const { getByTestId } = renderComponent(
-        startingState,
-        leftAngledLinePosition
-      );
+      const { getByTestId } = renderComponent(props);
 
-      const skillEdgeOne = getByTestId('angled-line-one');
-      const skillEdgeTwo = getByTestId('angled-line-two');
-      const skillEdgeThree = getByTestId('angled-line-three');
+      const skillEdgeOne = getByTestId('upper-angled-line');
+      const skillEdgeTwo = getByTestId('middle-angled-line');
+      const skillEdgeThree = getByTestId('lower-angled-line');
 
       expect(skillEdgeOne).not.toHaveStyleRule(
         'background-position',
@@ -135,28 +129,23 @@ describe('SkillEdge', () => {
     });
 
     it('should be active if the next node is selected', () => {
-      const startingState = 'selected';
+      const props = {
+        ...defaultProps,
+        ...rightAngledLinePosition,
+        parentHasMultipleChildren: true,
+      };
 
-      const { getByTestId } = renderComponent(
-        startingState,
-        rightAngledLinePosition
-      );
+      const { getByTestId } = renderComponent(props);
 
-      const skillEdgeOne = getByTestId('angled-line-one');
-      const skillEdgeTwo = getByTestId('angled-line-two');
-      const skillEdgeThree = getByTestId('angled-line-three');
+      const skillEdgeOne = getByTestId('upper-angled-line');
+      const skillEdgeTwo = getByTestId('middle-angled-line');
+      const skillEdgeThree = getByTestId('lower-angled-line');
 
-      expect(skillEdgeOne).toHaveStyleRule(
-        'background-position',
-        'left bottom'
-      );
-      expect(skillEdgeTwo).toHaveStyleRule(
-        'background-position',
-        'left bottom'
-      );
+      expect(skillEdgeOne).toHaveStyleRule('background-position', 'right top');
+      expect(skillEdgeTwo).toHaveStyleRule('background-position', 'right top');
       expect(skillEdgeThree).toHaveStyleRule(
         'background-position',
-        'left bottom'
+        'right top'
       );
     });
   });

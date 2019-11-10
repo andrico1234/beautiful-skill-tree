@@ -1,75 +1,35 @@
 import React from 'react';
 import styled, { BaseThemedCssFunction } from 'styled-components';
-import { NodeState } from '../../models';
+import { NodeState, Direction } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
+import { StyledAngledLine, AngledLineVerticalProps } from './AngledLine';
 
 const keyframes = require('styled-components').keyframes;
 const css: BaseThemedCssFunction<any> = require('styled-components').css;
-
-type Direction = 'left' | 'right';
 
 interface Props {
   direction: Direction;
   state: NodeState;
 }
 
-interface AngledLineProps {
-  unlocked: boolean;
-  selected: boolean;
-}
-
-interface AngledLineVerticalProps {
-  direction: Direction;
-}
-
 function UpperAngledLine(props: Props) {
   const { direction, state } = props;
 
   return (
-    <div style={{ height: '56px' }}>
-      <AngledLineVerticalTop
-        data-testid="angled-line-one"
-        direction={direction}
-        selected={state === SELECTED_STATE}
-        unlocked={state !== LOCKED_STATE}
-      />
-    </div>
+    <AngledLineVerticalTop
+      data-testid="upper-angled-line"
+      direction={direction}
+      selected={state === SELECTED_STATE}
+      unlocked={state !== LOCKED_STATE}
+    />
   );
 }
 
 export default UpperAngledLine;
 
-const StyledAngledLine = styled.div<AngledLineProps>`
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0) 51%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 210% 100%;
-  background-position: right top;
-  border: ${({ theme }) => theme.edgeBorder};
-  height: 4px;
-  position: absolute;
-  opacity: 0.5;
-  transition: opacity 0.6s;
-
-  ${props =>
-    props.unlocked &&
-    `
-      opacity: 1;
-  `}
-`;
-
-const AngledLineVertical = styled(StyledAngledLine)`
+const AngledLineVerticalTop = styled(StyledAngledLine)<AngledLineVerticalProps>`
   transform: rotate(90deg) translateY(-50%);
   transform-origin: 0 0;
-`;
-
-const AngledLineVerticalTop = styled(AngledLineVertical)<
-  AngledLineVerticalProps
->`
   left: 50%;
   top: -1px;
   width: 29px;
