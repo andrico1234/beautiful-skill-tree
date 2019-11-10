@@ -99,6 +99,8 @@ function SkillNode({
     };
   }, []);
 
+  const hasMultipleChildren = children.length > 1;
+
   return (
     <React.Fragment>
       <StyledSkillNode>
@@ -132,6 +134,7 @@ function SkillNode({
                 key={child.id}
                 hasParent={true}
                 parentPosition={parentPosition}
+                parentHasMultipleChildren={hasMultipleChildren}
                 shouldBeUnlocked={
                   (optional && nodeState === UNLOCKED_STATE) ||
                   nodeState === SELECTED_STATE
@@ -209,4 +212,5 @@ const StyledTippy = styled(Tippy)`
 const SkillTreeSegmentWrapper = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
 `;
