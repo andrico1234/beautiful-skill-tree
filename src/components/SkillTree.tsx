@@ -21,7 +21,6 @@ interface Props {
 }
 
 const defaultParentPosition = {
-  bottom: 0,
   center: 0,
 };
 
@@ -45,6 +44,7 @@ function SkillTree({ data, title, treeId, savedData, handleSave }: Props) {
             return (
               <React.Fragment key={skill.id}>
                 <SkillTreeSegment
+                  parentHasMultipleChildren={false}
                   shouldBeUnlocked={true}
                   parentPosition={defaultParentPosition}
                   hasParent={false}

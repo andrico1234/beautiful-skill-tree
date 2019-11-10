@@ -40,7 +40,6 @@ function SkillNode({
   const { direction = 'top', content } = tooltip;
   const { isMobile } = React.useContext(MobileContext);
   const [parentPosition, setParentPosition] = React.useState({
-    bottom: 0,
     center: 0,
   });
 
@@ -48,17 +47,11 @@ function SkillNode({
   const childWidth: React.MutableRefObject<number> = React.useRef(0);
 
   function calculatePosition() {
-    const {
-      bottom,
-      left,
-      right,
-    } = skillNodeRef.current!.getBoundingClientRect();
+    const { left, right } = skillNodeRef.current!.getBoundingClientRect();
 
     const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
 
     setParentPosition({
-      bottom: bottom + scrollY,
       center: (right - left) / 2 + left + scrollX,
     });
   }
@@ -99,6 +92,8 @@ function SkillNode({
     };
   }, []);
 
+  const hasMultipleChildren = children.length > 1;
+
   return (
     <React.Fragment>
       <StyledSkillNode>
@@ -132,6 +127,7 @@ function SkillNode({
                 key={child.id}
                 hasParent={true}
                 parentPosition={parentPosition}
+                parentHasMultipleChildren={hasMultipleChildren}
                 shouldBeUnlocked={
                   (optional && nodeState === UNLOCKED_STATE) ||
                   nodeState === SELECTED_STATE
@@ -209,4 +205,5 @@ const StyledTippy = styled(Tippy)`
 const SkillTreeSegmentWrapper = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
 `;

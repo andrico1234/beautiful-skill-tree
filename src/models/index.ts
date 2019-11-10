@@ -52,8 +52,9 @@ interface MajorSkill extends BaseSkill {
   icon: string;
 }
 
+export type Direction = 'left' | 'right';
+
 export type ParentPosition = {
-  bottom: number;
   center: number;
 };
 

@@ -1,34 +1,43 @@
 import React from 'react';
+import { NodeState, Direction } from '../models';
 import Line from './ui/Line';
-import AngledLine from './ui/AngledLine';
-import { NodeState } from '../models';
+import UpperAngledLine from './ui/UpperAngledLine';
+import MiddleAngledLine from './ui/MiddleAngledLine';
+import LowerAngledLine from './ui/LowerAngledLine';
 
-interface Props {
-  topX: number;
-  topY: number;
-  bottomX: number;
-  nodeState: NodeState;
+export interface Props {
+  parentHasMultipleChildren: boolean;
+  state: NodeState;
+  direction: Direction;
+  parentCenterPosition: number;
+  childCenterPosition: number;
 }
 
-const SkillEdge = React.memo(function({
-  topX,
-  topY,
-  bottomX,
-  nodeState,
-}: Props) {
-  if (Math.floor(topX) === Math.floor(bottomX)) {
-    return <Line state={nodeState} />;
-  }
+function SkillEdge(props: Props) {
+  const {
+    parentHasMultipleChildren,
+    state,
+    direction,
+    parentCenterPosition,
+    childCenterPosition,
+  } = props;
+
+  if (!parentHasMultipleChildren) return <Line state={state} />;
 
   return (
-    <AngledLine
-      topX={topX}
-      topY={topY}
-      bottomX={bottomX}
-      state={nodeState}
-      direction={topX < bottomX ? 'right' : 'left'}
-    />
+    <div style={{ height: '56px' }}>
+      <UpperAngledLine state={state} direction={direction} />
+      <div style={{ position: 'relative' }}>
+        <MiddleAngledLine
+          parentCenterPosition={parentCenterPosition}
+          childCenterPosition={childCenterPosition}
+          state={state}
+          direction={direction}
+        />
+        <LowerAngledLine direction={direction} state={state} />
+      </div>
+    </div>
   );
-});
+}
 
 export default SkillEdge;

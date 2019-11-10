@@ -16,6 +16,7 @@ import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
 type Props = {
   skill: Skill;
   parentPosition: ParentPosition;
+  parentHasMultipleChildren: boolean;
   shouldBeUnlocked: boolean;
 } & typeof SkillTreeSegment.defaultProps;
 
@@ -26,6 +27,7 @@ const defaultParentPosition: ChildPosition = {
 function SkillTreeSegment({
   skill,
   hasParent,
+  parentHasMultipleChildren,
   parentPosition,
   shouldBeUnlocked,
 }: Props) {
@@ -104,10 +106,13 @@ function SkillTreeSegment({
     >
       {hasParent && (
         <SkillEdge
-          nodeState={nodeState}
-          topX={parentPosition.center}
-          topY={parentPosition.bottom}
-          bottomX={childPosition.center}
+          parentHasMultipleChildren={parentHasMultipleChildren}
+          state={nodeState}
+          parentCenterPosition={parentPosition.center}
+          childCenterPosition={childPosition.center}
+          direction={
+            parentPosition.center < childPosition.center ? 'right' : 'left'
+          }
         />
       )}
       <div ref={skillNodeRef}>
