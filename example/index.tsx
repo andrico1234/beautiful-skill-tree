@@ -64,6 +64,7 @@ const App = () => {
                 treeId="sp"
                 title="Squat Progression"
                 data={legsPushData}
+                collapsible
               />
               <SkillTree
                 treeId="hp"

@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react';
-import SkillTree from '../SkillTree';
+import SkillTree, { Props } from '../SkillTree';
 import MockLocalStorage from '../../__mocks__/mockLocalStorage';
 import { SkillProvider } from '../../context/AppContext';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
-import { Skill, SkillCount, ContextStorage } from '../../models/index';
+import { Skill, SkillCount } from '../../models/index';
 import { SavedDataType } from '../../';
 
 const mockSkillTreeData: Skill[] = [
@@ -72,18 +72,6 @@ const mockSavedData: SavedDataType = {
 
 const defaultStoreContents = {
   [`skills-bl`]: JSON.stringify({}),
-};
-
-type Props = {
-  treeId: string;
-  data: Skill[];
-  title: string;
-  savedData?: SavedDataType;
-  handleSave?: (
-    storage: ContextStorage,
-    treeId: string,
-    skills: SavedDataType
-  ) => void;
 };
 
 function renderComponent(props: Props) {
@@ -357,6 +345,37 @@ describe('SkillTree', () => {
         'box-shadow',
         '0 0 6px 0 rgba(255,255,255,0.5)'
       );
+    });
+  });
+
+  describe('collapsing', () => {
+    it('should hide and show a collapsible tree on header click', () => {
+      const props = {
+        ...defaultProps,
+        collapsible: true,
+      };
+
+      const { getByText, getByTestId, queryByText } = renderComponent(props);
+
+      fireEvent.click(getByText('borderlands'));
+
+      expect(queryByText('▲')).toHaveStyle('display: inline;');
+      expect(getByTestId('visibility-container')).toHaveStyle('opacity: 0;');
+
+      fireEvent.click(getByText('borderlands'));
+
+      expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
+    });
+
+    it('should not cause a non-collapsible tree to react on header click', () => {
+      const { getByText, getByTestId, queryByText } = renderComponent(
+        defaultProps
+      );
+
+      fireEvent.click(getByText('borderlands'));
+
+      expect(queryByText('▲')).toHaveStyle('display: none;');
+      expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
     });
   });
 

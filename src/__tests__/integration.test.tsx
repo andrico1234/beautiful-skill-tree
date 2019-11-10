@@ -1,6 +1,12 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { SkillTreeGroup, SkillProvider, SkillTree, SkillType } from '../index';
+import {
+  SkillTreeGroup,
+  SkillProvider,
+  SkillTree,
+  SkillType,
+  SkillGroupDataType,
+} from '../index';
 import defaultTheme, { SkillTheme } from '../theme';
 import mockTheme from '../__mocks__/mockTheme';
 import MockLocalStorage from '../__mocks__/mockLocalStorage';
@@ -142,7 +148,11 @@ function renderComponent(
   return render(
     <SkillProvider>
       <SkillTreeGroup theme={skillTreeTheme}>
-        {({ skillCount, selectedSkillCount, resetSkills }: SkillTreeGroup) => {
+        {({
+          skillCount,
+          selectedSkillCount,
+          resetSkills,
+        }: SkillGroupDataType) => {
           const totalSkillCount = skillCount.required + skillCount.optional;
           const totalSelectedSkillCount =
             selectedSkillCount.optional + selectedSkillCount.required;

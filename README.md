@@ -99,6 +99,8 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### data: `SkillType` [*required*]
 
+#### collapsible: `boolean` [*optional*]
+
 #### savedData: `SavedDataType` [*optional*]
 
 #### handleSave: `(context: ContextStorage, treeId: string, skills: SkillType) => void` [*optional*]
@@ -247,7 +249,7 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 - [x] Keyboard only use
 - [x] Optional nodes
 - [x] Custom Saving
-- [ ] Collapsable skill trees
+- [x] Collapsable skill trees
 
 ---
 
@@ -257,5 +259,5 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 
 ### Contributors
 
-[Andrico Karoulla](https://github.com/andrico1234)
-[Juan Melendez](https://github.com/juanmanual)
+- [Andrico Karoulla](https://github.com/andrico1234)
+- [Juan Melendez](https://github.com/juanmanual)
