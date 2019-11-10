@@ -12,8 +12,6 @@ import { Skill, ParentPosition, ChildPosition } from '../models';
 import { Nullable } from '../models/utils';
 import SkillContext from '../context/SkillContext';
 import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
-import LowerAngledLine from './ui/LowerAngledLine';
-import MiddleAngledLine from './ui/MiddleAngledLine';
 
 type Props = {
   skill: Skill;
@@ -108,22 +106,14 @@ function SkillTreeSegment({
     >
       {hasParent && (
         <SkillEdge
-          nodeState={nodeState}
-          topX={parentPosition.center}
-          topY={parentPosition.bottom}
-          bottomX={childPosition.center}
+          parentHasMultipleChildren={parentHasMultipleChildren}
+          state={nodeState}
+          parentCenterPosition={parentPosition.center}
+          childCenterPosition={childPosition.center}
+          direction={
+            parentPosition.center < childPosition.center ? 'right' : 'left'
+          }
         />
-      )}
-      {parentHasMultipleChildren && (
-        <div style={{ position: 'relative' }}>
-          <MiddleAngledLine />
-          <LowerAngledLine
-            direction={
-              parentPosition.center < childPosition.center ? 'right' : 'left'
-            }
-            state={nodeState}
-          />
-        </div>
       )}
       <div ref={skillNodeRef}>
         <SkillNode

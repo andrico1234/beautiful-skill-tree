@@ -43,7 +43,7 @@ const App = () => {
           return (
             <React.Fragment>
               <nav>
-                <ul>
+                <ul style={{ margin: '24px' }}>
                   <li>
                     <a href="#sp">Squat Progression</a>
                   </li>

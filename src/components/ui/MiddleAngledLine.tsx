@@ -9,6 +9,8 @@ const css: BaseThemedCssFunction<any> = require('styled-components').css;
 type Direction = 'left' | 'right';
 
 interface Props {
+  parentCenterPosition: number;
+  childCenterPosition: number;
   direction: Direction;
   state: NodeState;
 }
@@ -18,26 +20,31 @@ interface AngledLineProps {
   selected: boolean;
 }
 
-interface AngledLineVerticalProps {
+interface AngledLineHoriztonalProps {
   direction: Direction;
+  width: number;
 }
 
-function UpperAngledLine(props: Props) {
-  const { direction, state } = props;
+function MiddleAngledLine(props: Props) {
+  const { direction, parentCenterPosition, childCenterPosition, state } = props;
+
+  const width =
+    direction === 'left'
+      ? parentCenterPosition - childCenterPosition - 6
+      : childCenterPosition - parentCenterPosition - 6;
 
   return (
-    <div style={{ height: '56px' }}>
-      <AngledLineVerticalTop
-        data-testid="angled-line-one"
-        direction={direction}
-        selected={state === SELECTED_STATE}
-        unlocked={state !== LOCKED_STATE}
-      />
-    </div>
+    <AngledLineHoriztonal
+      data-testid="angled-line-two"
+      direction={direction}
+      unlocked={state !== LOCKED_STATE}
+      selected={state === SELECTED_STATE}
+      width={width}
+    />
   );
 }
 
-export default UpperAngledLine;
+export default MiddleAngledLine;
 
 const StyledAngledLine = styled.div<AngledLineProps>`
   background: linear-gradient(
@@ -62,41 +69,38 @@ const StyledAngledLine = styled.div<AngledLineProps>`
   `}
 `;
 
-const AngledLineVertical = styled(StyledAngledLine)`
-  transform: rotate(90deg) translateY(-50%);
-  transform-origin: 0 0;
-`;
-
-const AngledLineVerticalTop = styled(AngledLineVertical)<
-  AngledLineVerticalProps
+const AngledLineHoriztonal = styled(StyledAngledLine)<
+  AngledLineHoriztonalProps
 >`
+  border-left: none;
+  border-right: none;
+  top: -32px;
   left: 50%;
-  top: -1px;
-  width: 29px;
-
-  ${props =>
-    props.direction === 'right' &&
-    `
-      border-bottom-right-radius: 8px;
-    `}
+  width: ${props => props.width}px;
 
   ${props =>
     props.direction === 'left' &&
     `
-      border-top-right-radius: 8px;
-    `}
+      transform: translateX(3px) scale(-1);
+  `}
+  ${props =>
+    props.direction === 'right' &&
+    `
+      transform: translateX(-105%);
+      transform-origin: 0 0;
+  `}
 
   ${props =>
     props.selected &&
     css`
-      animation: ${slideDownAngledLineTop} 0.3s 1 ease-in;
+      animation: ${slideDownAngledLineMiddle} 1s 1;
       background-position: left bottom;
     `}
 `;
 
-const slideDownAngledLineTop = keyframes`
+const slideDownAngledLineMiddle = keyframes`
   from,
-  33% {
+  30% {
     background-position: right top;
   }
 
