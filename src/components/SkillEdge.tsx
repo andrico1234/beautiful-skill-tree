@@ -1,6 +1,7 @@
 import React from 'react';
 import Line from './ui/Line';
-import AngledLine from './ui/AngledLine';
+// import AngledLine from './ui/AngledLine';
+import UpperAngledLine from './ui/UpperAngledLine';
 import { NodeState } from '../models';
 
 interface Props {
@@ -10,21 +11,13 @@ interface Props {
   nodeState: NodeState;
 }
 
-const SkillEdge = React.memo(function({
-  topX,
-  topY,
-  bottomX,
-  nodeState,
-}: Props) {
+const SkillEdge = React.memo(function({ topX, bottomX, nodeState }: Props) {
   if (Math.floor(topX) === Math.floor(bottomX)) {
     return <Line state={nodeState} />;
   }
 
   return (
-    <AngledLine
-      topX={topX}
-      topY={topY}
-      bottomX={bottomX}
+    <UpperAngledLine
       state={nodeState}
       direction={topX < bottomX ? 'right' : 'left'}
     />
