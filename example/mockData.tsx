@@ -144,7 +144,7 @@ export const legsPushData: SkillType[] = [
     title: 'Something Else',
     children: [
       {
-        id: 'shrimp-squat',
+        id: 'shrimp-squat-1',
         icon: SquatIcon,
         title: 'Shrimp Squat',
         tooltip: {

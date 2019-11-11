@@ -3,9 +3,12 @@ import styled, { BaseThemedCssFunction } from 'styled-components';
 import { SELECTED_STATE, UNLOCKED_STATE, LOCKED_STATE } from '../constants';
 import { Skill } from '../../models';
 import Icon from './Icon';
+import isIOSDevice from '../../helpers/isIOS';
+import { SkillThemeType } from '../../';
 
 const keyframes = require('styled-components').keyframes;
-const css: BaseThemedCssFunction<any> = require('styled-components').css;
+const css: BaseThemedCssFunction<SkillThemeType> = require('styled-components')
+  .css;
 
 interface Props {
   handleClick: VoidFunction;
@@ -19,6 +22,7 @@ interface StyledNodeProps {
   selected: boolean;
   unlocked: boolean;
   locked: boolean;
+  isIOS: boolean;
 }
 
 const Node = React.forwardRef(
@@ -28,6 +32,7 @@ const Node = React.forwardRef(
         handleClick();
       }
     }
+
     const { handleClick, id, currentState, skill } = props;
 
     return (
@@ -37,6 +42,7 @@ const Node = React.forwardRef(
         ref={ref}
         data-testid={id}
         optional={skill.optional || false}
+        isIOS={isIOSDevice()}
         selected={currentState === SELECTED_STATE}
         unlocked={currentState === UNLOCKED_STATE}
         locked={currentState === LOCKED_STATE}
@@ -155,8 +161,8 @@ const StyledNode = styled.div<StyledNodeProps>`
         &:before {
           opacity: 1;
           height: 85%;
-          width: 95%;
           transition: width 0.6s, height 0.6s;
+          width: ${(props: StyledNodeProps) => (props.isIOS ? 0 : '95%')};
         }
       }
     `}
