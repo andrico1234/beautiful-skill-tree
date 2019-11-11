@@ -2,7 +2,9 @@
 
 A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications
 
-Tested across devices using [Browserstack], thanks to their continued support for open source projects(https://www.browserstack.com/) ![browserstack logo](public/browserstack.png)
+Tested across devices using [Browserstack](https://www.browserstack.com/), thanks to their continued support for open source projects
+
+![browserstack logo](public/browserstack.png)
 
 ## Examples
 
