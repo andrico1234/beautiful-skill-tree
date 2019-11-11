@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 
-const Tooltip = React.memo(function({ content, title }: Props) {
+const TooltipContent = React.memo(function({ content, title }: Props) {
   return (
     <React.Fragment>
       <Title>{title}</Title>
@@ -15,7 +15,7 @@ const Tooltip = React.memo(function({ content, title }: Props) {
   );
 });
 
-export default Tooltip;
+export default TooltipContent;
 
 const Title = styled.h1`
   margin: 8px 0;

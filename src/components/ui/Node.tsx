@@ -40,6 +40,7 @@ const Node = React.forwardRef(
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         ref={ref}
+        tabIndex={0}
         data-testid={id}
         optional={skill.optional || false}
         isIOS={isIOSDevice()}
