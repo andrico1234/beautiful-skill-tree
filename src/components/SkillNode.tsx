@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { throttle } from 'lodash';
 import styled, { BaseThemedCssFunction } from 'styled-components';
-import Tippy from '@tippy.js/react';
 import { LOCKED_STATE, UNLOCKED_STATE, SELECTED_STATE } from './constants';
 import SkillTreeSegment from './SkillTreeSegment';
-import Tooltip from './ui/Tooltip';
+import Tooltip from './tooltip/Tooltip';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
-import MobileContext from '../context/MobileContext';
+import { SkillThemeType } from '../../';
 
 const keyframes = require('styled-components').keyframes;
-const css: BaseThemedCssFunction<any> = require('styled-components').css;
+const css: BaseThemedCssFunction<SkillThemeType> = require('styled-components')
+  .css;
 
 interface Props {
   skill: Skill;
@@ -37,8 +37,6 @@ function SkillNode({
   updateSkillState,
 }: Props) {
   const { children, title, tooltip, id, optional } = skill;
-  const { direction = 'top', content } = tooltip;
-  const { isMobile } = React.useContext(MobileContext);
   const [parentPosition, setParentPosition] = React.useState({
     center: 0,
   });
@@ -102,13 +100,7 @@ function SkillNode({
           childWidth={childWidth.current}
           data-testid="skill-node-overlay"
         />
-        <StyledTippy
-          interactive
-          animateFill={false}
-          placement={isMobile ? 'top' : direction}
-          hideOnClick={false}
-          content={<Tooltip content={content} title={title} />}
-        >
+        <Tooltip title={title} tooltip={tooltip}>
           <Node
             handleClick={handleClick}
             id={id}
@@ -116,7 +108,7 @@ function SkillNode({
             skill={skill}
             ref={skillNodeRef}
           />
-        </StyledTippy>
+        </Tooltip>
       </StyledSkillNode>
 
       {children.length > 0 && (
@@ -185,21 +177,6 @@ const SkillNodeOverlay = styled.span<SkillNodeOverlayProps>`
     css`
       animation: ${fadeout} 3.5s 1;
     `}
-`;
-
-const StyledTippy = styled(Tippy)`
-  background-color: ${({ theme }) => theme.treeBackgroundColor};
-  border: ${({ theme }) => theme.border};
-  border-image-source: ${({ theme }) => theme.nodeHoverBorderColor};
-  border-image-slice: 1;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  padding: 0 8px;
-  text-align: left;
-  width: 320px;
-
-  .tippy-backdrop {
-    background-color: ${({ theme }) => theme.treeBackgroundColor};
-  }
 `;
 
 const SkillTreeSegmentWrapper = styled.div`
