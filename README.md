@@ -1,15 +1,13 @@
-Beautiful Skill Tree
+# Beautiful Skill Tree
 
 A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications
 
----
+Tested across devices using [Browserstack], thanks to their continued support for open source projects(https://www.browserstack.com/) ![browserstack logo](public/browserstack.png)
 
 ## Examples
 
 - [Calisthenics Progressions](https://calisthenicsskills.com/)
 - [Borderlands Skill Tree](http://borderlands-skill-tree.s3-website.eu-west-2.amazonaws.com/)
-
----
 
 ## Getting started
 
