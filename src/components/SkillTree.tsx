@@ -7,8 +7,9 @@ import { SkillTreeProvider } from '../context/SkillContext';
 import styled, { BaseThemedCssFunction } from 'styled-components';
 import MobileContext from '../context/MobileContext';
 import SkillCountSubtitle from './SkillCountSubtitle';
+import { SkillTheme } from '../theme';
 
-const css: BaseThemedCssFunction<any> = require('styled-components').css;
+const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
 export interface Props {
   treeId: string;

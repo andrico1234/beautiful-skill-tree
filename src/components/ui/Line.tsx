@@ -2,9 +2,10 @@ import React from 'react';
 import styled, { BaseThemedCssFunction } from 'styled-components';
 import { NodeState } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
+import { SkillTheme } from '../../theme';
 
 const keyframes = require('styled-components').keyframes;
-const css: BaseThemedCssFunction<any> = require('styled-components').css;
+const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
 interface LineProps {
   state: NodeState;

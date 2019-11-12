@@ -3,9 +3,10 @@ import styled, { BaseThemedCssFunction } from 'styled-components';
 import { NodeState, Direction } from '../../models';
 import { SELECTED_STATE, LOCKED_STATE } from '../../components/constants';
 import { StyledAngledLine, AngledLineVerticalProps } from './AngledLine';
+import { SkillTheme } from '../../theme';
 
 const keyframes = require('styled-components').keyframes;
-const css: BaseThemedCssFunction<any> = require('styled-components').css;
+const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
 interface Props {
   direction: Direction;
