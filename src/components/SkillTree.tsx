@@ -65,7 +65,16 @@ function SkillTree({
     >
       <CalculateNodeCount data={data} />
       <SkillTreeContainer>
-        <SkillTreeHeader onClick={toggleVisibility} isCollapsible={collapsible}>
+        <SkillTreeHeader
+          tabIndex={0}
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.keyCode === 13) {
+              toggleVisibility();
+            }
+          }}
+          onClick={toggleVisibility}
+          isCollapsible={collapsible}
+        >
           <div style={{ position: 'relative' }}>
             <HeaderCaret isCollapsible={collapsible} isVisible={isVisible}>
               ▲

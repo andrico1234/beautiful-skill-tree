@@ -93,7 +93,9 @@ function renderComponent(props: Props) {
   return {
     ...api,
     resetSkillsHandler() {
-      return resetSkills();
+      act(() => {
+        resetSkills();
+      });
     },
     getSelectedSkillCount() {
       return selectedSkillCount;
@@ -230,10 +232,6 @@ describe('SkillTree', () => {
     });
 
     resetSkillsHandler();
-
-    expect(topNode).toHaveStyleRule('opacity', '0.65');
-    expect(middleNode).toHaveStyleRule('opacity', '0.65');
-    expect(bottomNode).toHaveStyleRule('opacity', '0.65');
 
     expect(getSelectedSkillCount()).toEqual({
       optional: 0,
@@ -379,7 +377,43 @@ describe('SkillTree', () => {
     });
   });
 
-  xdescribe('resizing', () => {
+  describe('Keyboard Accessibility', () => {
+    it('can collapse the skill tree using the keyboard', () => {
+      const props = {
+        ...defaultProps,
+        collapsible: true,
+      };
+
+      const { getByText, getByTestId } = renderComponent(props);
+
+      fireEvent.keyDown(getByText('borderlands'), {
+        keyCode: 13,
+      });
+
+      expect(getByTestId('visibility-container')).toHaveStyle('opacity: 0;');
+
+      fireEvent.click(getByText('borderlands'));
+
+      expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
+    });
+
+    it("won't collapse the skill tree when a different key is pressed", () => {
+      const props = {
+        ...defaultProps,
+        collapsible: true,
+      };
+
+      const { getByText, getByTestId } = renderComponent(props);
+
+      fireEvent.keyDown(getByText('borderlands'), {
+        keyCode: 14,
+      });
+
+      expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
+    });
+  });
+
+  describe('resizing', () => {
     function fireResize(width: number) {
       // @ts-ignore
       window.innerWidth = width;
@@ -390,7 +424,7 @@ describe('SkillTree', () => {
       const resizeEvent = document.createEvent('Event');
 
       // @ts-ignore
-      window.innerWidth = 1000;
+      window.innerWidth = 1300;
       resizeEvent.initEvent('resize', true, true);
 
       const { queryByTestId } = renderComponent(defaultProps);
