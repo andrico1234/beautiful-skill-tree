@@ -1,10 +1,21 @@
 # Beautiful Skill Tree
 
-A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications
+A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications.
 
-Tested across devices using [Browserstack](https://www.browserstack.com/), thanks to their continued support for open source projects
+Tested across devices using [Browserstack](https://www.browserstack.com/), thanks to their continued support for open source projects.
 
 ![browserstack logo](public/browserstack.png)
+
+This package uses [tsdx](https://github.com/jaredpalmer/tsdx) and [np](https://github.com/sindresorhus/np) develop, build, package, and publish beautiful-skill-tree. I can't recommend either of them enough and they both make for an excellent TypeScript/JavaScript developer experience.
+
+## Table of Contents
+
+1. [Examples](#examples)
+2. [Getting started](#getting-started)
+3. [Motivation](#motivation)
+4. [API](#api)
+5. [Features](#features)
+6. [Contributing](#contributing)
 
 ## Examples
 
@@ -97,7 +108,7 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 ---
 
-## Component API
+## API
 
 ### SkillTree
 
@@ -165,6 +176,10 @@ type SavedDataType = {
 };
 ```
 
+---
+
+## Features
+
 ### Custom Themes
 
 It's likely that you're application won't look to hot with a dark blue/rainbow themed skill tree. Fortunately, a custom theme can be supplied to the `SkillTreeGroup` component. The styles passed through will override the defaults to allow your skill tree to fit nicely into your application. The theme object's type is exported in the package as `SkillThemeType`. I don't perform any object merging between the default styles and the user-defined object, so you'll need to fill out the whole object.
@@ -179,9 +194,7 @@ linear-gradient(
 )
 ```
 
----
-
-## Custom Saving
+### Custom Saving
 
 `beautiful-skill-tree` automatically handles saving out of the box, but the implementation is fairly rudimental. The package saves the skills tree data to local storage when the application loads, which is great for:
 
@@ -239,33 +252,39 @@ const App = () => {
 };
 ```
 
----
-
-## Keyboard only use
+### Keyboard only use
 
 The tree is currently fully navigable using the keyboard. Pressing the tab button will cycle through the nodes, while pressing enter will select the focused node.
-
-## V1 Checklist
-
-- [x] Skill
-- [x] Animations
-- [x] Progress saving
-- [x] Tooltips
-- [x] Icons
-- [x] Responsive
-- [x] Expose skill tree state
-- [x] Reset skill tree
-- [x] CSS theming
-- [x] Keyboard only use
-- [x] Optional nodes
-- [x] Custom Saving
-- [x] Collapsable skill trees
 
 ---
 
 ## Contributing
 
 [contributing guidelines](/CONTRIBUTING.md)
+
+### Running locally
+
+You'll need to clone the repo on your local machine and install the dependencies using `yarn`. Once the dependencies have been install start the local server.
+
+`git clone https://github.com/andrico1234/beautiful-skill-tree.git`
+
+`cd ./beautiful-skill-tree`
+
+`yarn:test` // optional but useful as a sanity check
+
+`yarn`
+
+`yarn start`
+
+If you're having issues with any of the steps above, then please open a ticket with any error logging the console outputs. If your local server is working without any issues then open up a new terminal window in the same directory and start the local example. Running the example will spin up a demo app on `localhost:1234` which I use as a playground to display bst's feature set.
+
+`cd ./example`
+
+`yarn`
+
+`yarn start`
+
+access localhost:1234 in your browser.
 
 ### Contributors
 
