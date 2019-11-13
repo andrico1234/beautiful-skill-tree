@@ -6,8 +6,8 @@ import CalculateNodeCount from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillContext';
 import styled, { BaseThemedCssFunction } from 'styled-components';
 import MobileContext from '../context/MobileContext';
-import SkillCountSubtitle from './SkillCountSubtitle';
 import { SkillTheme } from '../theme';
+import SkillTreeHeader from './SkillTreeHeader';
 
 const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
@@ -15,6 +15,7 @@ export interface Props {
   treeId: string;
   data: Skill[];
   title: string;
+  description?: string;
   collapsible?: boolean;
   savedData?: SavedDataType;
   handleSave?: (
@@ -28,11 +29,6 @@ interface CollapsibleContainerProps {
   isCollapsible: boolean;
 }
 
-interface HeaderCaretProps {
-  isCollapsible: boolean;
-  isVisible: boolean;
-}
-
 interface VisibilityContainerProps {
   isVisible: boolean;
 }
@@ -44,6 +40,7 @@ const defaultParentPosition = {
 function SkillTree({
   data,
   title,
+  description,
   treeId,
   savedData,
   handleSave,
@@ -67,23 +64,13 @@ function SkillTree({
       <CalculateNodeCount data={data} />
       <SkillTreeContainer>
         <SkillTreeHeader
-          tabIndex={0}
-          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-            if (e.keyCode === 13) {
-              toggleVisibility();
-            }
-          }}
-          onClick={toggleVisibility}
-          isCollapsible={collapsible}
-        >
-          <div style={{ position: 'relative' }}>
-            <HeaderCaret isCollapsible={collapsible} isVisible={isVisible}>
-              ▲
-            </HeaderCaret>
-            <SkillTreeTitle id={treeId}>{title}</SkillTreeTitle>
-          </div>
-          <SkillCountSubtitle />
-        </SkillTreeHeader>
+          isVisible={isVisible}
+          handleClick={toggleVisibility}
+          collapsible={collapsible}
+          id={treeId}
+          description={description}
+          title={title}
+        />
         <VisibilityContainer
           data-testid="visibility-container"
           isVisible={isVisible}
@@ -117,49 +104,12 @@ export default SkillTree;
 const SkillTreeContainer = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
   margin: 0 8px 48px;
-  min-width: fit-content;
+  min-width: 280px;
 
   @media (min-width: 900px) {
     margin: 0 8px 16px;
-    min-width: initial;
     padding: 16px;
   }
-`;
-
-const SkillTreeHeader = styled.div<CollapsibleContainerProps>`
-  ${({ isCollapsible }) =>
-    isCollapsible &&
-    css`
-      background: ${({ theme }) => theme.treeBackgroundColor};
-      border: ${({ theme }) => theme.border};
-      border-radius: ${({ theme }) => theme.borderRadius};
-      cursor: pointer;
-      min-width: 300px;
-      user-select: none;
-    `}
-`;
-
-const HeaderCaret = styled.span<HeaderCaretProps>`
-  display: ${({ isCollapsible }) => (isCollapsible ? 'inline' : 'none')};
-  font-family: ${({ theme }) => theme.headingFont};
-  font-size: 1.5em;
-  left: 8px;
-  position: absolute;
-  transform: rotate(90deg);
-  transition: 0.15s transform ease-out;
-
-  ${({ isVisible }) =>
-    isVisible &&
-    css`
-      transform: rotate(180deg);
-    `}
-`;
-
-const SkillTreeTitle = styled.h2`
-  font-family: ${({ theme }) => theme.headingFont};
-  margin-bottom: 0;
-  min-width: 152px;
-  text-align: center;
 `;
 
 const StyledSkillTree = styled.div<CollapsibleContainerProps>`

@@ -35,13 +35,21 @@ const data: SkillType[] = [];
 <SkillProvider>
   <SkillTreeGroup>
     {({ skillCount }: SkillGroupDataType) => {
-      <SkillTree treeId="first-tree" title="Skill Tree" data={data} />
+      <SkillTree
+        treeId="first-tree"
+        title="Skill Tree"
+        data={data}
+        collapsible
+        description="My first skill tree"
+      />
     }}
     </SkillTreeGroup>
 <SkillProvider>
 ```
 
 Run your application's starting script and access localhost to find an empty skill tree. The skill tree will remain empty until data of type `Skill[]` is passed to through as a prop.
+
+Optional `SkillTree` props include `collapsible` and `description`. `collapsible` is a boolean that detemrines whether or not the skill tree can collapse when the header is clicked. The `description` prop adds a tooltip to the SkillTree header that displays on hover/touch.
 
 Add the following data to your skill tree and see what happens:
 
@@ -100,6 +108,8 @@ Unfortunately there aren't any React packages that enable us developers to easil
 #### data: `SkillType` [*required*]
 
 #### collapsible: `boolean` [*optional*]
+
+#### description: `string` [*optional*]
 
 #### savedData: `SavedDataType` [*optional*]
 
