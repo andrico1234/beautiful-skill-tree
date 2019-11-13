@@ -75,10 +75,6 @@ const defaultStoreContents = {
 };
 
 function renderComponent(props: Props) {
-  const modalRoot = document.createElement('div');
-  modalRoot.setAttribute('id', 'modal-root');
-  document.body.appendChild(modalRoot);
-
   let selectedSkillCount: SkillCount;
   let resetSkills: VoidFunction;
 
