@@ -6,7 +6,7 @@ import SkillTreeSegment from './SkillTreeSegment';
 import Tooltip from './tooltip/Tooltip';
 import { Skill, NodeState } from '../models';
 import Node from './ui/Node';
-import { SkillThemeType } from '../../';
+import { SkillThemeType } from '../';
 
 const keyframes = require('styled-components').keyframes;
 const css: BaseThemedCssFunction<SkillThemeType> = require('styled-components')
