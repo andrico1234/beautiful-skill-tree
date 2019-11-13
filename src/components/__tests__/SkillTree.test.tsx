@@ -75,6 +75,10 @@ const defaultStoreContents = {
 };
 
 function renderComponent(props: Props) {
+  const modalRoot = document.createElement('div');
+  modalRoot.setAttribute('id', 'modal-root');
+  document.body.appendChild(modalRoot);
+
   let selectedSkillCount: SkillCount;
   let resetSkills: VoidFunction;
 
@@ -410,6 +414,27 @@ describe('SkillTree', () => {
       });
 
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
+    });
+  });
+
+  describe('Description', () => {
+    it('should not display info icon if no description is passed through', () => {
+      const { queryByText } = renderComponent(defaultProps);
+
+      expect(queryByText('ⓘ')).toBeNull();
+    });
+
+    it('should display on hover', () => {
+      const props = {
+        ...defaultProps,
+        description: 'this is the description boys',
+      };
+
+      const { getByText } = renderComponent(props);
+
+      const infoIcon = getByText('ⓘ');
+
+      expect(infoIcon).toBeTruthy();
     });
   });
 
