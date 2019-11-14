@@ -33,10 +33,6 @@ interface VisibilityContainerProps {
   isVisible: boolean;
 }
 
-const defaultParentPosition = {
-  center: 0,
-};
-
 function SkillTree({
   data,
   title,
@@ -82,11 +78,11 @@ function SkillTree({
               return (
                 <React.Fragment key={skill.id}>
                   <SkillTreeSegment
-                    parentHasMultipleChildren={false}
-                    shouldBeUnlocked={true}
-                    parentPosition={defaultParentPosition}
-                    hasParent={false}
+                    shouldBeUnlocked
                     skill={skill}
+                    hasParent={false}
+                    parentPosition={0}
+                    parentHasMultipleChildren={false}
                   />
                   <HSeparator display={displaySeparator} />
                 </React.Fragment>

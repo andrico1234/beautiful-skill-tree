@@ -54,14 +54,6 @@ interface MajorSkill extends BaseSkill {
 
 export type Direction = 'left' | 'right';
 
-export type ParentPosition = {
-  center: number;
-};
-
-export type ChildPosition = {
-  center: number;
-};
-
 export interface ContextStorage {
   getItem: (key: string) => Nullable<string>;
   setItem: (key: string, value: string) => void;

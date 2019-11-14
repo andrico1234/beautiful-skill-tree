@@ -9,19 +9,19 @@ const keyframes = require('styled-components').keyframes;
 const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
 interface Props {
-  parentCenterPosition: number;
-  childCenterPosition: number;
+  parentPosition: number;
+  childPosition: number;
   direction: Direction;
   state: NodeState;
 }
 
 function MiddleAngledLine(props: Props) {
-  const { direction, parentCenterPosition, childCenterPosition, state } = props;
+  const { direction, parentPosition, childPosition, state } = props;
 
   const width =
     direction === 'left'
-      ? parentCenterPosition - childCenterPosition - 6
-      : childCenterPosition - parentCenterPosition - 6;
+      ? parentPosition - childPosition - 6
+      : childPosition - parentPosition - 6;
 
   return (
     <AngledLineHoriztonal

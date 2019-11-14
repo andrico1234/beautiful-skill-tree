@@ -7,9 +7,8 @@ import defaultTheme from '../../theme';
 const defaultProps: Props = {
   parentHasMultipleChildren: false,
   state: 'unlocked',
-  direction: 'right',
-  parentCenterPosition: 0,
-  childCenterPosition: 0,
+  parentPosition: 0,
+  childNodeRef: { current: document.createElement('div') },
 };
 
 function renderComponent(props = defaultProps) {

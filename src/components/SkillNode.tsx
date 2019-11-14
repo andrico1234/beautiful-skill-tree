@@ -37,9 +37,7 @@ function SkillNode({
   updateSkillState,
 }: Props) {
   const { children, title, tooltip, id, optional } = skill;
-  const [parentPosition, setParentPosition] = React.useState({
-    center: 0,
-  });
+  const [parentPosition, setParentPosition] = React.useState(0);
 
   const skillNodeRef: React.RefObject<HTMLDivElement> = React.useRef(null);
   const childWidth: React.MutableRefObject<number> = React.useRef(0);
@@ -49,9 +47,7 @@ function SkillNode({
 
     const scrollX = window.scrollX;
 
-    setParentPosition({
-      center: (right - left) / 2 + left + scrollX,
-    });
+    setParentPosition((right - left) / 2 + left + scrollX);
   }
 
   function calculateOverlayWidth() {
@@ -78,7 +74,7 @@ function SkillNode({
   }
 
   React.useEffect(() => {
-    const throttledHandleResize = throttle(handleResize, 500);
+    const throttledHandleResize = throttle(handleResize, 200);
 
     calculatePosition();
     calculateOverlayWidth();
