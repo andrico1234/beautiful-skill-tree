@@ -1,28 +1,18 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useContext,
-  useCallback,
-} from 'react';
-import { throttle, isEmpty } from 'lodash';
+import React, { useRef, useEffect, useContext, useCallback } from 'react';
+import { isEmpty } from 'lodash';
 import SkillNode from './SkillNode';
 import SkillEdge from './SkillEdge';
-import { Skill, ParentPosition, ChildPosition } from '../models';
+import { Skill } from '../models';
 import { Nullable } from '../models/utils';
 import SkillContext from '../context/SkillContext';
 import { SELECTED_STATE, LOCKED_STATE, UNLOCKED_STATE } from './constants';
 
 type Props = {
   skill: Skill;
-  parentPosition: ParentPosition;
+  parentPosition: number;
   parentHasMultipleChildren: boolean;
   shouldBeUnlocked: boolean;
 } & typeof SkillTreeSegment.defaultProps;
-
-const defaultParentPosition: ChildPosition = {
-  center: 0,
-};
 
 function SkillTreeSegment({
   skill,
@@ -31,7 +21,6 @@ function SkillTreeSegment({
   parentPosition,
   shouldBeUnlocked,
 }: Props) {
-  const [childPosition, setChildPosition] = useState(defaultParentPosition);
   const {
     mounting,
     skills,
@@ -45,16 +34,6 @@ function SkillTreeSegment({
   );
 
   const nodeState = skills[skill.id] ? skills[skill.id].nodeState : 'locked';
-
-  function calculatePosition() {
-    const { left, width } = skillNodeRef.current!.getBoundingClientRect();
-
-    const scrollX = window.scrollX;
-
-    setChildPosition({
-      center: left + width / 2 + scrollX,
-    });
-  }
 
   useEffect(() => {
     if (mounting) return;
@@ -87,17 +66,6 @@ function SkillTreeSegment({
     return;
   }, [mounting]);
 
-  useEffect(() => {
-    const throttledHandleResize = throttle(calculatePosition, 500);
-
-    window.addEventListener('resize', throttledHandleResize);
-    calculatePosition();
-
-    return function cleanup() {
-      window.removeEventListener('resize', throttledHandleResize);
-    };
-  }, []);
-
   return (
     <div
       style={{
@@ -108,11 +76,8 @@ function SkillTreeSegment({
         <SkillEdge
           parentHasMultipleChildren={parentHasMultipleChildren}
           state={nodeState}
-          parentCenterPosition={parentPosition.center}
-          childCenterPosition={childPosition.center}
-          direction={
-            parentPosition.center < childPosition.center ? 'right' : 'left'
-          }
+          childNodeRef={skillNodeRef}
+          parentPosition={parentPosition}
         />
       )}
       <div ref={skillNodeRef}>

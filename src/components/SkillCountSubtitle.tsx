@@ -1,18 +1,12 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import SkillContext from '../context/SkillContext';
 
 function SkillCountSubtitle() {
   const { skillCount } = useContext(SkillContext);
 
   return (
-    <StyledSkillCountSubtitle>{skillCount} skills</StyledSkillCountSubtitle>
+    <p style={{ marginTop: 0, textAlign: 'center' }}>{skillCount} skills</p>
   );
 }
 
 export default SkillCountSubtitle;
-
-const StyledSkillCountSubtitle = styled.p`
-  margin-top: 0;
-  text-align: center;
-`;

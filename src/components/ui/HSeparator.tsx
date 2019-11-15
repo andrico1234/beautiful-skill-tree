@@ -1,20 +1,15 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
 interface Props {
   display: boolean;
 }
 
 function HSeparator({ display }: Props) {
-  return <Separator>{display && <hr data-testid="h-separator" />}</Separator>;
+  return (
+    <div style={{ height: '2px' }}>
+      {display && <hr style={{ margin: 0 }} data-testid="h-separator" />}
+    </div>
+  );
 }
 
 export default HSeparator;
-
-const Separator = styled.div`
-  height: 2px;
-
-  hr {
-    margin: 0;
-  }
-`;
