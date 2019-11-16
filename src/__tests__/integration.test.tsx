@@ -152,6 +152,7 @@ function renderComponent(
           skillCount,
           selectedSkillCount,
           resetSkills,
+          handleFilter,
         }: SkillGroupDataType) => {
           const totalSkillCount = skillCount.required + skillCount.optional;
           const totalSelectedSkillCount =
@@ -167,6 +168,10 @@ function renderComponent(
                 <button data-testid="reset-button" onClick={resetSkills}>
                   Reset
                 </button>
+                <input
+                  placeholder="filter"
+                  onChange={({ target }) => handleFilter(target.value)}
+                />
               </h2>
               <SkillTree treeId="fe" title="Frontend" data={simpleData} />
               <SkillTree
@@ -526,6 +531,165 @@ describe('SkillTreeGroup component', () => {
       const htmlNode = getByTestId('html');
 
       expect(htmlNode).toHaveStyleRule('background', 'grey');
+    });
+  });
+
+  describe('filtering', () => {
+    it('should display the tree when no query has been made', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent([]);
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainer] = getAllByTestId('visibility-container');
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'ppppa',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 0');
+    });
+
+    it('should display the tree if the query contains a matching skillid', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent([]);
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainer] = getAllByTestId('visibility-container');
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'java',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+    });
+
+    it('should display the tree if no valid query is present', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent([]);
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainer] = getAllByTestId('visibility-container');
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: null,
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+    });
+
+    it('should not display the tree if the query does not contain a matching skillid', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent([]);
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainer] = getAllByTestId('visibility-container');
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'javascrooo',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 0');
+    });
+
+    it('should cause a tree to hide/show when the filter query changes', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent([]);
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainer] = getAllByTestId('visibility-container');
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'javascrooo',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 0');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'javascroo',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 0');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'java',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'javajava',
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 0');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: null,
+        },
+      });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 1');
+    });
+
+    it('should only display the trees that contain skillIds that match the filter query', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent(
+        complexData
+      );
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainerOne, visibilityContainerTwo] = getAllByTestId(
+        'visibility-container'
+      );
+
+      expect(visibilityContainerOne).toHaveStyle('opacity: 1');
+      expect(visibilityContainerTwo).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'css',
+        },
+      });
+
+      expect(visibilityContainerOne).toHaveStyle('opacity: 1');
+      expect(visibilityContainerTwo).toHaveStyle('opacity: 0');
+    });
+
+    it('should display the trees when the filter query contains only spaces', () => {
+      const { getByPlaceholderText, getAllByTestId } = renderComponent([]);
+
+      const filterInput = getByPlaceholderText('filter');
+      const [visibilityContainerOne] = getAllByTestId('visibility-container');
+
+      expect(visibilityContainerOne).toHaveStyle('opacity: 1');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: '      ',
+        },
+      });
+
+      expect(visibilityContainerOne).toHaveStyle('opacity: 1');
     });
   });
 });

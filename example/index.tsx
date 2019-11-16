@@ -75,7 +75,6 @@ const App = () => {
                 title="Squat Progression"
                 description="These are the progressions for squats"
                 data={legsPushData}
-                collapsible
               />
               <SkillTree
                 treeId="sp"
