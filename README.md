@@ -1,4 +1,4 @@
-# Beautiful Skill Tree
+# 🌲🌲🌲 Beautiful Skill Tree
 
 A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications.
 
