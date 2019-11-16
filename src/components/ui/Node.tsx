@@ -25,42 +25,48 @@ interface StyledNodeProps {
   isIOS: boolean;
 }
 
-const Node = React.forwardRef(
-  (props: Props, ref: React.Ref<HTMLDivElement>) => {
+const isIOS = isIOSDevice();
+
+const Node = React.forwardRef(function Node(
+  props: Props,
+  ref: React.Ref<HTMLDivElement>
+) {
+  const { handleClick, id, currentState, skill } = props;
+
+  const memoizedHandleKeyDown = React.useCallback(
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
       if (e.keyCode === 13) {
         handleClick();
       }
-    }
+    },
+    [handleClick]
+  );
 
-    const { handleClick, id, currentState, skill } = props;
-
-    return (
-      <StyledNode
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        ref={ref}
-        tabIndex={0}
-        data-testid={id}
-        optional={skill.optional || false}
-        isIOS={isIOSDevice()}
-        selected={currentState === SELECTED_STATE}
-        unlocked={currentState === UNLOCKED_STATE}
-        locked={currentState === LOCKED_STATE}
-      >
-        {'icon' in skill ? (
-          <IconNode>
-            <Icon title="node-icon" src={skill.icon} containerWidth={64} />
-          </IconNode>
-        ) : (
-          <TextNode>
-            <Text>{skill.title}</Text>
-          </TextNode>
-        )}
-      </StyledNode>
-    );
-  }
-);
+  return (
+    <StyledNode
+      onClick={handleClick}
+      onKeyDown={memoizedHandleKeyDown}
+      ref={ref}
+      tabIndex={0}
+      data-testid={id}
+      optional={skill.optional || false}
+      isIOS={isIOS}
+      selected={currentState === SELECTED_STATE}
+      unlocked={currentState === UNLOCKED_STATE}
+      locked={currentState === LOCKED_STATE}
+    >
+      {'icon' in skill ? (
+        <IconNode>
+          <Icon title="node-icon" src={skill.icon} containerWidth={64} />
+        </IconNode>
+      ) : (
+        <TextNode>
+          <Text>{skill.title}</Text>
+        </TextNode>
+      )}
+    </StyledNode>
+  );
+});
 
 export default Node;
 

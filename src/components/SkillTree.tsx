@@ -1,15 +1,15 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Skill, SavedDataType, ContextStorage } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateNodeCount from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillContext';
 import styled, { BaseThemedCssFunction } from 'styled-components';
-import MobileContext from '../context/MobileContext';
 import { SkillTheme } from '../theme';
 import SkillTreeHeader from './SkillTreeHeader';
 import AddToFilterIndex from './filter/AddToFilterIndex';
 import FilterListener from './filter/FilterListener';
+import useMobile from '../hooks/useMobile';
 
 const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
@@ -44,7 +44,7 @@ function SkillTree({
   handleSave,
   collapsible = false,
 }: Props) {
-  const { isMobile } = useContext(MobileContext);
+  const isMobile = useMobile();
   const [isVisible, setVisibility] = useState(true);
 
   const memoizedToggleVisibility = useCallback(

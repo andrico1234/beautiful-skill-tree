@@ -3,7 +3,7 @@ import TooltipContent from './TooltipContent';
 import styled from 'styled-components';
 import Tippy from '@tippy.js/react';
 import { Tooltip } from '../../models';
-import MobileContext from '../../context/MobileContext';
+import useMobile from '../../hooks/useMobile';
 
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/shift-away.css';
@@ -17,18 +17,27 @@ interface Props {
 function Tooltip(props: Props) {
   const { children, tooltip, title } = props;
   const { direction = 'top', content } = tooltip;
-  const { isMobile } = React.useContext(MobileContext);
+  const isMobile = useMobile();
+
+  const placement = React.useMemo(() => (isMobile ? 'top' : direction), [
+    isMobile,
+    direction,
+  ]);
+
+  const memoizedContent = React.useMemo(() => {
+    return <TooltipContent content={content} title={title} />;
+  }, [content, title]);
 
   return (
     <StyledTippy
       interactive
-      placement={isMobile ? 'top' : direction}
+      placement={placement}
       hideOnClick={false}
       animation="shift-away"
       arrow={false}
       appendTo={document.body}
       touch="hold"
-      content={<TooltipContent content={content} title={title} />}
+      content={memoizedContent}
     >
       {children}
     </StyledTippy>
