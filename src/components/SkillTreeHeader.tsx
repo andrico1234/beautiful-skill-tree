@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { BaseThemedCssFunction } from 'styled-components';
 import SkillCountSubtitle from './SkillCountSubtitle';
 import { SkillTheme } from '../theme';
@@ -26,14 +26,20 @@ interface CollapsibleContainerProps {
 
 function SkillTreeHeader(props: Props) {
   const { handleClick, collapsible, isVisible, id, title, description } = props;
+
+  const memoizedHandleKeyDown = useCallback(
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+      if (e.keyCode === 13) {
+        handleClick();
+      }
+    },
+    [handleClick]
+  );
+
   return (
     <StyledSkillTreeHeader
       tabIndex={0}
-      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.keyCode === 13) {
-          handleClick();
-        }
-      }}
+      onKeyDown={memoizedHandleKeyDown}
       onClick={handleClick}
       isCollapsible={collapsible}
     >

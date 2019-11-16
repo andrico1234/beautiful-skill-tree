@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { Skill, SkillMap } from '../models';
-import FilterContext from '../context/FilterContext';
+import { Skill, SkillMap } from '../../models';
+import FilterContext from '../../context/FilterContext';
 
 interface Props {
   treeId: string;
@@ -16,7 +16,7 @@ function createSkillsTreeMap(treeId: string, skills: Skill[]) {
         addSkillToMap(skill.children);
       }
 
-      skillsTreeMap[skill.id] = treeId;
+      skillsTreeMap[skill.title.toLowerCase()] = treeId;
     });
   }
 

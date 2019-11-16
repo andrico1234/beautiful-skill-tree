@@ -12,7 +12,6 @@ export interface SkillGroupData {
   skillCount: SkillCount;
   selectedSkillCount: SkillCount;
   resetSkills: VoidFunction;
-  filtersMatches: Set<string> | null;
   handleFilter: (query: string) => void;
 }
 

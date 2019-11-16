@@ -18,6 +18,7 @@ import {
 import './index.css';
 import { legsPushData, legsPullData, hpSavedData } from './mockData';
 import { ContextStorage } from '../src/models';
+import FilterInput from './components/FIlterInput';
 
 function handleSave(
   storage: ContextStorage,
@@ -35,6 +36,7 @@ const App = () => {
           skillCount,
           selectedSkillCount,
           resetSkills,
+          handleFilter,
         }: SkillGroupDataType) => {
           const totalSkillCount = skillCount.optional + skillCount.required;
           const totalSelectedCount =
@@ -60,6 +62,56 @@ const App = () => {
                   Reset
                 </button>
               </div>
+              <FilterInput handleFilter={handleFilter} />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                treeId="sp"
+                title="Squat Progression"
+                description="These are the progressions for squats"
+                data={legsPushData}
+                collapsible
+              />
               <SkillTree
                 treeId="sp"
                 title="Squat Progression"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { Skill, SavedDataType, ContextStorage } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
@@ -8,7 +8,8 @@ import styled, { BaseThemedCssFunction } from 'styled-components';
 import MobileContext from '../context/MobileContext';
 import { SkillTheme } from '../theme';
 import SkillTreeHeader from './SkillTreeHeader';
-import AddToFilterIndex from './AddToFilterIndex';
+import AddToFilterIndex from './filter/AddToFilterIndex';
+import FilterListener from './filter/FilterListener';
 
 const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
@@ -46,54 +47,64 @@ function SkillTree({
   const { isMobile } = useContext(MobileContext);
   const [isVisible, setVisibility] = useState(true);
 
-  function toggleVisibility() {
-    if (!collapsible) return;
+  const memoizedToggleVisibility = useCallback(
+    function toggleVisibility() {
+      if (!collapsible) return;
 
-    return setVisibility(!isVisible);
-  }
+      return setVisibility(!isVisible);
+    },
+    [isVisible]
+  );
 
   return (
-    <SkillTreeProvider
-      treeId={treeId}
-      savedData={savedData}
-      handleSave={handleSave}
-    >
-      <CalculateNodeCount data={data} />
+    <React.Fragment>
       <AddToFilterIndex treeId={treeId} skills={data} />
-      <SkillTreeContainer>
-        <SkillTreeHeader
-          isVisible={isVisible}
-          handleClick={toggleVisibility}
-          collapsible={collapsible}
-          id={treeId}
-          description={description}
-          title={title}
-        />
-        <VisibilityContainer
-          data-testid="visibility-container"
-          isVisible={isVisible}
-        >
-          <StyledSkillTree isCollapsible={collapsible}>
-            {data.map((skill, i) => {
-              const displaySeparator = data.length - 1 !== i && isMobile;
+      <FilterListener
+        isVisible={isVisible}
+        setVisibility={setVisibility}
+        treeId={treeId}
+      />
+      <SkillTreeProvider
+        treeId={treeId}
+        savedData={savedData}
+        handleSave={handleSave}
+      >
+        <CalculateNodeCount data={data} />
+        <SkillTreeContainer>
+          <SkillTreeHeader
+            isVisible={isVisible}
+            handleClick={memoizedToggleVisibility}
+            collapsible={collapsible}
+            id={treeId}
+            description={description}
+            title={title}
+          />
+          <VisibilityContainer
+            data-testid="visibility-container"
+            isVisible={isVisible}
+          >
+            <StyledSkillTree isCollapsible={collapsible}>
+              {data.map((skill, i) => {
+                const displaySeparator = data.length - 1 !== i && isMobile;
 
-              return (
-                <React.Fragment key={skill.id}>
-                  <SkillTreeSegment
-                    shouldBeUnlocked
-                    skill={skill}
-                    hasParent={false}
-                    parentPosition={0}
-                    parentHasMultipleChildren={false}
-                  />
-                  <HSeparator display={displaySeparator} />
-                </React.Fragment>
-              );
-            })}
-          </StyledSkillTree>
-        </VisibilityContainer>
-      </SkillTreeContainer>
-    </SkillTreeProvider>
+                return (
+                  <React.Fragment key={skill.id}>
+                    <SkillTreeSegment
+                      shouldBeUnlocked
+                      skill={skill}
+                      hasParent={false}
+                      parentPosition={0}
+                      parentHasMultipleChildren={false}
+                    />
+                    <HSeparator display={displaySeparator} />
+                  </React.Fragment>
+                );
+              })}
+            </StyledSkillTree>
+          </VisibilityContainer>
+        </SkillTreeContainer>
+      </SkillTreeProvider>
+    </React.Fragment>
   );
 }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppContext from '../context/AppContext';
 import styled, { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme/index';
-import { DeepPartial } from 'models/utils';
+import { DeepPartial } from '../models/utils';
 import { SkillGroupData } from '../models';
 import { MobileProvider } from '../context/MobileContext';
 import FilterContext from '../context/FilterContext';

@@ -27,8 +27,9 @@ export function FilterProvider(props: Props) {
       return setMatches(null);
     }
 
+    const sanitizedQuery = query.toLowerCase();
     const skills = Object.keys(skillMap);
-    const filteredSkills = skills.filter(key => key.includes(query));
+    const filteredSkills = skills.filter(key => key.includes(sanitizedQuery));
     const treeIds = new Set(filteredSkills.map(skill => skillMap[skill]));
 
     return setMatches(treeIds);
