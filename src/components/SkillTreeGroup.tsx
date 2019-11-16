@@ -19,16 +19,16 @@ function SkillTreeGroup({ theme, children }: Props) {
     AppContext
   );
 
-  const { filtersMatches, handleFilter } = React.useContext(FilterContext);
+  const { handleFilter } = React.useContext(FilterContext);
+  const skillTreeTheme = React.useMemo(() => ({ ...defaultTheme, ...theme }), [
+    theme,
+  ]);
 
-  const skillTreeTheme = { ...defaultTheme, ...theme };
-
-  const treeData = {
+  const treeData: SkillGroupData = {
     skillCount,
     selectedSkillCount,
     resetSkills,
     handleFilter,
-    filtersMatches,
   };
 
   return (
