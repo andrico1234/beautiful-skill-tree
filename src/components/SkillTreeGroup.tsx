@@ -5,6 +5,7 @@ import defaultTheme from '../theme/index';
 import { DeepPartial } from 'models/utils';
 import { SkillGroupData } from '../models';
 import { MobileProvider } from '../context/MobileContext';
+import FilterContext from '../context/FilterContext';
 
 type Props = {
   children: (treeData: SkillGroupData) => React.ReactNode;
@@ -19,12 +20,16 @@ function SkillTreeGroup({ theme, children }: Props) {
     AppContext
   );
 
+  const { filtersMatches, handleFilter } = React.useContext(FilterContext);
+
   const skillTreeTheme = { ...defaultTheme, ...theme };
 
   const treeData = {
     skillCount,
     selectedSkillCount,
     resetSkills,
+    handleFilter,
+    filtersMatches,
   };
 
   return (

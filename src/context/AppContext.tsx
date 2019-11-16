@@ -38,7 +38,7 @@ export const initialState = {
   },
 };
 
-export function SkillProvider({ children }: Props) {
+export function AppProvider({ children }: Props) {
   const [resetId, setResetId] = React.useState('');
   const [skillCount, setSkillCount] = React.useState({
     required: 0,

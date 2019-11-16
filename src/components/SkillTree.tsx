@@ -8,6 +8,7 @@ import styled, { BaseThemedCssFunction } from 'styled-components';
 import MobileContext from '../context/MobileContext';
 import { SkillTheme } from '../theme';
 import SkillTreeHeader from './SkillTreeHeader';
+import AddToFilterIndex from './AddToFilterIndex';
 
 const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
@@ -58,6 +59,7 @@ function SkillTree({
       handleSave={handleSave}
     >
       <CalculateNodeCount data={data} />
+      <AddToFilterIndex treeId={treeId} skills={data} />
       <SkillTreeContainer>
         <SkillTreeHeader
           isVisible={isVisible}
