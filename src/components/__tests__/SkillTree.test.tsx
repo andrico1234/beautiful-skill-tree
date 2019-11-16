@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react';
 import SkillTree, { Props } from '../SkillTree';
 import MockLocalStorage from '../../__mocks__/mockLocalStorage';
-import { SkillProvider } from '../../context/AppContext';
+import SkillProvider from '../../components/SkillProvider';
 import SkillTreeGroup from '../../components/SkillTreeGroup';
 import { Skill, SkillCount } from '../../models/index';
 import { SavedDataType } from '../../';

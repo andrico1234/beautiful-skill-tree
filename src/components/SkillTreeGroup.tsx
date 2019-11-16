@@ -2,9 +2,9 @@ import * as React from 'react';
 import AppContext from '../context/AppContext';
 import styled, { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme/index';
-import { DeepPartial } from 'models/utils';
+import { DeepPartial } from '../models/utils';
 import { SkillGroupData } from '../models';
-import { MobileProvider } from '../context/MobileContext';
+import FilterContext from '../context/FilterContext';
 
 type Props = {
   children: (treeData: SkillGroupData) => React.ReactNode;
@@ -19,19 +19,21 @@ function SkillTreeGroup({ theme, children }: Props) {
     AppContext
   );
 
-  const skillTreeTheme = { ...defaultTheme, ...theme };
+  const { handleFilter } = React.useContext(FilterContext);
+  const skillTreeTheme = React.useMemo(() => ({ ...defaultTheme, ...theme }), [
+    theme,
+  ]);
 
-  const treeData = {
+  const treeData: SkillGroupData = {
     skillCount,
     selectedSkillCount,
     resetSkills,
+    handleFilter,
   };
 
   return (
     <ThemeProvider theme={skillTreeTheme}>
-      <MobileProvider>
-        <StyleSkillTreeGroup>{children(treeData)}</StyleSkillTreeGroup>
-      </MobileProvider>
+      <StyleSkillTreeGroup>{children(treeData)}</StyleSkillTreeGroup>
     </ThemeProvider>
   );
 }

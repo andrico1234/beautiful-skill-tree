@@ -113,7 +113,7 @@ function SkillNode({
             return (
               <SkillTreeSegment
                 key={child.id}
-                hasParent={true}
+                hasParent
                 parentPosition={parentPosition}
                 parentHasMultipleChildren={hasMultipleChildren}
                 shouldBeUnlocked={

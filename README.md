@@ -157,6 +157,7 @@ type SkillGroupData = {
   skillCount: SkillCount;
   selectedSkillCount: SkillCount;
   resetSkills: () => void;
+  handleFilter: (query: string) => void;
 };
 
 type SkillCount = {
@@ -179,6 +180,18 @@ type SavedDataType = {
 ---
 
 ## Features
+
+### Filtering
+
+The `<SkillTreeGroup />` component exposes the `handleFilter()` method which can be used to close any trees that don't contain skills that match the query. This can be used in conjunction with your own input component like so:
+
+```tsx
+<input
+  style={{ height: '32px' }}
+  onChange={e => handleFilter(e.target.value)}
+  placeholder="Filter through trees..."
+/>
+```
 
 ### Custom Themes
 

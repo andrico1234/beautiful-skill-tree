@@ -6,10 +6,13 @@ export type TooltipDirection = 'right' | 'left' | 'top' | 'bottom';
 
 export type NodeState = 'locked' | 'unlocked' | 'selected';
 
+export type SkillMap = Record<string, string>;
+
 export interface SkillGroupData {
   skillCount: SkillCount;
   selectedSkillCount: SkillCount;
   resetSkills: VoidFunction;
+  handleFilter: (query: string) => void;
 }
 
 export type SavedDataType = Dictionary<SkillData>;
