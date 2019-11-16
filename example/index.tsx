@@ -71,54 +71,6 @@ const App = () => {
                 collapsible
               />
               <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-                collapsible
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-                collapsible
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-                collapsible
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-                collapsible
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-                collapsible
-              />
-              <SkillTree
-                treeId="sp"
-                title="Squat Progression"
-                description="These are the progressions for squats"
-                data={legsPushData}
-                collapsible
-              />
-              <SkillTree
                 treeId="hp"
                 title="Hinge Progression"
                 data={legsPullData}
