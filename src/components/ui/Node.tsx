@@ -25,13 +25,12 @@ interface StyledNodeProps {
   isIOS: boolean;
 }
 
-const isIOS = isIOSDevice();
-
 const Node = React.forwardRef(function Node(
   props: Props,
   ref: React.Ref<HTMLDivElement>
 ) {
   const { handleClick, id, currentState, skill } = props;
+  const [isIOS, setIsIOS] = React.useState(false);
 
   const memoizedHandleKeyDown = React.useCallback(
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -41,6 +40,10 @@ const Node = React.forwardRef(function Node(
     },
     [handleClick]
   );
+
+  React.useEffect(() => {
+    setIsIOS(isIOSDevice());
+  }, []);
 
   return (
     <StyledNode
