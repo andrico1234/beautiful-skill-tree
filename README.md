@@ -1,5 +1,9 @@
 # 🌲🌲🌲 Beautiful Skill Tree
 
+For every star Beautiful Skill Tree gets, I'll donate £1 to [Trees for Life](https://treesforlife.org.uk/). As cool as it is creating beautiful trees in your apps, it's even cooler doing so in real life!
+
+Beautiful Skill Tree has currently raised £50 thanks to the lovely folk starring this repo. 
+
 A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications.
 
 Thanks to my friends, family, coworkers, and strangers in ensuring that it has been tested across a diverse range of people.
