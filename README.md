@@ -1,6 +1,12 @@
 # 🌲🌲🌲 Beautiful Skill Tree
 
+For every star Beautiful Skill Tree gets, I'll donate £1 to [Trees for Life](https://treesforlife.org.uk/). As cool as it is creating beautiful trees in your apps, it's even cooler doing so in real life!
+
+Beautiful Skill Tree has currently raised £50 thanks to the lovely folk starring this repo. 
+
 A small library to help get you implement beautiful, responsive, and satisfying skill trees into your React applications.
+
+Thanks to my friends, family, coworkers, and strangers in ensuring that it has been tested across a diverse range of people.
 
 Tested across devices using [Browserstack](https://www.browserstack.com/), thanks to their continued support for open source projects.
 
@@ -277,7 +283,7 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 
 ### Running locally
 
-You'll need to clone the repo on your local machine and install the dependencies using `yarn`. Once the dependencies have been install start the local server.
+You'll need to clone the repo on your local machine and install the dependencies using `yarn`. Once the dependencies have been install start the local server. You'll also need to be using Node 10 or above.
 
 If you're using nvm, you can ran `nvm use` to automatically use the version of Node specified in the `.nvmrc` file.
 
