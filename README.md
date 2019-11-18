@@ -279,6 +279,8 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 
 You'll need to clone the repo on your local machine and install the dependencies using `yarn`. Once the dependencies have been install start the local server.
 
+If you're using nvm, you can ran `nvm use` to automatically use the version of Node specified in the `.nvmrc` file.
+
 `git clone https://github.com/andrico1234/beautiful-skill-tree.git`
 
 `cd ./beautiful-skill-tree`
