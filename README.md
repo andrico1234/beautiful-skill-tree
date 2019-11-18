@@ -283,7 +283,7 @@ The tree is currently fully navigable using the keyboard. Pressing the tab butto
 
 ### Running locally
 
-You'll need to clone the repo on your local machine and install the dependencies using `yarn`. Once the dependencies have been install start the local server.
+You'll need to clone the repo on your local machine and install the dependencies using `yarn`. Once the dependencies have been install start the local server. You'll also need to be using Node 10 or above.
 
 `git clone https://github.com/andrico1234/beautiful-skill-tree.git`
 
