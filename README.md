@@ -205,12 +205,29 @@ It's likely that you're application won't look to hot with a dark blue/rainbow t
 
 There are some gotcha related to some of my hacky CSS. Because I like me some gradients, to get the borders looking all swanky, i've had to use the `border-image` css property to define the border color. This means that you'll need to supply a gradient too if you want to change the border color. To create a solid gradient, pass through:
 
-```
+```css
 linear-gradient(
   to right,
   #ffffff 0%,
   #ffffff 100%
 )
+```
+
+### URL Navigation
+
+As each `<SkillTree />` should have a unique `treeId`, beautiful-skill-tree adds this value to a DOM node surrounding your tree as an `id` attribute. This means you can navigate to your trees via an anchor tag. For an app that has two skill trees with ids of `treeOne` and `treeTwo` respectively, you can create your own navigation like so:
+
+```tsx
+<nav>
+  <ul>
+    <li>
+      <a href="#treeOne">Tree One</a>
+    </li>
+    <li>
+      <a href="#treeTwo">TreeTwo</a>
+    </li>
+  </ul>
+</nav>
 ```
 
 ### Custom Saving
