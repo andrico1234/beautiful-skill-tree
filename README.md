@@ -57,15 +57,15 @@ const data: SkillType[] = [];
 
 <SkillProvider>
   <SkillTreeGroup>
-    {({ skillCount }: SkillGroupDataType) => {
+    {({ skillCount }: SkillGroupDataType) => (
       <SkillTree
         treeId="first-tree"
         title="Skill Tree"
         data={data}
         collapsible
         description="My first skill tree"
-      />;
-    }}
+      />
+    )}
   </SkillTreeGroup>
 </SkillProvider>;
 ```
