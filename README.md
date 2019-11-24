@@ -67,7 +67,7 @@ const data: SkillType[] = [];
       />
     )}
   </SkillTreeGroup>
-</SkillProvider>;
+</SkillProvider>
 ```
 
 Or, if you are coding in ES6, here's the code:
