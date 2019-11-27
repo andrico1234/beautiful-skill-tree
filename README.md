@@ -52,7 +52,7 @@ const data: SkillType[] = [];
 <SkillProvider>
   <SkillTreeGroup>
     {({ skillCount }: SkillGroupDataType) => {
-      <SkillTree
+      return <SkillTree
         treeId="first-tree"
         title="Skill Tree"
         data={data}
@@ -61,7 +61,7 @@ const data: SkillType[] = [];
       />
     }}
     </SkillTreeGroup>
-<SkillProvider>
+</SkillProvider>
 ```
 
 Run your application's starting script and access localhost to find an empty skill tree. The skill tree will remain empty until data of type `Skill[]` is passed to through as a prop.
@@ -77,7 +77,7 @@ const data: SkillType[] = [
     title: 'Hello World',
     tooltip: {
       content: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
-    }
+    },
     children: [
       {
         id: 'hello-sun',
