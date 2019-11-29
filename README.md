@@ -4,7 +4,7 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 For every star Beautiful Skill Tree gets, £1 will be donated to [Trees for Life](https://treesforlife.org.uk/). As cool as it is creating beautiful trees in your apps, it's even cooler doing so in real life!
 
-Beautiful Skill Tree has currently raised £50 thanks to the lovely folk starring this repo. 
+Beautiful Skill Tree has currently raised £50 thanks to the lovely folk starring this repo.
 
 Thanks to my friends, family, coworkers, and strangers in ensuring that it has been tested across a diverse range of people.
 
@@ -45,13 +45,19 @@ For those that like their data typed, you can also import `SkillType`, `SkillGro
 Wrap your application like this:
 
 ```tsx
-import { SkillTreeGroup, SkillTree, SkillProvider, SkillType, SkillGroupDataType } from 'beautiful-skill-tree';
+import {
+  SkillTreeGroup,
+  SkillTree,
+  SkillProvider,
+  SkillType,
+  SkillGroupDataType,
+} from 'beautiful-skill-tree';
 
 const data: SkillType[] = [];
 
 <SkillProvider>
   <SkillTreeGroup>
-    {({ skillCount }: SkillGroupDataType) => {
+    {({ skillCount }: SkillGroupDataType) => (
       <SkillTree
         treeId="first-tree"
         title="Skill Tree"
@@ -59,9 +65,38 @@ const data: SkillType[] = [];
         collapsible
         description="My first skill tree"
       />
-    }}
-    </SkillTreeGroup>
+    )}
+  </SkillTreeGroup>
+</SkillProvider>
+```
+
+Or, if you are coding in ES6, here's the code:
+
+```jsx
+import {
+  SkillTreeGroup,
+  SkillTree,
+  SkillProvider,
+  SkillType,
+  SkillGroupDataType
+} from 'beautiful-skill-tree';
+
+
+const data = [];
+
 <SkillProvider>
+  <SkillTreeGroup>
+    {({ skillCount }) => (
+      <SkillTree
+        treeId="first-tree"
+        title="Skill Tree"
+        data={data}
+        collapsible
+        description="My first skill tree"
+      />
+    })
+    </SkillTreeGroup>
+</SkillProvider>
 ```
 
 Run your application's starting script and access localhost to find an empty skill tree. The skill tree will remain empty until data of type `Skill[]` is passed to through as a prop.
@@ -76,14 +111,16 @@ const data: SkillType[] = [
     id: 'hello-world',
     title: 'Hello World',
     tooltip: {
-      content: 'This node is the top most level, and will be unlocked, and ready to be clicked.',
-    }
+      content:
+        'This node is the top most level, and will be unlocked, and ready to be clicked.',
+    },
     children: [
       {
         id: 'hello-sun',
         title: 'Hello Sun',
         tooltip: {
-          content: 'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
+          content:
+            'This is a parent of the top node, and will locked while the parent isn’t in a selected state.',
         },
         children: [],
       },
@@ -91,7 +128,8 @@ const data: SkillType[] = [
         id: 'hello-stars',
         title: 'Hello Stars',
         tooltip: {
-          content:  'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
+          content:
+            'This is the child of ‘Hello World and the sibling of ‘Hello Sun’. Notice how the app takes care of the layout automatically? That’s why this is called Beautiful Skill Tree and not just ‘Skill Tree’. (Also the npm namespace had already been taken for the latter so (flick hair emoji).',
         },
         children: [],
       },
