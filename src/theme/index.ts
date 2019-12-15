@@ -15,7 +15,16 @@ const defaultTheme = {
   tooltipFontColor: '#16181c',
   nodeBackgroundColor: '#282c34',
   nodeBorderColor: 'white',
+  nodeAlternativeFontColor: 'white',
+  nodeAltenativeActiveFontColor: 'white',
   nodeOverlayColor: 'white',
+  nodeAlternativeActiveBackgroundColor: `
+  linear-gradient(
+    to right,
+    #b9e562 0%,
+    #41e2bd 50%,
+    #c284d8 100%
+  )`,
   nodeActiveBackgroundColor: `linear-gradient(
       to right,
       #b9e562 0%,

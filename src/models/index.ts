@@ -46,6 +46,7 @@ export type ActionType =
 interface BaseSkill {
   id: string;
   optional?: boolean;
+  color?: 'default' | 'alternative';
   title: string;
   tooltip: Tooltip;
   children: Skill[];
