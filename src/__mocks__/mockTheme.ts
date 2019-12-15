@@ -18,6 +18,9 @@ const mockTheme: Partial<SkillThemeType> = {
   nodeDesktopTextNodeWidth: '144px',
   nodeDesktopFontSize: '16px',
   edgeBorder: '1px solid black',
+  nodeAlternativeActiveBackgroundColor: 'blue',
+  nodeAlternativeFontColor: '#F7B538',
+  nodeAltenativeActiveFontColor: 'white',
 };
 
 export default mockTheme;

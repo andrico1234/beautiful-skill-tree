@@ -23,6 +23,11 @@ interface StyledNodeProps {
   unlocked: boolean;
   locked: boolean;
   isIOS: boolean;
+  color: 'default' | 'alternative';
+}
+
+interface TextProp {
+  selected: boolean;
 }
 
 const Node = React.forwardRef(function Node(
@@ -30,6 +35,7 @@ const Node = React.forwardRef(function Node(
   ref: React.Ref<HTMLDivElement>
 ) {
   const { handleClick, id, currentState, skill } = props;
+  const { color = 'default' } = skill;
   const [isIOS, setIsIOS] = React.useState(false);
 
   const memoizedHandleKeyDown = React.useCallback(
@@ -57,6 +63,7 @@ const Node = React.forwardRef(function Node(
       selected={currentState === SELECTED_STATE}
       unlocked={currentState === UNLOCKED_STATE}
       locked={currentState === LOCKED_STATE}
+      color={color}
     >
       {'icon' in skill ? (
         <IconNode>
@@ -64,7 +71,13 @@ const Node = React.forwardRef(function Node(
         </IconNode>
       ) : (
         <TextNode>
-          <Text>{skill.title}</Text>
+          {color === 'default' ? (
+            <Text>{skill.title}</Text>
+          ) : (
+            <AlternativeText selected={currentState === SELECTED_STATE}>
+              {skill.title}
+            </AlternativeText>
+          )}
         </TextNode>
       )}
     </StyledNode>
@@ -126,7 +139,10 @@ const StyledNode = styled.div<StyledNodeProps>`
     props.selected &&
     css`
       animation: ${shadowburst} 1s 1;
-      background: ${({ theme }) => theme.nodeActiveBackgroundColor};
+      background: ${({ theme }) =>
+        props.color === 'default'
+          ? theme.nodeActiveBackgroundColor
+          : theme.nodeAlternativeActiveBackgroundColor};
     `}
 
   ${props =>
@@ -221,4 +237,14 @@ const Text = styled.p`
   @media (min-width: 900px) {
     font-size: ${({ theme }) => theme.nodeDesktopFontSize};
   }
+`;
+
+const AlternativeText = styled(Text)<TextProp>`
+  color: ${({ theme }) => theme.nodeAlternativeFontColor};
+
+  ${props =>
+    props.selected &&
+    css`
+      color: ${({ theme }) => theme.nodeAltenativeActiveFontColor};
+    `};
 `;

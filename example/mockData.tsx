@@ -67,6 +67,7 @@ export const legsPushData: SkillType[] = [
                   {
                     id: 'ass-pistol-squat',
                     title: 'Pistol Squat (Assisted)',
+                    color: 'alternative',
                     tooltip: {
                       content: <DummyVideo />,
                     },
