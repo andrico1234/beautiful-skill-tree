@@ -141,8 +141,8 @@ const StyledNode = styled.div<StyledNodeProps>`
       animation: ${shadowburst} 1s 1;
       background: ${({ theme }) =>
         props.color === 'default'
-          ? theme.nodeAlternativeActiveBackgroundColor
-          : theme.nodeActiveBackgroundColor};
+          ? theme.nodeActiveBackgroundColor
+          : theme.nodeAlternativeActiveBackgroundColor};
     `}
 
   ${props =>

@@ -30,6 +30,7 @@ const simpleData: SkillType[] = [
         children: [
           {
             id: 'javascript-basics',
+            color: 'alternative',
             title: 'javascript basics',
             tooltip: {
               content: 'adding interactivity',
@@ -531,6 +532,22 @@ describe('SkillTreeGroup component', () => {
       const htmlNode = getByTestId('html');
 
       expect(htmlNode).toHaveStyleRule('background', 'grey');
+    });
+
+    it('should correctly display the alternative components', () => {
+      const { getByTestId, getByText } = renderComponent([], mockTheme);
+      const javascriptNode = getByTestId('javascript-basics');
+      const javascriptText = getByText('javascript basics');
+
+      expect(javascriptNode).toHaveStyleRule('background', 'grey');
+      expect(javascriptText).toHaveStyleRule('color', '#F7B538');
+
+      fireEvent.click(getByTestId('html'));
+      fireEvent.click(getByTestId('css'));
+      fireEvent.click(javascriptNode);
+
+      expect(javascriptNode).toHaveStyleRule('background', 'blue');
+      expect(javascriptText).toHaveStyleRule('color', 'white');
     });
   });
 
