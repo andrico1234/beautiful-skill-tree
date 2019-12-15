@@ -47,8 +47,8 @@ const StyleSkillTreeGroup = styled.div`
   flex-wrap: wrap;
   font-family: ${({ theme }) => theme.primaryFont};
   color: ${({ theme }) => theme.primaryFontColor};
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   justify-content: center;
   margin: 0 0 48px;
   min-width: fit-content;
