@@ -87,7 +87,11 @@ export const legsPushData: SkillType[] = [
               },
               {
                 id: 'split-squat',
-                title: 'Split Squat',
+                title: (
+                  <a href="https://en.wikipedia.org/wiki/Squat">
+                    'Split Squat'
+                  </a>
+                ),
                 tooltip: {
                   content: lorem,
                 },

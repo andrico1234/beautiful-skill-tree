@@ -16,6 +16,10 @@ function createSkillsTreeMap(treeId: string, skills: Skill[]) {
         addSkillToMap(skill.children);
       }
 
+      console.log(typeof skill.title);
+
+      console.log(skill.title.toString());
+
       skillsTreeMap[skill.title.toLowerCase()] = treeId;
     });
   }

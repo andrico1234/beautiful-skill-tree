@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 type Props = {
   content: React.ReactNode;
-  title: string;
+  title: JSX.Element | string;
 };
 
 const TooltipContent = React.memo(function({ content, title }: Props) {

@@ -10,7 +10,7 @@ import 'tippy.js/animations/shift-away.css';
 
 interface Props {
   children: React.ReactElement;
-  title: string;
+  title: JSX.Element | string;
   tooltip: Tooltip;
 }
 

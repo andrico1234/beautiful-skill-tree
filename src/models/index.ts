@@ -47,7 +47,7 @@ interface BaseSkill {
   id: string;
   optional?: boolean;
   color?: 'default' | 'alternative';
-  title: string;
+  title: JSX.Element | string;
   tooltip: Tooltip;
   children: Skill[];
 }
