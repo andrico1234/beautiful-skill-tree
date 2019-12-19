@@ -13,6 +13,7 @@ const defaultTheme = {
   headingHoverColorTransition: 'background 0.3s ease-out',
   tooltipBackgroundColor: 'white',
   tooltipFontColor: '#16181c',
+  tooltipZIndex: 99999,
   nodeBackgroundColor: '#282c34',
   nodeBorderColor: 'white',
   nodeAlternativeFontColor: 'white',

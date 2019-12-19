@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import styled, { BaseThemedCssFunction } from 'styled-components';
+import React, { useCallback, useContext } from 'react';
+import styled, { BaseThemedCssFunction, ThemeContext } from 'styled-components';
 import SkillCountSubtitle from './SkillCountSubtitle';
 import { SkillTheme } from '../theme';
 import Tippy from '@tippy.js/react';
@@ -26,6 +26,7 @@ interface CollapsibleContainerProps {
 
 function SkillTreeHeader(props: Props) {
   const { handleClick, collapsible, isVisible, id, title, description } = props;
+  const { tooltipZIndex } = useContext<SkillTheme>(ThemeContext);
 
   const memoizedHandleKeyDown = useCallback(
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -49,7 +50,7 @@ function SkillTreeHeader(props: Props) {
         </HeaderCaret>
         <SkillTreeTitle id={id}>{title}</SkillTreeTitle>
         {description && (
-          <StyledTippy content={description}>
+          <StyledTippy zIndex={tooltipZIndex} content={description}>
             <InfoIcon>ⓘ</InfoIcon>
           </StyledTippy>
         )}

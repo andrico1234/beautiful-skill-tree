@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TooltipContent from './TooltipContent';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import Tippy from '@tippy.js/react';
 import { Tooltip } from '../../models';
 import useMobile from '../../hooks/useMobile';
 
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/shift-away.css';
+import { SkillTheme } from 'theme';
 
 interface Props {
   children: React.ReactElement;
@@ -17,6 +18,7 @@ interface Props {
 function Tooltip(props: Props) {
   const { children, tooltip, title } = props;
   const { direction = 'top', content } = tooltip;
+  const { tooltipZIndex } = useContext<SkillTheme>(ThemeContext);
   const isMobile = useMobile();
 
   const placement = React.useMemo(() => (isMobile ? 'top' : direction), [
@@ -37,6 +39,7 @@ function Tooltip(props: Props) {
       arrow={false}
       appendTo={document.body}
       touch="hold"
+      zIndex={tooltipZIndex}
       content={memoizedContent}
     >
       {children}
