@@ -43,6 +43,17 @@ const simpleData: SkillType[] = [
   },
 ];
 
+const simpleDataTwo: SkillType[] = [
+  {
+    id: 'hidden-by-default',
+    title: 'hidden',
+    tooltip: {
+      content: 'all the props',
+    },
+    children: [],
+  },
+];
+
 const complexData: SkillType[] = [
   {
     id: 'languages',
@@ -180,6 +191,12 @@ function renderComponent(
                 title="Backend"
                 data={secondarySkillTree}
               />
+              <SkillTree
+                treeId="third"
+                title="Hidden by default"
+                data={simpleDataTwo}
+                closedByDefault
+              />
             </React.Fragment>
           );
         }}
@@ -207,7 +224,7 @@ describe('SkillTreeGroup component', () => {
       expect(queryByText('Backend')).toBeTruthy();
 
       expect(getByTestId('selected-count')).toHaveTextContent('0');
-      expect(getByTestId('total-count')).toHaveTextContent('3');
+      expect(getByTestId('total-count')).toHaveTextContent('4');
 
       expect(getByTestId('html')).toHaveStyleRule(
         'box-shadow',
@@ -338,22 +355,22 @@ describe('SkillTreeGroup component', () => {
       const totalCount = getByTestId('total-count');
 
       expect(selectedCount).toHaveTextContent('0');
-      expect(totalCount).toHaveTextContent('3');
+      expect(totalCount).toHaveTextContent('4');
 
       fireEvent.click(htmlNode);
 
       expect(selectedCount).toHaveTextContent('1');
-      expect(totalCount).toHaveTextContent('3');
+      expect(totalCount).toHaveTextContent('4');
 
       fireEvent.click(cssNode);
 
       expect(selectedCount).toHaveTextContent('2');
-      expect(totalCount).toHaveTextContent('3');
+      expect(totalCount).toHaveTextContent('4');
 
       fireEvent.click(cssNode);
 
       expect(selectedCount).toHaveTextContent('1');
-      expect(totalCount).toHaveTextContent('3');
+      expect(totalCount).toHaveTextContent('4');
     });
 
     it('should not select a locked node', () => {
@@ -433,7 +450,7 @@ describe('SkillTreeGroup component', () => {
       expect(queryByText('Backend')).toBeTruthy();
 
       expect(getByTestId('selected-count')).toHaveTextContent('0');
-      expect(getByTestId('total-count')).toHaveTextContent('10');
+      expect(getByTestId('total-count')).toHaveTextContent('11');
 
       expect(getByTestId('languages')).toHaveStyleRule(
         'box-shadow',
@@ -565,6 +582,14 @@ describe('SkillTreeGroup component', () => {
           value: 'ppppa',
         },
       });
+
+      expect(visibilityContainer).toHaveStyle('opacity: 0');
+    });
+
+    it('should not display the tree by default when the correct prop is passed through', () => {
+      const { getAllByTestId } = renderComponent([]);
+
+      const [, , visibilityContainer] = getAllByTestId('visibility-container');
 
       expect(visibilityContainer).toHaveStyle('opacity: 0');
     });

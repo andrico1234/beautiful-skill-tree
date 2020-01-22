@@ -67,7 +67,7 @@ const data: SkillType[] = [];
       />
     )}
   </SkillTreeGroup>
-</SkillProvider>
+</SkillProvider>;
 ```
 
 Or, if you are coding in ES6, here's the code:
@@ -164,6 +164,8 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### collapsible: `boolean` [*optional*]
 
+#### closedByDefault `boolean` [*optional*]
+
 #### description: `string` [*optional*]
 
 #### savedData: `SavedDataType` [*optional*]
@@ -236,6 +238,8 @@ The `<SkillTreeGroup />` component exposes the `handleFilter()` method which can
   placeholder="Filter through trees..."
 />
 ```
+
+The `closedByDefault` prop can also be passed through to the skill tree to ensure that the tree isn't open by default.
 
 ### Custom Themes
 

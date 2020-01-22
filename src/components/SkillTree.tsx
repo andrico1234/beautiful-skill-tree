@@ -19,6 +19,7 @@ export interface Props {
   title: string;
   description?: string;
   collapsible?: boolean;
+  closedByDefault?: boolean;
   savedData?: SavedDataType;
   handleSave?: (
     storage: ContextStorage,
@@ -39,13 +40,14 @@ function SkillTree({
   data,
   title,
   description,
+  closedByDefault,
   treeId,
   savedData,
   handleSave,
   collapsible = false,
 }: Props) {
   const isMobile = useMobile();
-  const [isVisible, setVisibility] = useState(true);
+  const [isVisible, setVisibility] = useState(!closedByDefault ? true : false);
 
   const memoizedToggleVisibility = useCallback(
     function toggleVisibility() {
