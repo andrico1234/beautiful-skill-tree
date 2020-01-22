@@ -1,20 +1,20 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-// import {
-//   SkillTree,
-//   SkillTreeGroup,
-//   SkillProvider,
-//   SkillGroupDataType,
-//   SavedDataType,
-// } from '../src';
 import {
   SkillTree,
   SkillTreeGroup,
   SkillProvider,
   SkillGroupDataType,
   SavedDataType,
-} from '../dist/index';
+} from '../src';
+// import {
+//   SkillTree,
+//   SkillTreeGroup,
+//   SkillProvider,
+//   SkillGroupDataType,
+//   SavedDataType,
+// } from '../dist/index';
 import './index.css';
 import { legsPushData, legsPullData, hpSavedData } from './mockData';
 import { ContextStorage } from '../src/models';
