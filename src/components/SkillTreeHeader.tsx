@@ -108,8 +108,10 @@ const StyledTippy = styled(Tippy)`
 `;
 
 const InfoIcon = styled.span`
-  bottom: 0;
+  bottom: -8px;
   right: 8px;
+  padding: 8px;
+  font-size: 20px;
   position: absolute;
 `;
 
