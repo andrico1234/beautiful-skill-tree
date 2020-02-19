@@ -11,13 +11,13 @@
   ],
   "scripts": {
     "analyze": "yarn build && source-map-explorer ./dist/*.js",
+    "release": "yarn build && np",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
     "test:watch": "tsdx test --env=jsdom --watchAll",
     "test:ci": "yarn test --coverage --no-watch --watch=false --watchAll=false --no-watchman --forceExit --detectOpenHandles",
-    "pre-commit": "pretty-quick --staged && yarn test:ci && yarn build",
-    "release": "yarn build && np"
+    "pre-commit": "pretty-quick --staged && yarn test:ci && yarn build"
   },
   "np": {
     "cleanup": true
@@ -32,7 +32,7 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://registry.npmjs.org"
   },
   "prettier": {
     "printWidth": 80,
