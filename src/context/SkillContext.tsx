@@ -6,6 +6,7 @@ import {
   Action,
   SavedDataType,
   SkillData,
+  NodeSelectEvent,
 } from '../models';
 import AppContext, { IAppContext } from './AppContext';
 import { SELECTED_STATE, LOCKED_STATE } from '../components/constants';
@@ -22,6 +23,7 @@ type DefaultProps = {
     id: string,
     skills: SavedDataType
   ) => void;
+  sendNodeSelectDataToClient: (e: NodeSelectEvent) => void;
 };
 
 interface State {
@@ -41,6 +43,7 @@ export interface ISkillContext {
     optional?: boolean
   ) => void;
   setSkillCount: (skillCount: number) => void;
+  handleNodeSelect: (key: string, state: NodeState) => void;
   incrementSelectedCount: VoidFunction;
   decrementSelectedCount: VoidFunction;
 }
@@ -51,6 +54,7 @@ const SkillContext = React.createContext<ISkillContext>({
   skillCount: 0,
   updateSkillState: () => undefined,
   setSkillCount: () => undefined,
+  handleNodeSelect: () => undefined,
   incrementSelectedCount: () => undefined,
   decrementSelectedCount: () => undefined,
 });
@@ -60,6 +64,9 @@ export class SkillTreeProvider extends React.Component<Props, State> {
   static defaultProps: DefaultProps = {
     handleSave(storage, treeId, skills) {
       return storage.setItem(`skills-${treeId}`, JSON.stringify(skills));
+    },
+    sendNodeSelectDataToClient() {
+      return null;
     },
   };
 
@@ -171,6 +178,10 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     });
   };
 
+  handleNodeSelect = (key: string, state: NodeState) => {
+    return this.props.sendNodeSelectDataToClient({ key, state });
+  };
+
   updateSkillState = (
     key: string,
     updatedState: NodeState,
@@ -204,6 +215,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
           skillCount: this.state.skillCount,
           updateSkillState: this.updateSkillState,
           setSkillCount: this.setSkillCount,
+          handleNodeSelect: this.handleNodeSelect,
           incrementSelectedCount: this.incrementSelectedCount,
           decrementSelectedCount: this.decrementSelectedCount,
         }}

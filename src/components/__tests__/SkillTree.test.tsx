@@ -163,6 +163,31 @@ describe('SkillTree', () => {
     });
   });
 
+  it('should fire the custom clickHandler', () => {
+    const handleNodeSelect = jest.fn();
+
+    const { getByTestId } = renderComponent({
+      ...defaultProps,
+      handleNodeSelect,
+    });
+
+    const topNode = getByTestId('item-one');
+
+    fireEvent.click(topNode);
+
+    expect(handleNodeSelect).toHaveBeenCalledWith({
+      key: 'item-one',
+      state: 'selected',
+    });
+
+    fireEvent.click(topNode);
+
+    expect(handleNodeSelect).toHaveBeenCalledWith({
+      key: 'item-one',
+      state: 'unlocked',
+    });
+  });
+
   it('on sequential clicks should select all nodes', async () => {
     const { getByTestId, getSelectedSkillCount } = renderComponent(
       defaultProps

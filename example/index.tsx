@@ -14,6 +14,7 @@ import {
   SkillProvider,
   SkillGroupDataType,
   SavedDataType,
+  NodeSelectEvent,
 } from '../dist/index';
 import './index.css';
 import { legsPushData, legsPullData, hpSavedData } from './mockData';
@@ -26,6 +27,11 @@ function handleSave(
   skills: SavedDataType
 ) {
   return storage.setItem(`skills-${treeId}`, JSON.stringify(skills));
+}
+
+function handleNodeSelect(e: NodeSelectEvent) {
+  console.log('selected node - ', e.key);
+  console.log('new state - ', e.state);
 }
 
 const App = () => {
@@ -73,6 +79,7 @@ const App = () => {
               <SkillTree
                 closedByDefault
                 treeId="sp"
+                handleNodeSelect={handleNodeSelect}
                 title="Squat Progression"
                 description="These are the progressions for squats"
                 data={legsPushData}
@@ -80,6 +87,7 @@ const App = () => {
               />
               <SkillTree
                 treeId="hp"
+                handleNodeSelect={handleNodeSelect}
                 title="Hinge Progression"
                 data={legsPullData}
                 savedData={hpSavedData}

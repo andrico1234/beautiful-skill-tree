@@ -1,5 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { Skill, SavedDataType, ContextStorage } from '../models';
+import {
+  Skill,
+  SavedDataType,
+  ContextStorage,
+  NodeSelectEvent,
+} from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
 import CalculateNodeCount from './CalculateNodeCount';
@@ -26,6 +31,7 @@ export interface Props {
     treeId: string,
     skills: SavedDataType
   ) => void;
+  handleNodeSelect?: (e: NodeSelectEvent) => void;
 }
 
 interface CollapsibleContainerProps {
@@ -44,6 +50,7 @@ function SkillTree({
   treeId,
   savedData,
   handleSave,
+  handleNodeSelect,
   collapsible = false,
 }: Props) {
   const isMobile = useMobile();
@@ -70,6 +77,7 @@ function SkillTree({
         treeId={treeId}
         savedData={savedData}
         handleSave={handleSave}
+        sendNodeSelectDataToClient={handleNodeSelect}
       >
         <CalculateNodeCount data={data} />
         <SkillTreeContainer>

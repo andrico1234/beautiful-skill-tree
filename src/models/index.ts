@@ -62,3 +62,8 @@ export interface ContextStorage {
   getItem: (key: string) => Nullable<string>;
   setItem: (key: string, value: string) => void;
 }
+
+export interface NodeSelectEvent {
+  key: string;
+  state: NodeState;
+}

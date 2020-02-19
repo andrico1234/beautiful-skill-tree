@@ -27,6 +27,7 @@ This package uses [tsdx](https://github.com/jaredpalmer/tsdx) and [np](https://g
 
 - [Calisthenics Progressions](https://calisthenicsskills.com/)
 - [Borderlands Skill Tree](http://borderlands-skill-tree.s3-website.eu-west-2.amazonaws.com/)
+- [Applying Skill Trees to Education/Business/Sports](https://skilltree-b6bba.firebaseapp.com/about)
 
 ## Getting started
 
@@ -172,6 +173,8 @@ Unfortunately there aren't any React packages that enable us developers to easil
 
 #### handleSave: `(context: ContextStorage, treeId: string, skills: SkillType) => void` [*optional*]
 
+#### handleNodeSelect: `(event: NodeSelectEvent) => void` [*optional*]
+
 ### SkillTreeGroup
 
 #### theme: `SkillThemeType` [*optional*]
@@ -220,6 +223,15 @@ type SavedDataType = {
     optional: boolean;
     nodeState: 'selected' | 'unlocked' | 'locked';
   };
+};
+```
+
+### NodeSelectEvent
+
+```tsx
+type NodeSelectEvent = {
+  key: string;
+  state: 'selected' | 'unlocked' | 'locked';
 };
 ```
 

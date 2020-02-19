@@ -71,7 +71,7 @@ const StyledSkillTreeHeader = styled.div<CollapsibleContainerProps>`
       border-radius: ${({ theme }) => theme.borderRadius};
       cursor: pointer;
       min-width: 300px;
-      transition: ${({ theme }) => theme.headingHoverColorTransition}
+      transition: ${({ theme }) => theme.headingHoverColorTransition};
       user-select: none;
 
       &:hover {
@@ -81,9 +81,10 @@ const StyledSkillTreeHeader = styled.div<CollapsibleContainerProps>`
 `;
 
 const HeaderCaret = styled.span<HeaderCaretProps>`
+  color: ${({ theme }) => theme.headingFontColor};
   display: ${({ isCollapsible }) => (isCollapsible ? 'inline' : 'none')};
   font-family: ${({ theme }) => theme.headingFont};
-  font-size: 1.5em;
+  font-size: ${({ theme }) => theme.headingFontSize};
   left: 8px;
   position: absolute;
   transform: rotate(90deg);
