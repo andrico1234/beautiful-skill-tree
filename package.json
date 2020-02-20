@@ -20,7 +20,7 @@
     "pre-commit": "pretty-quick --staged && yarn test:ci && yarn build"
   },
   "np": {
-    "cleanup": true
+    "cleanup": false
   },
   "peerDependencies": {
     "react": ">=16",
