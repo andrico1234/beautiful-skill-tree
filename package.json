@@ -19,9 +19,6 @@
     "test:ci": "yarn test --coverage --no-watch --watch=false --watchAll=false --no-watchman --forceExit --detectOpenHandles",
     "pre-commit": "pretty-quick --staged && yarn test:ci && yarn build"
   },
-  "np": {
-    "cleanup": false
-  },
   "peerDependencies": {
     "react": ">=16",
     "styled-components": ">=5"
