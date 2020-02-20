@@ -6,13 +6,11 @@ function SkillCountSubtitle() {
   const { skillCount } = useContext(SkillContext);
 
   return (
-    <StyledSkillCountSubtitle style={{ marginTop: 0, textAlign: 'center' }}>
-      {skillCount} skills
-    </StyledSkillCountSubtitle>
+    <StyledSkillCountSubtitle>{skillCount} skills</StyledSkillCountSubtitle>
   );
 }
 
-const StyledSkillCountSubtitle = styled.div`
+const StyledSkillCountSubtitle = styled.p`
   font-family: ${({ theme }) => theme.headingFont};
   margin-top: 0;
   text-align: center;
