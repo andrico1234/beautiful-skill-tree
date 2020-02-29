@@ -438,27 +438,6 @@ describe('SkillTree', () => {
     });
   });
 
-  describe('Description', () => {
-    it('should not display info icon if no description is passed through', () => {
-      const { queryByText } = renderComponent(defaultProps);
-
-      expect(queryByText('ⓘ')).toBeNull();
-    });
-
-    it('should display on hover', () => {
-      const props = {
-        ...defaultProps,
-        description: 'this is the description boys',
-      };
-
-      const { getByText } = renderComponent(props);
-
-      const infoIcon = getByText('ⓘ');
-
-      expect(infoIcon).toBeTruthy();
-    });
-  });
-
   describe('resizing', () => {
     function fireResize(width: number) {
       // @ts-ignore

@@ -17,7 +17,7 @@ interface Props {
   nodeState: NodeState;
   incSkillCount: (optional?: boolean) => void;
   decSkillCount: (optional?: boolean) => void;
-  handleNodeSelect: (key: string, state: NodeState) => void;
+  handleNodeSelect?: (key: string, state: NodeState) => void;
   updateSkillState: (
     key: string,
     updatedState: NodeState,
