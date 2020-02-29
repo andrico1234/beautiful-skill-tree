@@ -80,7 +80,7 @@ function SkillTree({
         sendNodeSelectDataToClient={handleNodeSelect}
       >
         <CalculateNodeCount data={data} />
-        <SkillTreeContainer>
+        <SkillTreeContainer isVisible={isVisible}>
           <SkillTreeHeader
             isVisible={isVisible}
             handleClick={memoizedToggleVisibility}
@@ -120,10 +120,16 @@ function SkillTree({
 
 export default SkillTree;
 
-const SkillTreeContainer = styled.div`
+const SkillTreeContainer = styled.div<VisibilityContainerProps>`
   background-color: ${({ theme }) => theme.backgroundColor};
   margin: 0 8px 48px;
-  min-width: 280px;
+  min-width: 304px;
+
+  ${({ isVisible }) =>
+    !isVisible &&
+    css`
+      width: 304px;
+    `}
 
   @media (min-width: 900px) {
     margin: 0 8px 16px;
@@ -147,18 +153,22 @@ const StyledSkillTree = styled.div<CollapsibleContainerProps>`
 
 const VisibilityContainer = styled.div<VisibilityContainerProps>`
   transition: transform 0.15s ease-out, opacity 0.15s ease-out,
-    max-height 0.15s ease-out;
+    max-height 0.15s ease-out, visibility 0.15s ease-out;
   height: auto;
   max-height: 10000px;
   opacity: 1;
   overflow: hidden;
+  visibility: visible;
   transform: scaleY(1);
   transform-origin: top;
 
   ${({ isVisible }) =>
     !isVisible &&
     css`
+      transition: transform 0.15s ease-out, opacity 0.15s ease-out,
+        max-height 0.15s ease-out, visibility 0.15s 0.15s ease-out;
       transform: scaleY(0);
+      visibility: hidden;
       max-height: 0;
       opacity: 0;
     `}

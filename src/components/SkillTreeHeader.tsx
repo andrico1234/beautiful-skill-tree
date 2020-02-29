@@ -38,25 +38,26 @@ function SkillTreeHeader(props: Props) {
   );
 
   return (
-    <StyledSkillTreeHeader
-      tabIndex={0}
-      onKeyDown={memoizedHandleKeyDown}
-      onClick={handleClick}
-      isCollapsible={collapsible}
+    <StyledTippy
+      zIndex={tooltipZIndex}
+      enabled={Boolean(description)}
+      content={description || ''}
     >
-      <div style={{ position: 'relative' }}>
-        <HeaderCaret isCollapsible={collapsible} isVisible={isVisible}>
-          ▲
-        </HeaderCaret>
-        <SkillTreeTitle id={id}>{title}</SkillTreeTitle>
-        {description && (
-          <StyledTippy zIndex={tooltipZIndex} content={description}>
-            <InfoIcon>ⓘ</InfoIcon>
-          </StyledTippy>
-        )}
-      </div>
-      <SkillCountSubtitle />
-    </StyledSkillTreeHeader>
+      <StyledSkillTreeHeader
+        tabIndex={0}
+        onKeyDown={memoizedHandleKeyDown}
+        onClick={handleClick}
+        isCollapsible={collapsible}
+      >
+        <div style={{ position: 'relative' }}>
+          <HeaderCaret isCollapsible={collapsible} isVisible={isVisible}>
+            ▲
+          </HeaderCaret>
+          <SkillTreeTitle id={id}>{title}</SkillTreeTitle>
+        </div>
+        <SkillCountSubtitle />
+      </StyledSkillTreeHeader>
+    </StyledTippy>
   );
 }
 
@@ -106,14 +107,6 @@ const StyledTippy = styled(Tippy)`
       border-top-color: ${({ theme }) => theme.tooltipBackgroundColor};
     }
   }
-`;
-
-const InfoIcon = styled.span`
-  bottom: -8px;
-  right: 8px;
-  padding: 8px;
-  font-size: 20px;
-  position: absolute;
 `;
 
 const SkillTreeTitle = styled.h2`
