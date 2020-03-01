@@ -1,5 +1,5 @@
 import * as React from 'react';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { SkillCount, Action } from '../models';
 import reducer from './appContextReducer';
 

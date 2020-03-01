@@ -7,16 +7,14 @@ import {
 } from '../models';
 import SkillTreeSegment from './SkillTreeSegment';
 import HSeparator from './ui/HSeparator';
+import VisibilityContainer from './VisibilityContainer';
 import CalculateNodeCount from './CalculateNodeCount';
 import { SkillTreeProvider } from '../context/SkillContext';
-import styled, { BaseThemedCssFunction } from 'styled-components';
-import { SkillTheme } from '../theme';
+import styled from 'styled-components';
 import SkillTreeHeader from './SkillTreeHeader';
 import AddToFilterIndex from './filter/AddToFilterIndex';
 import FilterListener from './filter/FilterListener';
 import useMobile from '../hooks/useMobile';
-
-const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
 export interface Props {
   treeId: string;
@@ -36,10 +34,6 @@ export interface Props {
 
 interface CollapsibleContainerProps {
   isCollapsible: boolean;
-}
-
-interface VisibilityContainerProps {
-  isVisible: boolean;
 }
 
 function SkillTree({
@@ -80,7 +74,7 @@ function SkillTree({
         sendNodeSelectDataToClient={handleNodeSelect}
       >
         <CalculateNodeCount data={data} />
-        <SkillTreeContainer isVisible={isVisible}>
+        <SkillTreeContainer>
           <SkillTreeHeader
             isVisible={isVisible}
             handleClick={memoizedToggleVisibility}
@@ -89,10 +83,7 @@ function SkillTree({
             description={description}
             title={title}
           />
-          <VisibilityContainer
-            data-testid="visibility-container"
-            isVisible={isVisible}
-          >
+          <VisibilityContainer isVisible={isVisible}>
             <StyledSkillTree isCollapsible={collapsible}>
               {data.map((skill, i) => {
                 const displaySeparator = data.length - 1 !== i && isMobile;
@@ -120,16 +111,10 @@ function SkillTree({
 
 export default SkillTree;
 
-const SkillTreeContainer = styled.div<VisibilityContainerProps>`
+const SkillTreeContainer = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
   margin: 0 8px 48px;
   min-width: 304px;
-
-  ${({ isVisible }) =>
-    !isVisible &&
-    css`
-      width: 304px;
-    `}
 
   @media (min-width: 900px) {
     margin: 0 8px 16px;
@@ -149,27 +134,4 @@ const StyledSkillTree = styled.div<CollapsibleContainerProps>`
   @media (min-width: 1200px) {
     flex-direction: row;
   }
-`;
-
-const VisibilityContainer = styled.div<VisibilityContainerProps>`
-  transition: transform 0.15s ease-out, opacity 0.15s ease-out,
-    max-height 0.15s ease-out, visibility 0.15s ease-out;
-  height: auto;
-  max-height: 10000px;
-  opacity: 1;
-  overflow: hidden;
-  visibility: visible;
-  transform: scaleY(1);
-  transform-origin: top;
-
-  ${({ isVisible }) =>
-    !isVisible &&
-    css`
-      transition: transform 0.15s ease-out, opacity 0.15s ease-out,
-        max-height 0.15s ease-out, visibility 0.15s 0.15s ease-out;
-      transform: scaleY(0);
-      visibility: hidden;
-      max-height: 0;
-      opacity: 0;
-    `}
 `;

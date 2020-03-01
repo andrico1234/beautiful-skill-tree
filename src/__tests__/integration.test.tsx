@@ -189,6 +189,7 @@ function renderComponent(
               <SkillTree
                 treeId="be"
                 title="Backend"
+                closedByDefault={false}
                 data={secondarySkillTree}
               />
               <SkillTree
@@ -587,11 +588,13 @@ describe('SkillTreeGroup component', () => {
     });
 
     it('should not display the tree by default when the correct prop is passed through', () => {
-      const { getAllByTestId } = renderComponent([]);
+      const { queryAllByTestId } = renderComponent([]);
 
-      const [, , visibilityContainer] = getAllByTestId('visibility-container');
+      const [, , visibilityContainer] = queryAllByTestId(
+        'visibility-container'
+      );
 
-      expect(visibilityContainer).toHaveStyle('opacity: 0');
+      expect(visibilityContainer).toBeFalsy();
     });
 
     it('should display the tree if the query contains a matching skillid', () => {
