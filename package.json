@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "analyze": "yarn build && source-map-explorer ./dist/*.js",
-    "release": "yarn build && np",
+    "release": "yarn build && npm publish",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
