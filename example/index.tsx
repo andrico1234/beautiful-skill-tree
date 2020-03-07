@@ -97,7 +97,9 @@ const App = () => {
                 title={
                   <>
                     <span>Pull Up Progression</span>
-                    <span style={{ position: 'absolute' }}>ⓘ</span>
+                    <span style={{ position: 'absolute', right: '8px' }}>
+                      ⓘ
+                    </span>
                   </>
                 }
                 description="These are the progressions for pullups"
