@@ -29,6 +29,7 @@ type DefaultProps = {
 interface State {
   skills: SavedDataType;
   skillCount: number;
+  selectedCount: number;
   resetId: string;
   mounting: boolean;
 }
@@ -37,6 +38,7 @@ export interface ISkillContext {
   mounting: boolean;
   skills: SavedDataType;
   skillCount: number;
+  selectedCount: number;
   updateSkillState: (
     key: string,
     updatedState: NodeState,
@@ -52,6 +54,7 @@ const SkillContext = React.createContext<ISkillContext>({
   mounting: true,
   skills: {},
   skillCount: 0,
+  selectedCount: 0,
   updateSkillState: () => undefined,
   setSkillCount: () => undefined,
   handleNodeSelect: () => undefined,
@@ -78,6 +81,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     this.state = {
       skills: {},
       skillCount: 0,
+      selectedCount: 0,
       resetId: context.resetId,
       mounting: true,
     };
@@ -94,9 +98,11 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     }
 
     const treeSkills = this.getTreeSkills();
+    let selectedCount = 0;
 
     Object.keys(treeSkills).map(key => {
       if (treeSkills[key].nodeState === SELECTED_STATE) {
+        selectedCount++;
         const action: Action = {
           type: treeSkills[key].optional
             ? 'SELECT_OPTIONAL_SKILL'
@@ -109,6 +115,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
 
     this.setState({
       skills: treeSkills,
+      selectedCount,
       mounting: false,
     });
 
@@ -142,6 +149,11 @@ export class SkillTreeProvider extends React.Component<Props, State> {
       type: optional ? 'SELECT_OPTIONAL_SKILL' : 'SELECT_REQUIRED_SKILL',
     };
 
+    this.setState(prevState => {
+      const { selectedCount } = prevState;
+      return { selectedCount: selectedCount + 1 };
+    });
+
     this.context.dispatch(action);
   };
 
@@ -149,6 +161,11 @@ export class SkillTreeProvider extends React.Component<Props, State> {
     const action: Action = {
       type: optional ? 'DESELECT_OPTIONAL_SKILL' : 'DESELECT_REQUIRED_SKILL',
     };
+
+    this.setState(prevState => {
+      const { selectedCount } = prevState;
+      return { selectedCount: selectedCount - 1 };
+    });
 
     this.context.dispatch(action);
   };
@@ -213,6 +230,7 @@ export class SkillTreeProvider extends React.Component<Props, State> {
           mounting: this.state.mounting,
           skills: this.state.skills,
           skillCount: this.state.skillCount,
+          selectedCount: this.state.selectedCount,
           updateSkillState: this.updateSkillState,
           setSkillCount: this.setSkillCount,
           handleNodeSelect: this.handleNodeSelect,

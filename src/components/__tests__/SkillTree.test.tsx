@@ -215,6 +215,28 @@ describe('SkillTree', () => {
     });
   });
 
+  it('should correctly display the correct completion percentage', () => {
+    const { getByTestId, queryByText } = renderComponent(defaultProps);
+
+    const topNode = getByTestId('item-one');
+    const middleNode = getByTestId('item-two');
+    const bottomNode = getByTestId('item-three');
+
+    expect(queryByText(/0%/)).toBeTruthy();
+
+    fireEvent.click(topNode);
+
+    expect(queryByText(/25%/)).toBeTruthy();
+
+    fireEvent.click(middleNode);
+
+    expect(queryByText(/50%/)).toBeTruthy();
+
+    fireEvent.click(bottomNode);
+
+    expect(queryByText(/75%/)).toBeTruthy();
+  });
+
   it('on disabled click no selected a node', () => {
     const { getByTestId, getSelectedSkillCount } = renderComponent(
       defaultProps

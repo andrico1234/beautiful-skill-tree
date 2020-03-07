@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { BaseThemedCssFunction } from 'styled-components';
+import { SkillTheme } from 'theme';
+
+const css: BaseThemedCssFunction<SkillTheme> = require('styled-components').css;
 
 interface VisibilityContainerProps {
   isVisible: boolean;
