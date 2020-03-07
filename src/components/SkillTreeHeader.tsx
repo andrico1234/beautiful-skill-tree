@@ -11,7 +11,7 @@ interface Props {
   collapsible: boolean;
   isVisible: boolean;
   id: string;
-  title: string;
+  title: React.ReactNode | string;
   description?: string;
 }
 

@@ -250,3 +250,33 @@ export const legsPullData: SkillType[] = [
     ],
   },
 ];
+
+export const pushUpData: SkillType[] = [
+  {
+    id: 'ipu',
+    title: 'Incline Push Up',
+    tooltip: {
+      content: 'hi',
+    },
+    children: [
+      {
+        id: 'pu',
+        color: 'alternative',
+        title: 'Push Up',
+        tooltip: {
+          content: 'hii',
+        },
+        children: [
+          {
+            id: 'dpu',
+            title: 'Diamond Push Up',
+            tooltip: {
+              content: 'hi',
+            },
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+];

@@ -19,7 +19,7 @@ import useMobile from '../hooks/useMobile';
 export interface Props {
   treeId: string;
   data: Skill[];
-  title: string;
+  title: React.ReactNode | string;
   description?: string;
   collapsible?: boolean;
   closedByDefault?: boolean;

@@ -17,7 +17,12 @@ import {
   NodeSelectEvent,
 } from '../dist/index';
 import './index.css';
-import { legsPushData, legsPullData, hpSavedData } from './mockData';
+import {
+  legsPushData,
+  legsPullData,
+  hpSavedData,
+  pushUpData,
+} from './mockData';
 import { ContextStorage } from '../src/models';
 import FilterInput from './components/FIlterInput';
 
@@ -83,6 +88,20 @@ const App = () => {
                 title="Squat Progression"
                 description="These are the progressions for squats"
                 data={legsPushData}
+                collapsible
+              />
+              <SkillTree
+                closedByDefault
+                treeId="pu"
+                handleNodeSelect={handleNodeSelect}
+                title={
+                  <>
+                    <span>Pull Up Progression</span>
+                    <span style={{ position: 'absolute' }}>ⓘ</span>
+                  </>
+                }
+                description="These are the progressions for pullups"
+                data={pushUpData}
                 collapsible
               />
               <SkillTree
