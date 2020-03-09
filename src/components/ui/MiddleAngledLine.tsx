@@ -44,17 +44,13 @@ const AngledLineHoriztonal = styled(StyledAngledLine)<
   top: 24px;
   left: 50%;
   width: ${props => props.width}px;
+  transform: translateX(3px) scale(-1);
 
-  ${props =>
-    props.direction === 'left' &&
-    `
-      transform: translateX(3px) scale(-1);
-  `}
   ${props =>
     props.direction === 'right' &&
     `
-      transform: translateX(-105%);
-      transform-origin: 0 0;
+      transform: translateX(-3px) scale(-1);
+      transform-origin: 0;
   `}
 
   ${props =>

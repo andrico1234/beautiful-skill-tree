@@ -280,3 +280,218 @@ export const pushUpData: SkillType[] = [
     ],
   },
 ];
+
+export const webDevData = [
+  {
+    id: 'Computer Science',
+    title: 'Computer Science',
+    tooltip: { content: 'Basic of computer science' },
+    icon: SquatIcon,
+    children: [
+      {
+        id: 'HTML',
+        title: 'HTML',
+        tooltip: {
+          content:
+            'HTML basics, Forms and Validations, Conventions and Best Practices',
+        },
+        children: [
+          {
+            id: 'HTML advanced',
+            title: 'HTML advanced',
+            tooltip: {
+              content: 'Writing Semantic HTML, Accessibility, SEO Basics',
+            },
+            icon: SquatIcon,
+            children: [
+              {
+                id: 'Web Components',
+                title: 'Web Components',
+                tooltip: {
+                  content: 'Shadow DOM, Custom Elements, HTML Templates',
+                },
+                icon: SquatIcon,
+                children: [],
+              },
+            ],
+          },
+        ],
+        icon: SquatIcon,
+      },
+      {
+        id: 'CSS',
+        title: 'CSS',
+        tooltip: {
+          content:
+            'Learn the basics, Making Layouts, Responsive design and Media Queries',
+        },
+        icon: SquatIcon,
+        children: [
+          {
+            id: 'CSS3',
+            title: 'CSS3',
+            tooltip: {
+              content:
+                'Transform, Transition, Animation, @font-face, Flex, Grid, Pseudo-selector',
+            },
+            icon: SquatIcon,
+            children: [
+              {
+                id: 'CSS Architecture',
+                title: 'CSS Architecture',
+                tooltip: { content: 'BEM, OOCSS, SMACSS' },
+                icon: SquatIcon,
+                children: [],
+              },
+              {
+                id: 'CSS Preprocessor',
+                title: 'CSS Preprocessor',
+                tooltip: { content: 'Sass, PostCSS, Less' },
+                icon: SquatIcon,
+                children: [
+                  {
+                    id: 'CSS Frameworks',
+                    title: 'CSS Frameworks',
+                    tooltip: {
+                      content:
+                        'Reactstrap, Material UI, Tailwind CSS, Chakra UI, Bootstrap, Materialize CSS, Bulma',
+                    },
+                    icon: SquatIcon,
+                    children: [],
+                  },
+                  {
+                    id: 'Modern CSS',
+                    title: 'Modern CSS',
+                    tooltip: {
+                      content:
+                        'Styled Component, CSS Modules, Styled JSX, Emotion, Radium, Glamorous',
+                    },
+                    icon: SquatIcon,
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'JavaScript',
+        title: 'JavaScript',
+        icon: SquatIcon,
+        tooltip: {
+          content:
+            'Syntax and Basic Construct, Learn DOM Manipulation, Learn Fetch API / Ajax (XHR), ES6+ and modular JavaScript',
+        },
+        children: [
+          {
+            id: 'Framework',
+            title: 'Framework',
+            icon: SquatIcon,
+            tooltip: { content: 'React.js, Angular, Vue.js' },
+            children: [
+              {
+                id: 'SSR',
+                title: 'SSR',
+                icon: SquatIcon,
+                tooltip: { content: 'Next.js, Universal, Nuxt.js' },
+                children: [],
+              },
+            ],
+          },
+          {
+            id: 'Type Checkers',
+            title: 'Type Checkers',
+            icon: SquatIcon,
+            tooltip: { content: 'TypeScript, Flow' },
+            children: [],
+          },
+        ],
+      },
+      {
+        id: 'Node Basic',
+        title: 'Node Basic',
+        tooltip: { content: 'Know the basics' },
+        icon: SquatIcon,
+        children: [
+          {
+            id: 'Package Managers',
+            title: 'Package Managers',
+            tooltip: { content: 'NPM, Yarn' },
+            icon: SquatIcon,
+            children: [
+              {
+                id: 'GraphQL',
+                title: 'GraphQL',
+                icon: SquatIcon,
+                tooltip: { content: 'Apollo, Relay Modern' },
+                children: [],
+              },
+              {
+                id: 'Module Bundlers',
+                title: 'Module Bundlers',
+                icon: SquatIcon,
+                tooltip: { content: 'Webpack, Rollup, Parcel' },
+                children: [
+                  {
+                    id: 'Test Your Apps',
+                    title: 'Test Your Apps',
+                    tooltip: { content: 'Mocha, Chai, Ava, Jest' },
+                    icon: SquatIcon,
+                    children: [],
+                  },
+                  {
+                    id: 'Applications',
+                    title: 'Applications',
+                    tooltip: {
+                      content: 'React Native, Flutter, Ionic, Electron',
+                    },
+                    icon: SquatIcon,
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'Static Site Generators',
+            title: 'Static Site Generators',
+            tooltip: { content: 'GatsbyJS, Vuepress, Jekyll, Hugo' },
+            icon: SquatIcon,
+            children: [],
+          },
+        ],
+      },
+      {
+        id: 'Version Control System',
+        title: 'Version Control System',
+        tooltip: { content: 'Git, SVN' },
+        icon: SquatIcon,
+        children: [
+          {
+            id: 'Repo Hosting Services',
+            title: 'Repo Hosting Services',
+            tooltip: { content: 'GitHub, Gitlab, Bitbucket' },
+            icon: SquatIcon,
+            children: [],
+          },
+        ],
+      },
+      {
+        id: 'Internet',
+        title: 'Internet',
+        tooltip: { content: 'DNS, HTTP, Browsers, Domain' },
+        icon: SquatIcon,
+        children: [
+          {
+            id: 'Web Security',
+            title: 'Web Security',
+            tooltip: { content: 'HTTPS, CORS, Attacks' },
+            icon: SquatIcon,
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+];
