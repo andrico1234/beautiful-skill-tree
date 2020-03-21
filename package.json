@@ -42,7 +42,8 @@
       "<rootDir>src/setupTests.ts"
     ],
     "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
+      "\\.(css|less)$": "identity-obj-proxy",
+      ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/file-mock.js"
     },
     "testMatch": [
       "<rootDir>src/**/__tests__/*.{ts,tsx}"
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@rollup/plugin-image": "^2.0.4",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.1",
     "@types/jest": "^25.1.3",
