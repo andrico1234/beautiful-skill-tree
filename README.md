@@ -4,7 +4,7 @@ A small library to help get you implement beautiful, responsive, and satisfying 
 
 For every star Beautiful Skill Tree gets, £1 will be donated to [Trees for Life](https://treesforlife.org.uk/). As cool as it is creating beautiful trees in your apps, it's even cooler doing so in real life!
 
-Beautiful Skill Tree has currently raised £75 (+ Gift Aid) thanks to the lovely folk starring this repo.
+Beautiful Skill Tree has currently raised £105 (+ Gift Aid) thanks to the lovely folk starring this repo.
 
 Thanks to my friends, family, coworkers, and strangers in ensuring that it has been tested across a diverse range of people.
 
