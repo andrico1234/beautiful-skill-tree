@@ -5,15 +5,20 @@ interface Props {
   setVisibility: (isVisible: boolean) => void;
   isVisible: boolean;
   treeId: string;
+  disabled: boolean;
 }
 
-function FilterListener({ setVisibility, isVisible, treeId }: Props) {
+function FilterListener({ setVisibility, isVisible, treeId, disabled }: Props) {
   const { filtersMatches } = useContext(FilterContext);
   const [hasLoaded, setLoadingState] = useState(false);
 
   useEffect(() => {
     if (!hasLoaded) {
       return setLoadingState(true);
+    }
+
+    if (disabled) {
+      return setVisibility(false);
     }
 
     if (!filtersMatches) {

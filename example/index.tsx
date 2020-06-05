@@ -26,6 +26,7 @@ import {
 } from './mockData';
 import { ContextStorage } from '../src/models';
 import FilterInput from './components/FIlterInput';
+import DisabledSkillTree from './components/DisabledSkillTree';
 
 function handleSave(
   storage: ContextStorage,
@@ -127,6 +128,10 @@ const App = () => {
                   handleNodeSelect={handleNodeSelect}
                   title="Programming Tree"
                   data={webDevData}
+                  handleSave={handleSave}
+                />
+                <DisabledSkillTree
+                  handleNodeSelect={handleNodeSelect}
                   handleSave={handleSave}
                 />
               </div>
