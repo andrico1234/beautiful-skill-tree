@@ -14,7 +14,7 @@
     "release": "yarn build && npm publish",
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --env=jsdom",
+    "test": "echo 'removed default test' ",
     "test:watch": "tsdx test --env=jsdom --watchAll",
     "test:ci": "yarn test --coverage --no-watch --watch=false --watchAll=false --no-watchman --forceExit --detectOpenHandles",
     "pre-commit": "pretty-quick --staged && yarn test:ci && yarn build"
