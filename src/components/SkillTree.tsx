@@ -59,7 +59,9 @@ function SkillTree({
         return setVisibility(false);
       }
 
-      if (!collapsible) return;
+      if (!collapsible) {
+        return setVisibility(true);
+      }
 
       return setVisibility(!isVisible);
     },
