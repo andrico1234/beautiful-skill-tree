@@ -495,3 +495,13 @@ export const webDevData = [
     ],
   },
 ];
+
+export const secretTree = [
+  {
+    id: 'A Secret Message',
+    title: 'Secret',
+    tooltip: { content: 'An intro to secrets' },
+    icon: SquatIcon,
+    children: [],
+  },
+];

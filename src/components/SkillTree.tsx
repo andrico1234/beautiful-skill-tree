@@ -24,6 +24,7 @@ export interface Props {
   collapsible?: boolean;
   closedByDefault?: boolean;
   savedData?: SavedDataType;
+  disabled?: boolean;
   handleSave?: (
     storage: ContextStorage,
     treeId: string,
@@ -46,23 +47,32 @@ function SkillTree({
   handleSave,
   handleNodeSelect,
   collapsible = false,
+  disabled = false,
 }: Props) {
   const isMobile = useMobile();
-  const [isVisible, setVisibility] = useState(!closedByDefault ? true : false);
+  const initialVisibility = closedByDefault || disabled ? false : true;
+  const [isVisible, setVisibility] = useState(initialVisibility);
 
   const memoizedToggleVisibility = useCallback(
     function toggleVisibility() {
-      if (!collapsible) return;
+      if (disabled) {
+        return setVisibility(false);
+      }
+
+      if (!collapsible) {
+        return setVisibility(true);
+      }
 
       return setVisibility(!isVisible);
     },
-    [isVisible]
+    [isVisible, disabled, collapsible]
   );
 
   return (
     <React.Fragment>
       <AddToFilterIndex treeId={treeId} skills={data} />
       <FilterListener
+        disabled={disabled}
         isVisible={isVisible}
         setVisibility={setVisibility}
         treeId={treeId}
@@ -77,6 +87,7 @@ function SkillTree({
         <SkillTreeContainer>
           <SkillTreeHeader
             isVisible={isVisible}
+            disabled={disabled}
             handleClick={memoizedToggleVisibility}
             collapsible={collapsible}
             id={treeId}

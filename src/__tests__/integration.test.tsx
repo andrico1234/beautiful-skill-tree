@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import {
   SkillTreeGroup,
@@ -47,6 +47,17 @@ const simpleDataTwo: SkillType[] = [
   {
     id: 'hidden-by-default',
     title: 'hidden',
+    tooltip: {
+      content: 'all the props',
+    },
+    children: [],
+  },
+];
+
+const simpleDataThree: SkillType[] = [
+  {
+    id: 'lockable',
+    title: 'lockable',
     tooltip: {
       content: 'all the props',
     },
@@ -151,6 +162,24 @@ const optionalNodeData: SkillType[] = [
   },
 ];
 
+function LockedSkillTree() {
+  const [isDisabled, setDisabledState] = useState(true);
+
+  return (
+    <div>
+      <button onClick={() => setDisabledState(!isDisabled)}>
+        Toggle Disability
+      </button>
+      <SkillTree
+        treeId="fourth"
+        title="Lockable by default"
+        data={simpleDataThree}
+        disabled={isDisabled}
+      />
+    </div>
+  );
+}
+
 function renderComponent(
   secondarySkillTree: SkillType[],
   theme: Partial<SkillTheme> = defaultTheme
@@ -198,6 +227,7 @@ function renderComponent(
                 data={simpleDataTwo}
                 closedByDefault
               />
+              <LockedSkillTree />
             </React.Fragment>
           );
         }}
@@ -225,7 +255,7 @@ describe('SkillTreeGroup component', () => {
       expect(queryByText('Backend')).toBeTruthy();
 
       expect(getByTestId('selected-count')).toHaveTextContent('0');
-      expect(getByTestId('total-count')).toHaveTextContent('4');
+      expect(getByTestId('total-count')).toHaveTextContent('5');
 
       expect(getByTestId('html')).toHaveStyleRule(
         'box-shadow',
@@ -356,22 +386,22 @@ describe('SkillTreeGroup component', () => {
       const totalCount = getByTestId('total-count');
 
       expect(selectedCount).toHaveTextContent('0');
-      expect(totalCount).toHaveTextContent('4');
+      expect(totalCount).toHaveTextContent('5');
 
       fireEvent.click(htmlNode);
 
       expect(selectedCount).toHaveTextContent('1');
-      expect(totalCount).toHaveTextContent('4');
+      expect(totalCount).toHaveTextContent('5');
 
       fireEvent.click(cssNode);
 
       expect(selectedCount).toHaveTextContent('2');
-      expect(totalCount).toHaveTextContent('4');
+      expect(totalCount).toHaveTextContent('5');
 
       fireEvent.click(cssNode);
 
       expect(selectedCount).toHaveTextContent('1');
-      expect(totalCount).toHaveTextContent('4');
+      expect(totalCount).toHaveTextContent('5');
     });
 
     it('should not select a locked node', () => {
@@ -451,7 +481,7 @@ describe('SkillTreeGroup component', () => {
       expect(queryByText('Backend')).toBeTruthy();
 
       expect(getByTestId('selected-count')).toHaveTextContent('0');
-      expect(getByTestId('total-count')).toHaveTextContent('11');
+      expect(getByTestId('total-count')).toHaveTextContent('12');
 
       expect(getByTestId('languages')).toHaveStyleRule(
         'box-shadow',
@@ -735,6 +765,67 @@ describe('SkillTreeGroup component', () => {
       });
 
       expect(visibilityContainerOne).toHaveStyle('opacity: 1');
+    });
+  });
+
+  describe('disabled skill trees', () => {
+    it('should not have their contents visible', () => {
+      const { getByText, queryByText } = renderComponent([]);
+
+      const lockedTree = getByText('Lockable by default');
+
+      fireEvent.click(lockedTree);
+
+      expect(queryByText('lockable')).toBeNull();
+    });
+
+    it('should be interactive only if it is no longer disabled', () => {
+      const { getByText, queryByText } = renderComponent([]);
+
+      const lockedTree = getByText('Lockable by default');
+      const lockButton = getByText('Toggle Disability');
+
+      fireEvent.click(lockedTree);
+
+      expect(queryByText('lockable')).toBeNull();
+
+      fireEvent.click(lockButton);
+      fireEvent.click(lockedTree);
+
+      expect(queryByText('lockable')).toBeTruthy();
+    });
+
+    it('should not respond to a filter input match ', () => {
+      const { getByPlaceholderText, queryByText, getByText } = renderComponent(
+        []
+      );
+
+      const filterInput = getByPlaceholderText('filter');
+      const lockButton = getByText('Toggle Disability');
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'lockable',
+        },
+      });
+
+      expect(queryByText('lockable')).toBeNull();
+
+      fireEvent.click(lockButton);
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: '',
+        },
+      });
+
+      fireEvent.change(filterInput, {
+        target: {
+          value: 'lockable',
+        },
+      });
+
+      expect(queryByText('lockable')).toBeTruthy();
     });
   });
 });

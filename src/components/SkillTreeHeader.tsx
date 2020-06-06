@@ -13,6 +13,7 @@ interface Props {
   id: string;
   title: React.ReactNode | string;
   description?: string;
+  disabled: boolean;
 }
 
 interface HeaderCaretProps {
@@ -22,10 +23,19 @@ interface HeaderCaretProps {
 
 interface CollapsibleContainerProps {
   isCollapsible: boolean;
+  isDisabled: boolean;
 }
 
 function SkillTreeHeader(props: Props) {
-  const { handleClick, collapsible, isVisible, id, title, description } = props;
+  const {
+    handleClick,
+    collapsible,
+    isVisible,
+    id,
+    title,
+    description,
+    disabled,
+  } = props;
   const { tooltipZIndex } = useContext<SkillTheme>(ThemeContext);
 
   const memoizedHandleKeyDown = useCallback(
@@ -48,6 +58,7 @@ function SkillTreeHeader(props: Props) {
         onKeyDown={memoizedHandleKeyDown}
         onClick={handleClick}
         isCollapsible={collapsible}
+        isDisabled={disabled}
       >
         <div style={{ position: 'relative' }}>
           <HeaderCaret isCollapsible={collapsible} isVisible={isVisible}>
@@ -64,6 +75,11 @@ function SkillTreeHeader(props: Props) {
 export default SkillTreeHeader;
 
 const StyledSkillTreeHeader = styled.div<CollapsibleContainerProps>`
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      opacity: ${({ theme }) => theme.disabledTreeOpacity};
+    `}
   ${({ isCollapsible }) =>
     isCollapsible &&
     css`
