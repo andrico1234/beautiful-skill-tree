@@ -83,7 +83,7 @@
   },
   "dependencies": {
     "@tippy.js/react": "^3.1.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash-es": "^4.17.15",
     "styled-components": "5.0.1",
     "uuid": "^7.0.1"
