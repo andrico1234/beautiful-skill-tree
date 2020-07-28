@@ -56,7 +56,7 @@ function SkillTreeHeader(props: Props) {
       <StyledSkillTreeHeader
         tabIndex={0}
         onKeyDown={memoizedHandleKeyDown}
-        onClick={handleClick}
+        onPointerDown={handleClick}
         isCollapsible={collapsible}
         isDisabled={disabled}
       >
