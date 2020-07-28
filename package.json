@@ -15,8 +15,9 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "echo 'removed default test' ",
+    "alt-test": "tsdx test --env=jsdom",
     "test:watch": "tsdx test --env=jsdom --watchAll",
-    "test:ci": "yarn test --coverage --no-watch --watch=false --watchAll=false --no-watchman --forceExit --detectOpenHandles",
+    "test:ci": "yarn alt-test --coverage --no-watch --watch=false --watchAll=false --no-watchman --forceExit --detectOpenHandles",
     "pre-commit": "pretty-quick --staged && yarn test:ci && yarn build"
   },
   "peerDependencies": {

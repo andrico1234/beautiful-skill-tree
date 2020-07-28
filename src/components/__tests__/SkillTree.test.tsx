@@ -402,12 +402,12 @@ describe('SkillTree', () => {
 
       const { getByText, getByTestId, queryByText } = renderComponent(props);
 
-      fireEvent.click(getByText('borderlands'));
+      fireEvent.pointerDown(getByText('borderlands'));
 
       expect(queryByText('▲')).toHaveStyle('display: inline;');
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 0;');
 
-      fireEvent.click(getByText('borderlands'));
+      fireEvent.pointerDown(getByText('borderlands'));
 
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
     });
@@ -417,7 +417,7 @@ describe('SkillTree', () => {
         defaultProps
       );
 
-      fireEvent.click(getByText('borderlands'));
+      fireEvent.pointerDown(getByText('borderlands'));
 
       expect(queryByText('▲')).toHaveStyle('display: none;');
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
@@ -439,7 +439,7 @@ describe('SkillTree', () => {
 
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 0;');
 
-      fireEvent.click(getByText('borderlands'));
+      fireEvent.pointerDown(getByText('borderlands'));
 
       expect(getByTestId('visibility-container')).toHaveStyle('opacity: 1;');
     });

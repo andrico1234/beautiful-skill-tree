@@ -785,12 +785,12 @@ describe('SkillTreeGroup component', () => {
       const lockedTree = getByText('Lockable by default');
       const lockButton = getByText('Toggle Disability');
 
-      fireEvent.click(lockedTree);
+      fireEvent.pointerDown(lockedTree);
 
       expect(queryByText('lockable')).toBeNull();
 
       fireEvent.click(lockButton);
-      fireEvent.click(lockedTree);
+      fireEvent.pointerDown(lockedTree);
 
       expect(queryByText('lockable')).toBeTruthy();
     });
