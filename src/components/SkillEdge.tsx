@@ -22,10 +22,12 @@ function SkillEdge(props: Props) {
     parentPosition,
   } = props;
 
-  if (!parentHasMultipleChildren) return <Line state={state} />;
-
   const [childPosition, setChildPosition] = useState(0);
   const direction = parentPosition < childPosition ? 'right' : 'left';
+
+  if (!parentHasMultipleChildren) {
+    return <Line state={state} />;
+  }
 
   function calculatePosition() {
     const { left, width } = childNodeRef.current!.getBoundingClientRect();
