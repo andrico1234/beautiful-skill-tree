@@ -1,6 +1,6 @@
 {
   "name": "@xnojustice/beautiful-skill-tree",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "homepage": "https://github.com/xnojustice/beautiful-skill-tree",
   "repository": "xnojustice/beautiful-skill-tree",
   "main": "dist/index.js",

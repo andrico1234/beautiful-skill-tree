@@ -25,19 +25,15 @@ function SkillEdge(props: Props) {
   const [childPosition, setChildPosition] = useState(0);
   const direction = parentPosition < childPosition ? 'right' : 'left';
 
-  if (!parentHasMultipleChildren) {
-    return <Line state={state} />;
-  }
-
-  function calculatePosition() {
-    const { left, width } = childNodeRef.current!.getBoundingClientRect();
-
-    const scrollX = window.scrollX;
-
-    setChildPosition(left + width / 2 + scrollX);
-  }
-
   useEffect(() => {
+    function calculatePosition() {
+      const { left, width } = childNodeRef.current!.getBoundingClientRect();
+
+      const scrollX = window.scrollX;
+
+      setChildPosition(left + width / 2 + scrollX);
+    }
+
     const throttledHandleResize = throttle(calculatePosition, 200);
 
     window.addEventListener('resize', throttledHandleResize);
@@ -47,6 +43,10 @@ function SkillEdge(props: Props) {
       window.removeEventListener('resize', throttledHandleResize);
     };
   }, []);
+
+  if (!parentHasMultipleChildren) {
+    return <Line state={state} />;
+  }
 
   return (
     <div style={{ height: '56px' }}>
