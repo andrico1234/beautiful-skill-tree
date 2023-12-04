@@ -14,6 +14,16 @@ Tested across devices using [Browserstack](https://www.browserstack.com/), thank
 
 This package uses [tsdx](https://github.com/jaredpalmer/tsdx) and [np](https://github.com/sindresorhus/np) develop, build, package, and publish beautiful-skill-tree. I can't recommend either of them enough and they both make for an excellent TypeScript/JavaScript developer experience.
 
+---
+## Sponsor
+Learn to build a component library using minimal tech with [Component Odyssey](https://component-odyssey.com/). As a result, you'll:
+
+- Become a more future-proof web developer
+- Build components that your users will love
+- Boost your career opportunities
+- Learn to do more with less
+---
+
 ## Table of Contents
 
 1. [Examples](#examples)
