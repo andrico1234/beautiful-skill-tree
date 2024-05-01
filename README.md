@@ -6,8 +6,6 @@ For every star Beautiful Skill Tree gets, £1 will be donated to [Trees for Life
 
 Beautiful Skill Tree has currently raised £220 (+ Gift Aid) thanks to the lovely folk starring this repo.
 
-Thanks to my friends, family, coworkers, and strangers in ensuring that it has been tested across a diverse range of people.
-
 Tested across devices using [Browserstack](https://www.browserstack.com/), thanks to their continued support for open source projects.
 
 ![browserstack logo](public/browserstack.png)
